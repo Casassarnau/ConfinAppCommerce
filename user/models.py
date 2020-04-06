@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, name, password):
         user = self.create_user(
-            email,
+            email=email,
             name=name,
             password=password,
         )
@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    email = models.CharField(primary_key=True, max_length=200, verbose_name='email')
+    email = models.CharField(primary_key=True, max_length=200, verbose_name='Email')
     name = models.CharField(max_length=200, verbose_name='Full name')
 
     shopAdmin = models.BooleanField(default=False)
@@ -53,3 +53,6 @@ class User(AbstractBaseUser):
     @property
     def is_superuser(self):
         return self.admin
+
+    def __str__(self):
+        return self.email
