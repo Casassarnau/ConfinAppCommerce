@@ -39,8 +39,5 @@ class RegisterForm(LoginForm):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
         if password2 and password and password2 != password:
-            return forms.ValidationError('Passwords don\'t match', code='error')
+            return forms.ValidationError('Passwords don\'t match')
         return password2
-
-
-

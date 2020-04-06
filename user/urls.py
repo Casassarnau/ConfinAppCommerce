@@ -19,7 +19,6 @@ from django.contrib import admin
 from user.views import index, login, register
 
 urlpatterns = [
-    url(r'^index/$', index),
-    url(r'^login/$', login),
-    url(r'^register/$', register),
+    url(r'^login/$', login, name='login'),
+    url(r'^register/$', register, name='register'),
 ]
