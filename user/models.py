@@ -17,6 +17,16 @@ class UserManager(BaseUserManager):
         client.save(using=self._db)
         return client
 
+    def create_superuser(self, email, name, password):
+        user = self.create_user(
+            email,
+            name=name,
+            password=password,
+        )
+        user.admin = True
+        user.save(using=self._db)
+        return user
+
 
 class User(AbstractBaseUser):
     email = models.CharField(primary_key=True, max_length=200, verbose_name='email')
@@ -39,3 +49,7 @@ class User(AbstractBaseUser):
 
     def get_full_name(self):
         return self.name
+
+    @property
+    def is_superuser(self):
+        return self.admin
