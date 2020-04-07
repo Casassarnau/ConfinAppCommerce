@@ -15,6 +15,7 @@ app/prod_settings.py
 tmp/
 .vscode
 *.csv
+mydatabase
 
 .DS_Store
 __pycache__/
