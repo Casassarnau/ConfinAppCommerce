@@ -75,5 +75,11 @@ def register(request):
     return render(request, 'userform.html', {'form': form})
 
 
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'Successfully logged out!')
+    return HttpResponseRedirect(reverse('user_login'))
+
+
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index. %s")
