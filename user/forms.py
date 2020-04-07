@@ -27,13 +27,13 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=True, label='Email')
-    password = forms.CharField(required=True, label='Password', widget=forms.PasswordInput)
+    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'E-mail'}))
+    password = forms.CharField(required=True, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
 
 class RegisterForm(LoginForm):
-    password2 = forms.CharField(label='Confirm password', required=True, widget=forms.PasswordInput)
-    name = forms.CharField(label='Name', required=True)
+    password2 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}), )
+    name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Name'}))
 
     field_order = ['name', 'email', 'password', 'password2']
 
