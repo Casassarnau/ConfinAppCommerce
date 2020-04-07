@@ -4,7 +4,14 @@ from django.shortcuts import render
 
 from hackovid.utils import reverse
 from user import models
-from user.forms import LoginForm, RegisterForm
+from user import forms
+from shop import models as s_models
+
+
+USR_TYPE_FORM = {
+    True: forms.RegisterForm,
+    False: forms.RegisterShopAdminForm
+}
 
 
 def login(request):
@@ -17,7 +24,7 @@ def login(request):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = LoginForm(request.POST)
+        form = forms.LoginForm(request.POST)
 
         # check whether it's valid:
         if form.is_valid():
@@ -36,11 +43,11 @@ def login(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = LoginForm()
+        form = forms.LoginForm()
     return render(request, 'userform.html', {'form': form})
 
 
-def register(request):
+def register(request, client):
 
     # if user is already logged, no need to register
     if request.user.is_authenticated:
@@ -50,8 +57,8 @@ def register(request):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = RegisterForm(request.POST)
-        if form.is_valid():
+        form = USR_TYPE_FORM.get(client, forms.RegisterForm)(request.POST)
+        if form.is_valid() and (client or form.cleaned_data['token']):
 
             # process the data in form.cleaned_data as required
             email = form.cleaned_data['email']
@@ -64,15 +71,26 @@ def register(request):
             else:
 
                 # create user & log in new user
-                user = models.User.objects.create_user(email=email, password=password, name=name)
+                if client:
+                    models.User.objects.create_user(email=email, password=password, name=name)
+                else:
+                    models.User.objects.create_shopadmin(email=email, password=password, name=name)
                 user = auth.authenticate(email=email, password=password)
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = RegisterForm()
+        form = USR_TYPE_FORM.get(client, forms.RegisterForm)()
     return render(request, 'userform.html', {'form': form})
+
+
+def register_shop_admin(request):
+    return register(request, False)
+
+
+def register_client(request):
+    return register(request, True)
 
 
 def logout(request):

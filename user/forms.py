@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.password_validation import validate_password
 
+from hackovid import settings
 from user.models import User
 
 
@@ -40,7 +41,7 @@ class RegisterForm(LoginForm):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
         if password2 and password and password2 != password:
-            return forms.ValidationError('Passwords don\'t match')
+            raise forms.ValidationError('Passwords don\'t match')
         validate_password(password)
         return password2
 
@@ -52,5 +53,5 @@ class RegisterShopAdminForm(LoginForm):
         validToken = getattr(settings, 'REGISTRATION_CODE', '')
         token = self.cleaned_data['token']
         if token and token != validToken:
-            return forms.ValidationError('Invalid registration code')
+            raise forms.ValidationError('Invalid registration code')
         return token

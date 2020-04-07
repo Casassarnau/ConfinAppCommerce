@@ -4,12 +4,13 @@ from django.shortcuts import render
 # Create your views here.
 from hackovid.utils import reverse
 from shop import forms
+from user import models
 
 
 def add_shop(request):
 
     # if user is already logged, no need to log in
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated or not request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('root'))
 
     # if this is a POST request we need to process the form data
@@ -21,8 +22,8 @@ def add_shop(request):
         # check whether it's valid:
         if form.is_valid():
             shop = form.save(commit=False)
-            shop.admins.add(request.user)
             shop.save()
+            shop.admins.add(request.user)
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
