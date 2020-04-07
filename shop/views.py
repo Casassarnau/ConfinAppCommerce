@@ -21,8 +21,7 @@ def add_shop(request):
         # check whether it's valid:
         if form.is_valid():
             shop = form.save(commit=False)
-            # TODO: Add the shop to the admin user.
-            # request.user.shop = shop
+            shop.admins.add(request.user)
             shop.save()
             return HttpResponseRedirect(reverse('root'))
 
