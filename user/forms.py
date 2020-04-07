@@ -46,7 +46,7 @@ class RegisterForm(LoginForm):
 
 
 class RegisterShopAdminForm(LoginForm):
-    token = forms.CharField(label='Registration code', required=True)
+    token = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Registration code'}))
 
     def clean_token(self):
         validToken = getattr(settings, 'REGISTRATION_CODE', '')
