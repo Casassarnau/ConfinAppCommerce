@@ -1,6 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from shop.models import Shop
+from shop import models
 
-admin.site.register(Shop)
+admin.site.register(models.Shop)
+admin.site.register(models.SecondaryCategory)
+admin.site.register(models.PrimaryCategory)
+admin.site.register(models.Service)

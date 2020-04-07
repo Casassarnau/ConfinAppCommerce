@@ -5,6 +5,7 @@ from django.shortcuts import render
 from hackovid.utils import reverse
 from user import models
 from user import forms
+from shop import models as s_models
 
 
 USR_TYPE_FORM = {
