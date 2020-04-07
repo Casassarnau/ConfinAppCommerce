@@ -1,0 +1,50 @@
+html {
+    background-color: deeppink;
+}
+
+form {
+    background-color: aquamarine;
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+}
+
+form > label {
+    width: 120px;
+}
+
+input {
+    width: 400px;
+}
+
+input[type=email], input[type=password], select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: auto;
+}
+
+input[type=text]:focus {
+    background-color: lightblue;
+}
+
+input[type=button]:hover {
+    background-color: #45a049;
+}
+
+input[type=button]:active {
+    background-color: #2e7032;
+}
