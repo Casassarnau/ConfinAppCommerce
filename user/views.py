@@ -67,7 +67,7 @@ def register(request, client):
 
             # check if user email already exists
             if models.User.objects.filter(email=email).first() is not None:
-                messages.error(request, 'An account with this email already exists')
+                form.add_error('email', 'An account with this email already exists')
             else:
 
                 # create user & log in new user

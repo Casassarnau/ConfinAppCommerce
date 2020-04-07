@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <form action="" method="post">
+    {% if form.is_login %}
+    <h3>Login</h3>
+    {% else %}
+    <h3>Register</h3>
+    {% endif %}
     {% csrf_token %}
     {{ form }}
 
     <input type="submit" value="Submit">
 </form>
+
+{% if form.is_login %}
+<p>New to Confinapp? <a href="/user/register">Sign up</a> </p>
+{% endif %}
+
 {% endblock %}

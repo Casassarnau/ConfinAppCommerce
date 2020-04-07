@@ -1,0 +1,123 @@
+/* Color palette app*/
+:root {
+    --primary: #ef9a9a;
+    --primary-light: #ffcccb;
+    --primary-dark: #ba6b6c;
+
+    --secondary: #eceff1;
+    --secondary-light: #ffffff;
+    --secondary-dark: #babdbe;
+    --focus: #c8e0e8;
+}
+
+/* Fonts style*/
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Regular.ttf");
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Bold.ttf");
+    font-weight: bold;
+}
+@font-face {
+    font-family: "Montserrat";
+    src: url("fonts/Montserrat-Italic.ttf");
+    font-style: italic;
+}
+
+html * {
+    font-family: 'Montserrat';
+    font-size: 12px;
+}
+
+/*Form style*/
+form {
+    background-color: var(--secondary-light);
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 5px 5px 15px 0px var(--primary);
+
+}
+form > label {
+    width: 100%;
+}
+input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+input[type=text], input[type=email], input[type=password], select {
+    /*border-radius: 4px;*/
+    border: 1px solid transparent;
+    background-color: var(--secondary);
+}
+
+input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
+    color: #4f4f4f;
+}
+
+/*Button submit style*/
+input[type=submit] {
+    width: 100px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    /*border-radius: 4px;*/
+    cursor: pointer;
+    transition: background-color ease 0.5s;
+    
+
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+    background-color: var(--focus);
+}
+
+input[type=submit]:hover {
+    background-color: var(--primary);
+    /*transition: ease 0.5s;*/
+}
+
+/*
+input[type=text]:active {
+    background-color: #2e7032;
+}*/
+
+/*Error messages style*/
+form > ul li {
+    padding: 10px 20px;
+    list-style-type: none;
+    width: auto;
+
+
+}
+
+form > ul {
+    padding: 0;
+    color: white;
+    background-color: var(--primary);
+    border-radius: 15px;
+    width: 100%;
+}
+
+form > select {
+    width: 100%;
+}
+
+form > select > option {
+    background-color: var(--secondary);
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 18px;
+
+}
+
