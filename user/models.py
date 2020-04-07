@@ -49,7 +49,7 @@ class User(AbstractBaseUser):
     latitude = models.DecimalField(decimal_places=7, max_digits=11, null=True)
     longitude = models.DecimalField(decimal_places=7, max_digits=11, null=True)
 
-    object = UserManager()
+    objects = UserManager()
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
