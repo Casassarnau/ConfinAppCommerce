@@ -14,12 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.urls import reverse_lazy
+from django.views.generic import RedirectView
 
 from user import views
 
 urlpatterns = [
     url(r'^index/$', views.index, name='user_index'),
     url(r'^login/$', views.login, name='user_login'),
-    url(r'^register/$', views.register, name='user_register'),
+    url(r'^register/$', RedirectView.as_view(url=reverse_lazy('user_register_client')),
+        name='user_register'),
+    url(r'^register/client$', views.register_client, name='user_register_client'),
+    url(r'^register/shop_admin$', views.register_shop_admin, name='user_register_shop_admin'),
     url(r'^logout/$', views.logout, name='user_logout'),
 ]
