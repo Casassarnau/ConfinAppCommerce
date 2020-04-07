@@ -43,3 +43,14 @@ class RegisterForm(LoginForm):
             return forms.ValidationError('Passwords don\'t match')
         validate_password(password)
         return password2
+
+
+class RegisterShopAdminForm(LoginForm):
+    token = forms.CharField(label='Registration code', required=True)
+
+    def clean_token(self):
+        validToken = getattr(settings, 'REGISTRATION_CODE', '')
+        token = self.cleaned_data['token']
+        if token and token != validToken:
+            return forms.ValidationError('Invalid registration code')
+        return token

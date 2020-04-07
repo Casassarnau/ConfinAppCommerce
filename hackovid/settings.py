@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
-    'shop'
+    'shop',
+    'purchase',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
