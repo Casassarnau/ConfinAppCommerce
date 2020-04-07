@@ -46,8 +46,8 @@ class User(AbstractBaseUser):
     is_shopAdmin = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
-    latitude = models.DecimalField(decimal_places=7, max_digits=11, null=True)
-    longitude = models.DecimalField(decimal_places=7, max_digits=11, null=True)
+    latitude = models.DecimalField(decimal_places=7, max_digits=11, null=True, blank=True)
+    longitude = models.DecimalField(decimal_places=7, max_digits=11, null=True, blank=True)
 
     objects = UserManager()
 
