@@ -6,17 +6,22 @@ from django.utils.safestring import mark_safe
 
 
 class RangeSliderField(forms.CharField):
+
     def __init__(self, *args, **kwargs):
         self.name = kwargs.pop('name', '')
         self.minimum = kwargs.pop('minimum',0)
         self.maximum = kwargs.pop('maximum',10)
         self.step = kwargs.pop('step',1)
+
         kwargs['widget'] = RangeSlider(self.minimum, self.maximum, self.step, self.name)
+
         if 'label' not in kwargs.keys():
             kwargs['label'] = False
+
         super(RangeSliderField, self).__init__(*args, **kwargs)
 
 class RangeSlider(forms.TextInput):
+
     def __init__(self, minimum, maximum, step, elem_name, *args,**kwargs):
         widget = super(RangeSlider,self).__init__(*args,**kwargs)
         self.minimum = str(minimum)
@@ -42,6 +47,4 @@ class RangeSlider(forms.TextInput):
         </div>
         
         """
-
-
         return mark_safe(s+html)
