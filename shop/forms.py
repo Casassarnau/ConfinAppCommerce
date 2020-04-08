@@ -1,4 +1,7 @@
 from django import forms
+from django.conf import settings
+from django.template.defaultfilters import filesizeformat
+
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
 
