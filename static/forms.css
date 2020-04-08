@@ -220,5 +220,34 @@ h3 {
 img {
     width: 100%;
     height: auto;
+    position: relative;
 
+}
+
+h4 {
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+    left: 0;
+    width: 100%;
+    background-color: white;
+}
+
+/*
+h4 span {
+   color: white;
+   font: bold 24px/45px Helvetica, Sans-Serif;
+   letter-spacing: -1px;
+   background: rgb(0, 0, 0);
+}
+*/
+
+.image-card {
+    height: 200px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    align-items: flex-end;
 }
