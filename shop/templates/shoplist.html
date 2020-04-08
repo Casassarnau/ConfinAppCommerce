@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {% for shop in shops %}
+        <div>
+            <li>{{ shop.name }} </li>
+            <input type="submit" value="Modify">
+            <input type="submit" value="Delete">
+        </div>
+    {% empty %}
+        <li>No shops yet.</li>
+
+
+    {% endfor %}
+<input type="submit" value="Create Shop">
+</form>
+{% endblock %}
