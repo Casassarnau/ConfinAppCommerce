@@ -2,7 +2,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView
 
 from hackovid.utils import reverse
 from shop import forms
