@@ -1,0 +1,149 @@
+<style>
+
+    ul {
+        width: 300px;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    ul > li {
+        height: 50px;
+        font-size: 20px;
+        background-color: beige;
+    }
+
+    ul li:hover {
+        background-color: bisque;
+    }
+
+    .selected {
+        background-color: pink;
+    }
+    .unselected {
+        background-color: beige;
+    }
+
+    #choice-bag {
+        width: 300px;
+        height: 300px;
+        background-color: gainsboro;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .child-container {
+        display: grid;
+        grid-template-columns: auto 20px;
+        align-items: center;
+        background-color: cornflowerblue;
+        width: 150px;
+        height: 30px;
+        padding: 12px 20px;
+        border-radius: 20px;
+        margin: 5px 5px;
+    }
+
+    .cross {
+        cursor: pointer;
+        background-color: cornsilk;
+        text-align: center;
+
+    }
+
+</style>
+
+<script>
+    // Function to choose a category and append it into the choice box
+    const choose = (category) => {
+
+        if (!category.classList.contains("selected")) {
+
+            // Create a container for the category and the exit handle
+            let childContainer = document.createElement('div');
+            childContainer.setAttribute('class', 'child-container');
+
+            let child = document.createElement('span');
+            let text = category.textContent;
+            console.log(typeof(text));
+            child.textContent = text;
+
+            let cross = document.createElement('span');
+            cross.textContent = " X";
+            cross.setAttribute('class', 'cross');
+
+            childContainer.appendChild(child);
+            childContainer.appendChild(cross);
+
+            // Exit handle
+            cross.onclick = function() {
+                childContainer.remove();
+            };
+
+            // Append to choice bag
+            document.getElementById("choice-bag").appendChild(childContainer);
+
+            category.classList.add("selected");
+            category.classList.remove("unselected");
+
+        }
+
+    };
+
+    // Function for filtering functions with search input (with regex)
+    const filter = (value) => {
+        var categories = Array.from(document.getElementById("secondary-cats").getElementsByTagName("li"));
+
+        const regex = new RegExp(value + '.*');
+        console.log(regex);
+        const matchedCategories = categories.filter((elem) => {
+            return elem.textContent.match(regex);
+        });
+
+        const unmatchedCategories = categories.filter((elem) => {
+            return !matchedCategories.includes(elem);
+        });
+
+        unmatchedCategories.forEach((elem) => {
+            elem.style.visibility = 'collapse';
+            elem.style.width = 0;
+            elem.style.height = 0;
+        });
+
+        matchedCategories.forEach((elem) => {
+            elem.style.visibility = 'visible';
+            elem.style.width = '300px';
+            elem.style.height = '50px';
+        });
+
+    };
+</script>
+
+<input type='text' onkeydown="filter(this.value)">
+
+<ul id="secondary-cats" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+        {% for option in group_choices %}
+          {% include option.template_name with widget=option %}
+        {% endfor %}
+    {% endfor %}
+</ul>
+
+<div id="choice-bag">
+
+</div>
+
+<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+        {% if group_name %}
+            <optgroup label="{{ group_name }}">
+        {% endif %}
+
+        {% for option in group_choices %}
+            {% include "select_category_option_hidden.html" with widget=option %}
+        {% endfor %}
+
+        {% if group_name %}
+            </optgroup>
+        {% endif %}
+    {% endfor %}
+</select>

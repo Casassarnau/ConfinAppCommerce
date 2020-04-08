@@ -70,7 +70,7 @@ ROOT_URLCONF = 'hackovid.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['hackovid/templates', ],
+        'DIRS': ['hackovid/templates', 'shop/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
