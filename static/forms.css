@@ -44,6 +44,8 @@ form {
     border-radius: 15px;
     padding: 20px;
     box-shadow: 5px 5px 15px 0px var(--primary);
+    height: fit-content;           /* Safari/WebKit uses a non-standard name */
+    height: -moz-fit-content;      /* Firefox/Gecko */
 
 }
 form > label {
@@ -159,7 +161,7 @@ h3 {
 
 /*Button submit style*/
 .button {
-    width: 80px;
+    width: fit-content;
     height: 15.5px;
     background-color: var(--primary-dark);
     color: white;
@@ -185,9 +187,38 @@ h3 {
 
 .button-iconic {
     font-size: 25px;
-    width: 70px;
+    width: 65px;
     text-align: center;
     color: var(--placeholder);
     -webkit-transition: color ease 0.5s;
     transition: color ease 0.5s;
+}
+
+.shop-card-container {
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    width: 340px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+
+}
+
+.shop-card {
+    background-color: var(--secondary);
+    width: 100%;
+    /*padding: 20px;*/
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 15px 0px var(--primary);
+    border-radius: 15px;
+    overflow: hidden;
+
+
+}
+
+img {
+    width: 100%;
+    height: auto;
+
 }
