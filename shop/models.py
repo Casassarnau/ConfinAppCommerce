@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 from user.models import User
@@ -15,6 +17,9 @@ SCH_DAYS = [
 
 class Category(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         abstract = True
@@ -35,7 +40,8 @@ class Service(Category):
 
 
 class Shop(models.Model):
-    CIF = models.CharField(max_length=10, primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    CIF = models.CharField(max_length=10)
     name = models.CharField(max_length=30)
     meanTime = models.FloatField(null=True, blank=True)
 
@@ -45,6 +51,9 @@ class Shop(models.Model):
     admins = models.ManyToManyField(User, related_name='shop')
     secondaryCategories = models.ManyToManyField(to=SecondaryCategory)
     services = models.ManyToManyField(to=Service)
+
+    class Meta:
+        unique_together = (('CIF', 'name'),)
 
 
 class Schedule(models.Model):
