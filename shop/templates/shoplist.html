@@ -5,14 +5,13 @@
     {% for shop in shops %}
         <div>
             <li>{{ shop.name }} </li>
-            <input type="submit" value="Modify">
-            <input type="submit" value="Delete">
+            <a href="{% url 'modify_shop' id=shop.name   %}" class="button">Modify</a>
         </div>
     {% empty %}
         <li>No shops yet.</li>
 
 
     {% endfor %}
-<input type="submit" value="Create Shop">
+<a href="{% url 'add_shop' %}" class="button">Create Shop</a>
 </form>
 {% endblock %}
