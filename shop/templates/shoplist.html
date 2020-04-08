@@ -10,8 +10,11 @@
     {% for shop in shops %}
         <div class="shop-row-container">
             <li style="display: inline-block;">{{ shop.name }} </li>
-            <a href="{% url 'show_shop' id=shop.id   %}" class="button-iconic">Show</a>
-            <a href="{% url 'modify_shop' id=shop.id   %}" class="button-iconic">Modify</a>
+            <a href="{% url 'show_shop' id=shop.id   %}" class="button-iconic">
+                <i class="fa fa-eye"></i></a>
+            <a href="{% url 'modify_shop' id=shop.id   %}" class="button-iconic">
+                <i class="fa fa-edit"></i></a>
+            </a>
         </div>
 
     {% empty %}

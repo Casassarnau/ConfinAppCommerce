@@ -136,6 +136,7 @@ h3 {
     color: black;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .shop-row-container  {
@@ -144,11 +145,16 @@ h3 {
     margin: 10px;
     width: 100%;
     border-radius: 15px;
+    align-items: center;
+    justify-content: center;
 }
 
 .shop-row-container > li {
     background-color:transparent;
-    width: 60%;
+    width: 100%;
+    padding: 10px 20px;
+    padding-right: 0;
+    word-break: break-all;
 }
 
 /*Button submit style*/
@@ -177,3 +183,11 @@ h3 {
     text-decoration: none;
 }
 
+.button-iconic {
+    font-size: 25px;
+    width: 70px;
+    text-align: center;
+    color: var(--placeholder);
+    -webkit-transition: color ease 0.5s;
+    transition: color ease 0.5s;
+}
