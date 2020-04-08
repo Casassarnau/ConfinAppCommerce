@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block head %}
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
+{% endblock %}
 {% block content %}
 <form action="" method="post" enctype="multipart/form-data">
 
@@ -9,4 +14,5 @@
     {{ form }}
     <input type="submit" value="Submit">
 </form>
+{{ form.media }}
 {% endblock %}
