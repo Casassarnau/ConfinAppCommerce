@@ -36,7 +36,12 @@ def add(request):
 
         # check whether it's valid:
         if form.is_valid():
+            map = form.cleaned_data['map']
+            (lon, lat) = map.split(',')
             shop = form.save()
+            shop.longitude = lon
+            shop.latitude = lat
+            shop.save()
             shop.admins.add(request.user)
             return HttpResponseRedirect(reverse('root'))
 

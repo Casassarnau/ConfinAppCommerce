@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mapbox_location_field',
     'user',
     'shop',
     'purchase',
@@ -141,3 +142,5 @@ STATICFILES_DIRS = [
 
 print("Static path:", os.path.join(BASE_DIR, "static"))
 REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
+
+MAPBOX_KEY = "pk.eyJ1IjoiY2FzYXNzYXJuYXUiLCJhIjoiY2s4cnBxbmtyMDFkaTNvcXdvZW1wYXQxZSJ9.HLjdZAhoplLRKOyW-QacQw"

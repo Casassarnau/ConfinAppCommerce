@@ -60,6 +60,10 @@ def register(request, client):
         form = USR_TYPE_FORM.get(client, forms.RegisterForm)(request.POST)
         if form.is_valid() and (client or form.cleaned_data['token']):
 
+            # Get map coordinates
+            map = form.cleaned_data['map']
+            (lon, lat) = map.split(',')
+
             # process the data in form.cleaned_data as required
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
@@ -72,9 +76,12 @@ def register(request, client):
 
                 # create user & log in new user
                 if client:
-                    models.User.objects.create_user(email=email, password=password, name=name)
+                    user = models.User.objects.create_user(email=email, password=password, name=name)
                 else:
-                    models.User.objects.create_shopadmin(email=email, password=password, name=name)
+                    user = models.User.objects.create_shopadmin(email=email, password=password, name=name)
+                user.longitude = lon
+                user.latitude = lat
+                user.save()
                 user = auth.authenticate(email=email, password=password)
                 auth.login(request, user)
                 return HttpResponseRedirect(reverse('root'))
