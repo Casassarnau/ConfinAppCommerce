@@ -131,3 +131,49 @@ h3 {
 
 }
 
+.shop-list {
+    background-color: transparent;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shop-row-container  {
+    background-color: var(--secondary);
+    display: flex;
+    margin: 10px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.shop-row-container > li {
+    background-color:transparent;
+    width: 60%;
+}
+
+/*Button submit style*/
+.button {
+    width: 80px;
+    height: 15.5px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    cursor: pointer;
+    -webkit-transition: background-color ease 0.5s;
+    transition: background-color ease 0.5s;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: var(--primary);
+    /*transition: ease 0.5s;*/
+}
+
+.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active {
+    text-decoration: none;
+}
+

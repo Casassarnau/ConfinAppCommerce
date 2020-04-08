@@ -2,16 +2,17 @@
 {% block content %}
 {% csrf_token %}
 
-<h3>Shop List</h3>
-<div>
 <form action="" method="post" enctype="multipart/form-data">
+    <h3>Shop List</h3>
 
 
-    <ul>
+    <ul class="shop-list">
     {% for shop in shops %}
-        <li style="display: inline-block;">{{ shop.name }} </li>
-        <a href="{% url 'show_shop' id=shop.id   %}" class="button">Show</a>
-        <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Modify</a>
+        <div class="shop-row-container">
+            <li style="display: inline-block;">{{ shop.name }} </li>
+            <a href="{% url 'show_shop' id=shop.id   %}" class="button-iconic">Show</a>
+            <a href="{% url 'modify_shop' id=shop.id   %}" class="button-iconic">Modify</a>
+        </div>
 
     {% empty %}
         <li>No shops yet.</li>
@@ -21,6 +22,5 @@
     </ul>
 <a href="{% url 'add_shop' %}" class="button">Create Shop</a>
 </form>
-</div>
 
 {% endblock %}
