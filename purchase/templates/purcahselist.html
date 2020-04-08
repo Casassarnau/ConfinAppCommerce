@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <form action="" method="post">
+    {{ form }}
+    <input type="submit" value="Search">
     {% csrf_token %}
     {% for shop in shops %}
         <div>
-            <h1>{{ shop.name }}</h1>
-            <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Modify</a>
+            <h1><a href="{% url 'modify_shop' id=shop.id   %}">{{ shop.name }}</a></h1>
+            <img src={{ shop.photo.url }}>
         </div>
-    {% empty %}
-        <li>No shops yet.</li>
-
-
     {% endfor %}
 </form>
 {% endblock %}
