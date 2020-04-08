@@ -6,7 +6,6 @@ from django.shortcuts import render
 from hackovid.utils import reverse
 from shop import forms
 from shop.models import Shop
-from user import models
 
 
 def add(request):
@@ -26,6 +25,7 @@ def add(request):
             shop = form.save(commit=False)
             shop.save()
             shop.admins.add(request.user)
+
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
@@ -44,11 +44,13 @@ def list(request):
     return render(request, 'shoplist.html', {'shops': shopsList})
 
 
-def modify(request, id):
-    print(id)
-    if not request.user.is_authenticated or not request.user.is_shopAdmin:
-        return HttpResponseRedirect(reverse('root'))
+def modify(request, id=None):
+    try:
+        shop = Shop.objects.filter(id=id, admins=request.user).first()
+    except:
+        shop = None
 
-    #shop = Shop.objects.filter(id=id)
+    if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
+        return HttpResponseRedirect(reverse('root'))
 
     return render(request, 'shoplist.html', {'shops': []})
