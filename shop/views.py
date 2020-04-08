@@ -8,6 +8,18 @@ from shop import forms
 from shop.models import Shop
 
 
+def show(request, id=None):
+    try:
+        shop = Shop.objects.filter(id=id, admins=request.user).first()
+    except:
+        shop = None
+
+    if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
+        return HttpResponseRedirect(reverse('root'))
+
+    return render(request, 'shopview.html', {'shop': shop})
+
+
 def add(request):
 
     # if user is already logged, no need to log in

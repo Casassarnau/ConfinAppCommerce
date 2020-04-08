@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="" method="post">
-    {% csrf_token %}
+{% csrf_token %}
+
+<h3>Shop List</h3>
+<div>
+
+    <ul>
     {% for shop in shops %}
-        <div>
-            <li>{{ shop.name }} </li>
-            <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Modify</a>
-        </div>
+        <li style="display: inline-block;">{{ shop.name }} </li>
+        <a href="{% url 'show_shop' id=shop.id   %}" class="button">Show</a>
+        <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Modify</a>
+
     {% empty %}
         <li>No shops yet.</li>
 
 
     {% endfor %}
+    </ul>
 <a href="{% url 'add_shop' %}" class="button">Create Shop</a>
-</form>
+</div>
+
 {% endblock %}
