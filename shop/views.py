@@ -2,12 +2,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+
 from hackovid.utils import reverse
 from shop import forms
+from shop.models import Shop
 from user import models
 
 
-def add_shop(request):
+def add(request):
 
     # if user is already logged, no need to log in
     if not request.user.is_authenticated or not request.user.is_shopAdmin:
@@ -30,3 +32,23 @@ def add_shop(request):
     else:
         form = forms.ShopForm()
     return render(request, 'shopform.html', {'form': form})
+
+
+def list(request):
+
+    # if user is already logged, no need to log in
+    if not request.user.is_authenticated or not request.user.is_shopAdmin:
+        return HttpResponseRedirect(reverse('root'))
+
+    shopsList = Shop.objects.filter(admins__id__contains=request.user.id)
+    return render(request, 'shoplist.html', {'shops': shopsList})
+
+
+def modify(request, id):
+    print(id)
+    if not request.user.is_authenticated or not request.user.is_shopAdmin:
+        return HttpResponseRedirect(reverse('root'))
+
+    #shop = Shop.objects.filter(id=id)
+
+    return render(request, 'shoplist.html', {'shops': []})

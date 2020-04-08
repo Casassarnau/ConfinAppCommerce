@@ -3,5 +3,8 @@ from django.conf.urls import url
 from shop import views
 
 urlpatterns = [
-    url(r'^add_shop/$', views.add_shop, name='add_shop'),
+    url(r'^add/$', views.add, name='add_shop'),
+    url(r'^list/$', views.list, name='list_shop'),
+    url(r'^modify/(?P<id>[0-9A-Za-z_\-]+)/$', views.modify, name='modify_shop'),
+
 ]

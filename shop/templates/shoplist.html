@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {% for shop in shops %}
+        <div>
+            <li>{{ shop.name }} </li>
+            <a href="{% url 'modify_shop' id=shop.name   %}" class="button">Modify</a>
+        </div>
+    {% empty %}
+        <li>No shops yet.</li>
+
+
+    {% endfor %}
+<a href="{% url 'add_shop' %}" class="button">Create Shop</a>
+</form>
+{% endblock %}
