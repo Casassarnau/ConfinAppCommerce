@@ -78,7 +78,6 @@ def delete(request, id=None):
         shop = None
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
-
-    Shop.delete(shop)
+    shop.delete()
     return HttpResponseRedirect(reverse('root'))
 
