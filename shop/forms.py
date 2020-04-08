@@ -25,7 +25,7 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'secondaryCategories', 'services', 'photo']
+        fields = ['CIF', 'name', 'meanTime', 'secondaryCategories', 'services', 'photo','latitude', 'longitude']
 
         labels = {
             'name': '',
@@ -36,7 +36,7 @@ class ShopForm(forms.ModelForm):
             'name': 'Name',
         }
 
-        exclude = ['latitude', 'longitude']
+        exclude = []
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
