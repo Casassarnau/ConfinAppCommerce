@@ -1,0 +1,95 @@
+/* Color palette app*/
+:root {
+    --primary: #ef9a9a;
+    --primary-light: #ffcccb;
+    --primary-dark: #ba6b6c;
+
+    --secondary: #eceff1;
+    --secondary-light: #ffffff;
+    --secondary-dark: #babdbe;
+
+    --focus: #c8e0e8;
+    --placeholder: #4f4f4f;
+}
+
+/* Div container of slider input */
+.slider-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Slider input component */
+#slider-meanTime {
+    -webkit-appearance: none;
+    background-color: var(--secondary);
+    padding: 12px 8px;
+    width: 65%;
+
+    -webkit-transition: background ease 0.5s;
+    transition: background ease 0.5s;
+}
+
+#slider-meanTime:hover::-moz-range-thumb {
+   -webkit-appearance: none;
+   background: var(--primary-dark);
+   -webkit-transition: background ease 0.5s;
+   transition: background ease 0.5s;
+}
+
+#slider-meanTime:hover::-webkit-slider-thumb {
+    -webkit-appearance: none;
+   background: var(--primary-dark);
+   -webkit-transition: background ease 0.5s;
+   transition: background ease 0.5s;
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+#slider-meanTime::-webkit-slider-thumb {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--secondary-dark); /* secondary color background */
+  cursor: pointer; /* Cursor on hover */
+  border: none;
+     border-radius: 5px;
+
+  -webkit-transition: background ease 0.5s;
+  transition: background ease 0.5s;
+}
+
+ #slider-meanTime::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--secondary-dark); /* secondary color background */
+  cursor: pointer; /* Cursor on hover */
+  border: none;
+      border-radius: 5px;
+
+  -webkit-transition: background ease 0.5s;
+  transition: background ease 0.5s;
+}
+
+/* Container of span */
+.span-container {
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* The real back-end input entry. Must be hidden */
+#id_meanTime {
+    visibility: collapse;
+    height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
