@@ -30,4 +30,5 @@ class ShopForm(ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
         }
 
-
+    def is_add_shop(self):
+        return True

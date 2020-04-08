@@ -35,5 +35,18 @@ p {
 }
 
 p a {
-   color: var(--primary-dark);
+    color: var(--primary-dark);
+    transition: ease 0.5s;
+    font-weight: bold;
+}
+
+p a:hover {
+
+    color: black;
+
+}
+
+*:focus {
+    outline: none;
+    box-shadow: none;
 }
