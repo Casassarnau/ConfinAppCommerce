@@ -1,0 +1,52 @@
+/* Color palette app*/
+:root {
+    --primary: #ef9a9a;
+    --primary-light: #ffcccb;
+    --primary-dark: #ba6b6c;
+
+    --secondary: #eceff1;
+    --secondary-light: #ffffff;
+    --secondary-dark: #babdbe;
+    --focus: #c8e0e8;
+}
+
+.slider-container {
+    display: flex;
+    width: 100%;
+}
+
+#slider-meanTime {
+    background-color: var(--secondary);
+    padding: 12px 8px;
+    width: 71%;
+}
+
+
+#slider-meanTime::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: var(--secondary-dark); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+    border: none;
+}
+
+.span-container {
+    width: 29%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+span {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+}
+
+#id_meanTime {
+    visibility: collapse;
+    height: 0;
+
+}
+
+

@@ -4,7 +4,21 @@
   {% block title %}<title>Confinapp Comerç</title>{% endblock %}
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'forms.css' %}">
   <link href="{% static 'fonts/.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'sliders.css' %}">
+
+<script>
+    const updateSliderLab = value => {
+        const label = document.getElementById("sliderLab-meanTime");
+
+        const real_slider = document.getElementById("id_meanTime");
+
+        label.textContent = value + " min";
+        real_slider.value = value;
+    };
+</script>
+
 </head>
 <body>
 

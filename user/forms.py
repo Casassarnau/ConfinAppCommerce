@@ -30,6 +30,8 @@ class LoginForm(forms.Form):
     email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'E-mail'}))
     password = forms.CharField(required=True, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
 
+    def is_login(self):
+        return True
 
 class RegisterForm(LoginForm):
     password2 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}), )
@@ -45,9 +47,12 @@ class RegisterForm(LoginForm):
         validate_password(password)
         return password2
 
+    def is_login(self):
+        return False
+
 
 class RegisterShopAdminForm(RegisterForm):
-    token = forms.CharField(label='Registration code', required=True)
+    token = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Registration code'}))
 
     def clean_token(self):
         validToken = getattr(settings, 'REGISTRATION_CODE', '')
