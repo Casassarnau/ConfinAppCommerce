@@ -50,8 +50,34 @@ def modify(request, id=None):
     except:
         shop = None
 
-
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
 
-    return render(request, 'shoplist.html', {'shops': []})
+    if request.method == 'POST':
+
+        # create a form instance and populate it with data from the request:
+        form = forms.ShopForm(request.POST,instance=shop)
+
+        # check whether it's valid:
+        if form.is_valid():
+            shop2 = form.save()
+            shop.save()
+
+            return HttpResponseRedirect(reverse('root'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = forms.ShopForm(instance=shop)
+    return render(request, 'modifyshopform.html', {'form': form, 'id': id})
+
+
+def delete(request, id=None):
+    try:
+        shop = Shop.objects.filter(id=id, admins=request.user).first()
+    except:
+        shop = None
+    if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
+        return HttpResponseRedirect(reverse('root'))
+    shop.delete()
+    return HttpResponseRedirect(reverse('root'))
+
