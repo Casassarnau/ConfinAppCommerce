@@ -15,6 +15,11 @@ SCH_DAYS = [
 ]
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return '{0}/{1}'.format(instance.id, filename)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
@@ -51,6 +56,8 @@ class Shop(models.Model):
     admins = models.ManyToManyField(User, related_name='shop')
     secondaryCategories = models.ManyToManyField(to=SecondaryCategory)
     services = models.ManyToManyField(to=Service)
+
+    photo = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
 
     class Meta:
         unique_together = (('CIF', 'name'),)
