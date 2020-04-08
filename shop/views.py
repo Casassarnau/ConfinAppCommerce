@@ -1,3 +1,5 @@
+import os
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -30,14 +32,12 @@ def add(request):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = forms.ShopForm(request.POST)
+        form = forms.ShopForm(request.POST, request.FILES)
 
         # check whether it's valid:
         if form.is_valid():
-            shop = form.save(commit=False)
-            shop.save()
+            shop = form.save()
             shop.admins.add(request.user)
-
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form

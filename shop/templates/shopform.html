@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 
     {% if form.is_add_shop %}
     <h3>Add your shop</h3>
     {% endif %}
-
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">

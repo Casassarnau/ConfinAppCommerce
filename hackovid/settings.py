@@ -31,6 +31,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+#  File upload configuration
+MEDIA_ROOT = 'files'
+MEDIA_URL = '/files/'
+MAX_UPLOAD_SIZE =  5242880
+
 # Set up custom auth
 AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = 'login'
