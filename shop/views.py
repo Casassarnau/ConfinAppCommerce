@@ -49,6 +49,6 @@ def modify(request, id):
     if not request.user.is_authenticated or not request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('root'))
 
-    #shop = Shop.objects.filter(id=id)
+    shop = Shop.objects.filter(id=id)
 
     return render(request, 'shoplist.html', {'shops': []})
