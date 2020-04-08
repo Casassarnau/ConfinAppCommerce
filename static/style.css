@@ -7,7 +7,9 @@
     --secondary: #eceff1;
     --secondary-light: #ffffff;
     --secondary-dark: #babdbe;
-    --focus: #c8e0e8;
+
+     --focus: #c8e0e8;
+    --placeholder: #4f4f4f;
 }
 
 html, body {
