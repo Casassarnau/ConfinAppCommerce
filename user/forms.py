@@ -40,8 +40,6 @@ class RegisterForm(LoginForm):
 
     field_order = ['name', 'email', 'password', 'password2']
 
-    map = LocationField(map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10})
-
     def clean_password2(self):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
