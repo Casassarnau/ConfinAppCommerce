@@ -24,11 +24,64 @@ html {
 }
 
 body {
-    display: flex;
+    display: grid;
     justify-content: center;
     position: absolute;
+
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 100%;
     /*margin-top: 50px;
     margin-bottom: 50px;*/
+}
+
+nav {
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+}
+
+nav > ul > a > li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+}
+
+nav > ul > a:hover {
+    background-color: var(--primary) !important;
+}
+
+
+nav > ul > a   {
+    padding: 0 20px !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+}
+
+.container-fluid {
+    padding: 50px 0;
+    height: fit-content;           /* Safari/WebKit uses a non-standard name */
+    height: -moz-fit-content;      /* Firefox/Gecko */
+
+    display: flex;
+    justify-content: center;
+
 }
 
 p {
@@ -54,8 +107,3 @@ p a:hover {
     box-shadow: none;
 }
 
-.container-fluid {
-    padding: 50px 0;
-    height: fit-content;           /* Safari/WebKit uses a non-standard name */
-    height: -moz-fit-content;      /* Firefox/Gecko */
-}

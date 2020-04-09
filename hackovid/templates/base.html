@@ -18,11 +18,11 @@
   {% if request.user.is_authenticated %}
       <nav>
           <ul>
-              <li> <a href="{% url 'purchase_list'   %}" class="button">Purchase</a></li>
+                  <a href="{% url 'purchase_list'   %}" class="button"><li>Purchase</li></a>
               {% if request.user.is_shopAdmin %}
-                  <li> <a href="{% url 'list_shop'   %}" class="button">Shops</a></li>
+                  <a href="{% url 'list_shop'   %}" class="button"> <li>Shops</li></a>
               {% endif %}
-              <li> <a href="{% url 'user_logout'   %}" class="button">Logout</a></li>
+                  <a href="{% url 'user_logout'   %}" class="button"><li>Logout</li></a>
 
           </ul>
       </nav>
