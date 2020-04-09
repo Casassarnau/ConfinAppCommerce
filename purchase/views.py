@@ -2,12 +2,12 @@ from cmath import sqrt
 
 from django.db.models import Count, F, FloatField, DecimalField, Func
 from django.db.models.functions import Cast
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
 from hackovid.utils import reverse
-from purchase import forms
+from purchase import forms, models
 from shop import models as sModels
 
 
@@ -16,6 +16,7 @@ def list(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
     shopsList = []
+    time = ''
     if request.method == 'POST':
         form = forms.FilterForm(request.POST)
         if form.is_valid():
@@ -41,18 +42,27 @@ def list(request):
                                                         Cast(latitude - longitude, DecimalField()),
                                                         function='ABS')
                                            ).order_by('Cpoints')
+            time = time.strftime('%H:%M')
     else:
         form = forms.FilterForm()
     if shopsList is None:
         shopsList = []
 
-    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form})
+    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time})
 
 
-def info(request, id):
+def info(request, id, time_str):
     # if user is already logged, no need to log in
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
+    try:
+        shop = sModels.Shop.objects.filter(id=id).first()
+    except:
+        return HttpResponse(status=404)
+    if request.method == 'POST':
+        time = timezone.now()
+        time.strftime(time_str)
+        purchase = models.Purchase(shop=shop, user=request.user, dateTime=time)
+        purchase.save()
 
-    shopsList = sModels.Shop.objects.all()
-    return render(request, 'purcahselist.html', {'shops': shopsList})
+    return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str})
