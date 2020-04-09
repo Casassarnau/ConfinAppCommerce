@@ -8,4 +8,4 @@ def root_view(request):
     elif request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('list_shop'))
     else:
-        return HttpResponseRedirect(reverse('user_index'))
+        return HttpResponseRedirect(reverse('purchase_list'))
