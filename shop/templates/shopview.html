@@ -6,7 +6,11 @@
 
     <h3>Shop {{ shop.name }}</h3>
 
-    <div class="view">
+    <img src={{ shop.photo.url }}>
+
+    <div>
+        <label>CIF</label> {{ shop.CIF }}
+    </div>
 
         <div>
             <label>CIF</label> {{ shop.CIF }}
@@ -31,6 +35,20 @@
 
         {% empty %}
             <li>No secondary categories.</li>
+
+        {% endfor %}
+        </ul>
+        <label>Services:</label>
+        <ul>
+          {% for ss in shop.services.all %}
+            <li>{{ ss.name }} </li>
+
+          {% empty %}
+              <li>No services.</li>
+
+          {% endfor %}
+          </ul>
+          <a href="{% url 'list_shop' %}" class="button">Back to list</a>
 
         {% endfor %}
         </ul>
