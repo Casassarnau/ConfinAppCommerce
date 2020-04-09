@@ -24,8 +24,8 @@ class ShopForm(forms.ModelForm):
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
-    secondaryCategories = SelectCategoryField(name='MY_SELECT', queryset=models.SecondaryCategory.objects.all())
-
+    secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all())
+    services = SelectCategoryField(queryset=models.Service.objects.all())
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="How many time does the user stay in your shop while shopping?")
@@ -34,7 +34,7 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'services', 'photo']
+        fields = ['CIF', 'name', 'meanTime', 'photo']
 
         labels = {
             'name': '',
