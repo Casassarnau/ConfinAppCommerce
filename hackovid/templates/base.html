@@ -13,6 +13,17 @@
 </head>
 <body>
 
+  {% if request.user.is_authenticated %}
+      <ul>
+          <li> <a href="{% url 'purchase_list'   %}" class="button">Purchase</a></li>
+          {% if request.user.is_shopAdmin %}
+              <li> <a href="{% url 'list_shop'   %}" class="button">Shops</a></li>
+          {% endif %}
+          <li> <a href="{% url 'user_logout'   %}" class="button">Logout</a></li>
+
+      </ul>
+
+  {% endif %}
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-10 ">
