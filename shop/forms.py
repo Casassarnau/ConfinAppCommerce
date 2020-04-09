@@ -51,7 +51,16 @@ class ShopForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
         }
 
-
+    def clean(self):
+        map = self.cleaned_data['map']
+        if map is None:
+            raise forms.ValidationError("You ned a coords")
+        elif float(map.split(',')[0]) <= -180 or float(map.split(',')[0]) >= 180:
+            raise forms.ValidationError("Longitude out of range")
+        elif float(map.split(',')[1]) < -90 or float(map.split(',')[1]) >= 90:
+            raise forms.ValidationError("Latitude out of range")
+        else:
+            pass
 
     def is_add_shop(self):
         return True
