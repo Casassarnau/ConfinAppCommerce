@@ -28,7 +28,7 @@
                     {% for sc in shop.secondaryCategories.all %}
                         <li>{{ sc.name }} </li>
                     {% empty %}
-                        <li>No secondary categories.</li>
+                        <li>No hi ha categories.</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -39,42 +39,11 @@
                       {% for ss in shop.services.all %}
                         <li>{{ ss.name }} </li>
                       {% empty %}
-                          <li>No services.</li>
+                          <li>No hi ha serveis.</li>
                       {% endfor %}
                   </ul>
             </div>
         </div>
-
-
-        <div>
-            <label>Temps mitjà:</label> {{ shop.meanTime }}
-        </div>
-
-        <div>
-            <label>Latitud:</label> {{ shop.latitude }}
-        </div>
-
-        <div>
-            <label>Longitud:</label> {{ shop.longitude }}
-        </div>
-
-        <label>Categories:</label>
-        <ul>
-            {% for sc in shop.secondaryCategories.all %}
-                <li>{{ sc.name }} </li>
-            {% empty %}
-                <li>No hi ha categories.</li>
-            {% endfor %}
-        </ul>
-        <label>Serveis:</label>
-        <ul>
-              {% for ss in shop.services.all %}
-                <li>{{ ss.name }} </li>
-              {% empty %}
-                  <li>No hi ha serveis.</li>
-              {% endfor %}
-          </ul>
-          <a href="{% url 'list_shop' %}" class="button">Tornar</a>
 
         <div class="buttons-container-simple">
             <a href="{% url 'list_shop' %}" class="button">Tornar</a>
