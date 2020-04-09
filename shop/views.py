@@ -73,7 +73,7 @@ def modify(request, id=None):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = forms.ShopForm(request.POST,instance=shop)
+        form = forms.ShopForm(request.POST, instance=shop)
 
         # check whether it's valid:
         if form.is_valid():
@@ -90,7 +90,7 @@ def modify(request, id=None):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = forms.ShopForm(instance=shop)
+        form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
     return render(request, 'modifyshopform.html', {'form': form, 'id': id})
 
 
