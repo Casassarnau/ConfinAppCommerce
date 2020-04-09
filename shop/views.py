@@ -105,7 +105,7 @@ def delete(request, id=None):
     return HttpResponseRedirect(reverse('root'))
 
 
-def addS(request, id=None):
+def add_schedule(request, id=None):
 
     try:
         shop = Shop.objects.filter(id=id, admins=request.user).first()
@@ -135,7 +135,7 @@ def addS(request, id=None):
         form = forms.ScheduleForm()
     return render(request, 'shopform.html', {'form': form, 'id':id})
 
-def listS(request, id=None):
+def list_schedule(request, id=None):
 
     # if user is already logged, no need to log in
     try:
@@ -151,7 +151,7 @@ def listS(request, id=None):
 
 
 
-def deleteS(request, id=None, idS = None):
+def delete_schedule(request, id=None, idS = None):
     try:
         shop = Shop.objects.filter(id=id, admins=request.user).first()
     except:
