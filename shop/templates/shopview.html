@@ -8,11 +8,43 @@
                 <h4><span>Botiga {{ shop.name }}</span></h4>
         </div>
 
-        <p><span><a href="{% url 'modify_shop' id=shop.id   %}">Editar</a></span></p>
+        <div class="content-card">
+            <div class="basic-info">
+                <h5>Informació bàsica</h5>
+                <p><label>CIF: </label> {{ shop.CIF }}</p>
+                <p><label>Temps mitjà: </label>{{ shop.meanTime }}</p>
+                <p><label>Latitud: </label> {{ shop.latitude }}</p>
+                <p><label>Longitud: </label> {{ shop.longitude }}</p>
+            </div>
 
-        <div>
-            <label>CIF</label> {{ shop.CIF }}
+            <div class="categories-card">
+                <h5>Descripció</h5>
+                <!--<p>{{ shop.description }}</p>-->
+            </div>
+
+            <div class="categories-card">
+                <h5>Categories</h5>
+                <ul class="card-list">
+                    {% for sc in shop.secondaryCategories.all %}
+                        <li>{{ sc.name }} </li>
+                    {% empty %}
+                        <li>No secondary categories.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="services-card">
+                <h5>Serveis</h5>
+                <ul class="card-list">
+                      {% for ss in shop.services.all %}
+                        <li>{{ ss.name }} </li>
+                      {% empty %}
+                          <li>No services.</li>
+                      {% endfor %}
+                  </ul>
+            </div>
         </div>
+
 
         <div>
             <label>Temps mitjà:</label> {{ shop.meanTime }}
@@ -43,6 +75,15 @@
               {% endfor %}
           </ul>
           <a href="{% url 'list_shop' %}" class="button">Tornar</a>
+
+        <div class="buttons-container-simple">
+            <a href="{% url 'list_shop' %}" class="button">Tornar</a>
+          <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
+
+        </div>
+
+
+
     </div>
  </div>
 
