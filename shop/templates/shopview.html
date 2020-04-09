@@ -5,9 +5,8 @@
     <div class="shop-card">
 
         <div class="image-card" style="background-image: url('{{ shop.photo.url }}')">
-                <h4><span>Shop {{ shop.name }}</span></h4>
+                <h4><span>Botiga {{ shop.name }}</span></h4>
         </div>
-
 
         <div class="content-card">
             <div class="basic-info">
@@ -45,6 +44,37 @@
                   </ul>
             </div>
         </div>
+
+
+        <div>
+            <label>Temps mitjà:</label> {{ shop.meanTime }}
+        </div>
+
+        <div>
+            <label>Latitud:</label> {{ shop.latitude }}
+        </div>
+
+        <div>
+            <label>Longitud:</label> {{ shop.longitude }}
+        </div>
+
+        <label>Categories:</label>
+        <ul>
+            {% for sc in shop.secondaryCategories.all %}
+                <li>{{ sc.name }} </li>
+            {% empty %}
+                <li>No hi ha categories.</li>
+            {% endfor %}
+        </ul>
+        <label>Serveis:</label>
+        <ul>
+              {% for ss in shop.services.all %}
+                <li>{{ ss.name }} </li>
+              {% empty %}
+                  <li>No hi ha serveis.</li>
+              {% endfor %}
+          </ul>
+          <a href="{% url 'list_shop' %}" class="button">Tornar</a>
 
         <div class="buttons-container-simple">
             <a href="{% url 'list_shop' %}" class="button">Tornar</a>
