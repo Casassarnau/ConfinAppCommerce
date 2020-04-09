@@ -32,6 +32,19 @@
 
     {% endfor %}
     </ul>
+<label>Services:</label>
+    <ul>
+    {% for ss in shop.services.all %}
+        <li>{{ ss.name }} </li>
+
+    {% empty %}
+        <li>No services.</li>
+
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'list_shop' %}" class="button">Back to list</a>
+
 </div>
 
 {% endblock %}
