@@ -8,4 +8,3 @@ admin.site.register(models.SecondaryCategory)
 admin.site.register(models.PrimaryCategory)
 admin.site.register(models.Service)
 admin.site.register(models.Schedule)
-
