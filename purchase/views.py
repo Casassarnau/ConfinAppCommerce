@@ -66,3 +66,25 @@ def info(request, id, time_str):
         purchase.save()
 
     return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str})
+
+
+def userList(request):
+    # if user is already logged, no need to log in
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('root'))
+
+    purchaseListAll = models.Purchase.objects.all().filter(user=request.user)
+    purchaseListActive = purchaseListAll.filter(dateTime__gt=timezone.now())
+    viewAllText = 'Totes'
+    viewActiveText = 'Actives'
+    list = purchaseListActive
+    text = viewAllText
+    if request.method == 'POST':
+        all = request.POST.get("value", "")
+        if all == viewActiveText:
+            list = purchaseListActive
+        else:
+            text = viewActiveText
+            list = purchaseListAll
+
+    return render(request, 'purchaselistuser.html', {'list': list, 'text': text})
