@@ -34,10 +34,11 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'services', 'photo']
+        fields = ['CIF', 'name', 'description', 'meanTime', 'services', 'photo']
 
         labels = {
             'name': '',
+            'description': ''
         }
 
         help_text = {
@@ -49,9 +50,8 @@ class ShopForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
+            'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
         }
-
-
 
     def is_add_shop(self):
         return True

@@ -59,6 +59,8 @@ class Shop(models.Model):
 
     photo = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
 
+    description = models.CharField(max_length=256)
+
     def __str__(self):
         return '%s__%s' % (self.name, self.CIF)
 
