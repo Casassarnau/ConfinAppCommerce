@@ -34,10 +34,11 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'photo']
+        fields = ['CIF', 'name', 'description', 'meanTime', 'services', 'photo']
 
         labels = {
             'name': '',
+            'description': ''
         }
 
         help_text = {
@@ -49,6 +50,7 @@ class ShopForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nom de la botiga'}),
+            'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
         }
 
     def clean(self):
@@ -61,7 +63,8 @@ class ShopForm(forms.ModelForm):
             raise forms.ValidationError("Latitude out of range")
         else:
             pass
-
+        return self.cleaned_data
+      
     def is_add_shop(self):
         return True
 
