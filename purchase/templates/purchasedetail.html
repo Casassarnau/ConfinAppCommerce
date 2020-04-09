@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <h3>Shop {{ shop.name }}</h3>
+
+    <img src={{ shop.photo.url }}>
+
+    <label>Categories:</label>
+    <ul>
+        {% for sc in shop.secondaryCategories.all %}
+            <li>{{ sc.name }} </li>
+        {% empty %}
+            <li>No secondary categories.</li>
+        {% endfor %}
+    </ul>
+    <label>Services:</label>
+    <ul>
+          {% for ss in shop.services.all %}
+            <li>{{ ss.name }} </li>
+          {% empty %}
+              <li>No services.</li>
+          {% endfor %}
+    </ul>
+    <div>
+        <label>Time:</label> {{ time }}
+    </div>
+    <div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination={{ shop.latitude }},{{ shop.longitude }}"><i class="fa fa-map"></i></a>
+    </div>
+    <input type="submit" value="Go shop">
+    <a onclick="goBack()" class="button">Back to list</a>
+</form>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+{% endblock %}
