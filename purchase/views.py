@@ -19,6 +19,9 @@ def list(request):
     if request.method == 'POST':
         form = forms.FilterForm(request.POST)
         if form.is_valid():
+            location = form.cleaned_data['location']
+            (latitude, longitude) = location.split(', ')
+            (latitude, longitude) = (float(latitude), float(longitude))
             category = form.cleaned_data['category']
             service = form.cleaned_data['service']
             time = form.cleaned_data['time']
@@ -35,8 +38,7 @@ def list(request):
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category)
             shopsList = shopsList.annotate(Cpoints=Func(Cast(Count('shop__purchase') + 1, DecimalField()) *
                                                         F('shop__latitude') + F('shop__longitude') -
-                                                        Cast(request.user.latitude - request.user.longitude,
-                                                             DecimalField()),
+                                                        Cast(latitude - longitude, DecimalField()),
                                                         function='ABS')
                                            ).order_by('Cpoints')
     else:
