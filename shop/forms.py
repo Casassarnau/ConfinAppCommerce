@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from mapbox_location_field.forms import LocationField
+from django.utils import timezone
 
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
@@ -53,3 +54,16 @@ class ShopForm(forms.ModelForm):
 
     def is_add_shop(self):
         return True
+
+
+class ScheduleForm(forms.ModelForm):
+    startHour = forms.TimeField(required=True, label='When will you buy?',
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+    endHour = forms.TimeField(required=True, label='When will you buy?',
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+
+    class Meta:
+        model = models.Schedule
+        fields = ['day', 'startHour', 'endHour']
+        exclude = ['shop']
+
