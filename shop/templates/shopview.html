@@ -8,7 +8,7 @@
                 <h4><span>Shop {{ shop.name }}</span></h4>
         </div>
 
-        <p><span><a href="{% url 'modify_shop' id=shop.shop.id   %}">{{ shop.shop.name }}</a></span></p>
+        <p><span><a href="{% url 'modify_shop' id=shop.id   %}">Edit</a></span></p>
 
         <div>
             <label>CIF</label> {{ shop.CIF }}

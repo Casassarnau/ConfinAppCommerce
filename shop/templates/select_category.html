@@ -9,7 +9,6 @@
 
         display: flex;
         flex-wrap: wrap;
-        background-color: red;
         overflow: scroll;
 
         align-items: flex-start;
@@ -22,7 +21,7 @@
         margin-bottom: 0;
         width: 350px !important;
         height: fit-content;
-        background-color: var(--primary);
+
 
         -webkit-transition: background-color ease 0.5s;
         transition: background-color ease 0.5s;
@@ -85,10 +84,11 @@
     const choose = (category) => {
 
         if (!category.classList.contains("selected")) {
-
-            // Create a container for the category and the exit handle
             let childContainer = document.createElement('div');
+            // Create a container for the category and the exit handle
+
             childContainer.setAttribute('class', 'child-container');
+            childContainer.setAttribute('id', 'child-container-' + category.childNodes[1].textContent);
 
             let child = document.createElement('span');
             let text = category.childNodes[1].textContent;
@@ -106,15 +106,13 @@
             hiddenOption.selected = true;
 
             // Exit handle
-            cross.onclick = function() {
+            cross.onclick = () => {
                 console.log("hidden-option-" + category.childNodes[1].textContent);
                 let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
                 hiddenOption.selected = false;
                 childContainer.remove();
                 category.classList.remove("selected");
                 category.classList.add("unselected");
-
-
             };
 
             // Append to choice bag
@@ -123,6 +121,17 @@
             category.classList.add("selected");
             category.classList.remove("unselected");
 
+        }
+        else {
+            console.log("hidden-option-" + category.childNodes[1].textContent);
+            let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+            hiddenOption.selected = false;
+
+            let childContainer = document.getElementById('child-container-' + category.childNodes[1].textContent);
+            childContainer.remove();
+
+            category.classList.remove("selected");
+            category.classList.add("unselected");
         }
 
     };
@@ -178,7 +187,7 @@
 
 
 
-<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} style="display: none; ">
+<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% if group_name %}
             <optgroup label="{{ group_name }}">
@@ -193,3 +202,14 @@
         {% endif %}
     {% endfor %}
 </select>
+
+<script>
+    const select = document.getElementById("id_secondaryCategories");
+
+    for (let i = 0; i < select.children.length; i++) {
+        category = select.children[i].value;
+        c = document.getElementById("li-option-" + category);
+        choose(c);
+    }
+
+</script>
