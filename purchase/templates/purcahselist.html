@@ -18,13 +18,8 @@
                 <h4><span><a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">{{ shop.shop.name }}</a></span></h4>
 
             </div>
-            <div class="content-card">
-                <span>
-                    <a href="{% url 'modify_shop' id=shop.shop.id   %}">
-                        {{ shop.shop.name }}
-                    </a>
-                </span>
-            </div>
+
+            <p>La mejor del barrio</p>
 
         </div>
         {% endfor %}

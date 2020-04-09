@@ -215,6 +215,8 @@ h3 {
     border-radius: 15px;
     overflow: hidden;
 
+    padding-bottom: 20px;
+
     /*-webkit-transition: transform ease 0.5s;
     transition: transform ease 0.5s;*/
 
@@ -298,8 +300,40 @@ h4 * {
 
 .content-card {
     width: 300px;
-    text-align: center;
+    text-align: left;
     padding: 20px;
+    display: grid;
+    row-gap: 10px;
+}
+
+.content-card p {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+
+.basic-info, .services-card, .categories-card {
+    width: 100%;
+}
+
+.basic-info > p {
+    width: max-content !important;
+}
+
+.basic-info > p > label {
+    font-weight: bold;
+}
+
+.card-list {
+    padding-left: 12px;
+    margin: 0;
+}
+
+h5 {
+    margin: 5px 0;
+    font-size: 16px;
+    color: var(--primary-dark)
 }
 
 .buttons-container {
@@ -313,7 +347,18 @@ h4 * {
     padding-top: 18px;
 }
 
-.buttons-container > * {
+.buttons-container-simple {
+    background-color: transparent;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    padding-top: 18px;
+}
+
+.buttons-container > *,  .buttons-container-simple > *{
     align-self: center;
     justify-self: center;
     width: 60px;
