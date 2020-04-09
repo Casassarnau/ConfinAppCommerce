@@ -8,11 +8,11 @@
 <form action="" method="post" enctype="multipart/form-data">
 
     {% if form.is_add_shop %}
-    <h3>Add your shop</h3>
+    <h3>Crea la teva botiga</h3>
     {% endif %}
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Envia">
 </form>
 {{ form.media }}
 {% endblock %}
