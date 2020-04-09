@@ -78,6 +78,12 @@
         font-size: 8px;
     }
 
+    .explain-widget {
+        margin: 0;
+        padding: 12px 0;
+        text-align: left;
+    }
+
 </style>
 
 <script>
@@ -173,6 +179,8 @@
 
     };
 </script>
+
+<p class="explain-widget">Filtra per {{ widget.name }}:</p>
 
 <input type='text' onkeydown="filter_{{ widget.name }}(this.value)" placeholder="{{ widget.placeholder }}">
 
