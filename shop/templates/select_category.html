@@ -1,53 +1,84 @@
 <style>
 
     ul {
-        width: 300px;
+        width: 100%;
+        height: 150px;
         list-style-type: none;
         padding: 0;
+        margin: 8px 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        background-color: red;
+        overflow: scroll;
+
+        align-items: flex-start;
+
     }
 
     ul > li {
-        height: 50px;
-        font-size: 20px;
-        background-color: beige;
+        margin: 5px 5px;
+        margin-bottom: 0;
+        width: 350px !important;
+        height: fit-content;
+        background-color: var(--primary);
+
+        -webkit-transition: background-color ease 0.5s;
+        transition: background-color ease 0.5s;
+        color: black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 15px;
     }
 
-    ul li:hover {
-        background-color: bisque;
+    #secondary-cats {
+        background-color: var(--secondary);
     }
+
+    ul > li > span {
+        font-size: 12px;
+        color: black;
+    }
+
 
     .selected {
-        background-color: pink;
+        background-color: darkseagreen;
     }
     .unselected {
-        background-color: beige;
+        background-color: var(--primary);
     }
 
     #choice-bag {
         width: 300px;
-        height: 300px;
-        background-color: gainsboro;
+        height: fit-content;
         display: flex;
         flex-wrap: wrap;
     }
 
     .child-container {
         display: grid;
-        grid-template-columns: auto 20px;
+        grid-template-columns: auto 15px;
         align-items: center;
-        background-color: cornflowerblue;
-        width: 150px;
-        height: 30px;
-        padding: 12px 20px;
+        background-color: var(--placeholder);
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 5px;
         border-radius: 20px;
-        margin: 5px 5px;
+        margin: 2px 2px;
+        color: white;
     }
 
     .cross {
         cursor: pointer;
-        background-color: cornsilk;
         text-align: center;
 
+    }
+
+    .child-container span {
+        font-size: 8px;
     }
 
 </style>
@@ -63,27 +94,28 @@
             childContainer.setAttribute('class', 'child-container');
 
             let child = document.createElement('span');
-            let text = category.textContent;
+            let text = category.childNodes[1].textContent;
             console.log(typeof(text));
             child.textContent = text;
 
-            let cross = document.createElement('span');
-            cross.textContent = " X";
-            cross.setAttribute('class', 'cross');
+            let cross = document.createElement('i');
+            cross.setAttribute('class', 'cross fa fa-times');
 
             childContainer.appendChild(child);
             childContainer.appendChild(cross);
 
-            console.log("hidden-option-" + category.textContent);
-            let hiddenOption = document.getElementById("hidden-option-" + category.textContent);
+            console.log("hidden-option-" + category.childNodes[1].textContent);
+            let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
             hiddenOption.selected = true;
 
             // Exit handle
             cross.onclick = function() {
-                console.log("hidden-option-" + category.textContent);
-                let hiddenOption = document.getElementById("hidden-option-" + category.textContent);
+                console.log("hidden-option-" + category.childNodes[1].textContent);
+                let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
                 hiddenOption.selected = false;
                 childContainer.remove();
+                category.classList.remove("selected");
+                category.classList.add("unselected");
 
 
             };
@@ -113,21 +145,30 @@
         });
 
         unmatchedCategories.forEach((elem) => {
+            elem.style.display = 'none';
             elem.style.visibility = 'collapse';
             elem.style.width = 0;
             elem.style.height = 0;
+            /*elem.style.padding = 0;
+            elem.style.margin = 0;
+            elem.childNodes[1].style.height = 0;
+            elem.childNodes[1].style.visibility = 'collapse';
+            elem.childNodes[1].style.display = 'none';*/
         });
 
         matchedCategories.forEach((elem) => {
+            elem.style.display = 'block';
             elem.style.visibility = 'visible';
             elem.style.width = '300px';
-            elem.style.height = '50px';
+            elem.style.height = '15px';
         });
 
     };
 </script>
 
-<input type='text' onkeydown="filter(this.value)">
+<input type='text' onkeydown="filter(this.value)" placeholder="Find categories ...">
+
+<div id="choice-bag"></div>
 
 <ul id="secondary-cats" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
@@ -135,11 +176,10 @@
           {% include option.template_name with widget=option %}
         {% endfor %}
     {% endfor %}
+    <div style="height: 5px; width: 100%; background-color: transparent;"></div>
 </ul>
 
-<div id="choice-bag">
 
-</div>
 
 <select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} style="display: none; ">
     {% for group_name, group_choices, group_index in widget.optgroups %}

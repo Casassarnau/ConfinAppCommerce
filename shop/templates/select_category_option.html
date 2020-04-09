@@ -1,1 +1,3 @@
-<li onclick="choose(this)" value="{{ widget.value|stringformat:'s' }}"{% include "django/forms/widgets/attrs.html" %}>{{ widget.label }}</li>
+<li onclick="choose(this)" value="{{ widget.value|stringformat:'s' }}"{% include "django/forms/widgets/attrs.html" %}>
+    <span>{{ widget.label }}</span>
+</li>
