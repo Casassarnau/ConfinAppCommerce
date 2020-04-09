@@ -2,9 +2,11 @@
 {% block content %}
 {% csrf_token %}
 
-<div class="view">
+<form action="" method="post" enctype="multipart/form-data">
 
     <h3>Shop {{ shop.name }}</h3>
+
+    <img src={{ shop.photo.url }}>
 
     <div>
         <label>CIF</label> {{ shop.CIF }}
@@ -24,14 +26,21 @@
 
     <label>Categories:</label>
     <ul>
-    {% for sc in shop.secondaryCategories.all %}
-        <li>{{ sc.name }} </li>
-
-    {% empty %}
-        <li>No secondary categories.</li>
-
-    {% endfor %}
+        {% for sc in shop.secondaryCategories.all %}
+            <li>{{ sc.name }} </li>
+        {% empty %}
+            <li>No secondary categories.</li>
+        {% endfor %}
     </ul>
-</div>
+    <label>Services:</label>
+    <ul>
+          {% for ss in shop.services.all %}
+            <li>{{ ss.name }} </li>
+          {% empty %}
+              <li>No services.</li>
+          {% endfor %}
+      </ul>
+      <a href="{% url 'list_shop' %}" class="button">Back to list</a>
+</form>
 
 {% endblock %}
