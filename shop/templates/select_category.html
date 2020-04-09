@@ -180,7 +180,7 @@
     };
 </script>
 
-<p class="explain-widget">Filtra per {{ widget.name }}:</p>
+<p class="explain-widget">{{ widget.title }}</p>
 
 <input type='text' onkeydown="filter_{{ widget.name }}(this.value)" placeholder="{{ widget.placeholder }}">
 
@@ -194,8 +194,6 @@
     {% endfor %}
     <div style="height: 5px; width: 100%; background-color: transparent;"></div>
 </ul>
-
-
 
 
 
