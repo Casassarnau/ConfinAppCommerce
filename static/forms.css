@@ -203,16 +203,20 @@ h3 {
     align-items: center;
     border-radius: 15px;
 
+
 }
 
 .shop-card {
     background-color: var(--secondary);
     width: 100%;
     /*padding: 20px;*/
-    margin-bottom: 20px;
+    margin: 15px 0;
     box-shadow: 5px 5px 15px 0px var(--primary);
     border-radius: 15px;
     overflow: hidden;
+
+    /*-webkit-transition: transform ease 0.5s;
+    transition: transform ease 0.5s;*/
 
 
 }
@@ -225,22 +229,54 @@ img {
 }
 
 h4 {
-    font-weight: bold;
-    font-size: 18px;
+
     position: relative;
     left: 0;
     width: 100%;
-    background-color: white;
+   /* background-color: rgba(186, 189, 190, 0.85);
+    background-color: rgba(186, 107, 108, 0.85);
+    background-color: rgba(255,255,255,0.85);*/
+
+    /*
+    background-image: linear-gradient(rgba(186, 107, 108, 0) 0%,
+    rgba(186, 107, 108, 0.8) 80%,
+    var(--primary-dark) 100%);
+    */
+
+    /*
+
+    background-image: linear-gradient(rgba(119, 121, 121, 0) 0%,
+    rgba(119, 121, 121, 0.8) 80%,
+    rgba(119, 121, 121, 1) 100%);
+
+    */
+
+    background-image: linear-gradient(rgba(79, 79, 79, 0) 0%,
+    rgba(79, 79, 79, 0.8) 80%,
+    var(--placeholder) 100%);
+
+
+
+    padding: 12px 20px;
+    padding-top: 80px;
+    margin: 0;
 }
 
-/*
 h4 span {
-   color: white;
-   font: bold 24px/45px Helvetica, Sans-Serif;
-   letter-spacing: -1px;
-   background: rgb(0, 0, 0);
+
+    display: flex;
+
+    align-items: center;
 }
-*/
+
+h4 span a {
+    color: white;
+     font-size: 18px;
+    font-weight: bold;
+    /*letter-spacing: 1px;*/
+}
+
+
 
 .image-card {
     height: 200px;
@@ -251,3 +287,15 @@ h4 span {
     display: flex;
     align-items: flex-end;
 }
+
+/*
+.shop-card:hover {
+    transform: scale(1.1);
+    -webkit-transition: transform ease 0.5s;
+    transition: transform ease 0.5s;
+}*/
+
+.shop-card a:hover, .shop-card a:visited, .shop-card a:link, .shop-card a:active {
+    text-decoration: none;
+}
+
