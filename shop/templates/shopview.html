@@ -5,9 +5,8 @@
     <div class="shop-card">
 
         <div class="image-card" style="background-image: url('{{ shop.photo.url }}')">
-                <h4><span>Shop {{ shop.name }}</span></h4>
+                <h4><span>Botiga {{ shop.name }}</span></h4>
         </div>
-
 
         <div class="content-card">
             <div class="basic-info">
@@ -29,7 +28,7 @@
                     {% for sc in shop.secondaryCategories.all %}
                         <li>{{ sc.name }} </li>
                     {% empty %}
-                        <li>No secondary categories.</li>
+                        <li>No hi ha categories.</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -40,7 +39,7 @@
                       {% for ss in shop.services.all %}
                         <li>{{ ss.name }} </li>
                       {% empty %}
-                          <li>No services.</li>
+                          <li>No hi ha serveis.</li>
                       {% endfor %}
                   </ul>
             </div>

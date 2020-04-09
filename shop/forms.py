@@ -28,16 +28,17 @@ class ShopForm(forms.ModelForm):
     services = SelectCategoryField(queryset=models.Service.objects.all(), placeholder='Find service ...', is_loading=False)
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
-                               name="How many time does the user stay in your shop while shopping?")
+                               name="Quant temps passen els teus usuaris de mitjana?")
 
     map = LocationField(map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10})
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'photo']
+        fields = ['CIF', 'name', 'description', 'meanTime', 'services', 'photo']
 
         labels = {
             'name': '',
+            'description': ''
         }
 
         help_text = {
@@ -48,7 +49,8 @@ class ShopForm(forms.ModelForm):
         exclude = ['latitude', 'longitude']
 
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Nom de la botiga'}),
+            'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
         }
 
     def clean(self):
@@ -61,21 +63,25 @@ class ShopForm(forms.ModelForm):
             raise forms.ValidationError("Latitude out of range")
         else:
             pass
-
+        return self.cleaned_data
+      
     def is_add_shop(self):
         return True
 
 
 class ScheduleForm(forms.ModelForm):
-    startHour = forms.TimeField(required=True, label='Beggining of schedule',
+    startHour = forms.TimeField(required=True, label='Començament de la jornada',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
-    endHour = forms.TimeField(required=True, label='End of schedule',
+    endHour = forms.TimeField(required=True, label='Fi de la jornada',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
 
     class Meta:
         model = models.Schedule
         fields = ['day', 'startHour', 'endHour']
         exclude = ['shop']
+        labels ={
+            'day':'Dia'
+        }
 
     def clean(self):
         day = self.cleaned_data['day']

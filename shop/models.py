@@ -5,13 +5,13 @@ from django.db import models
 from user.models import User
 
 SCH_DAYS = [
-    (0, 'Monday'),
-    (1, 'Tuesday'),
-    (2, 'Wednesday'),
-    (3, 'Thursday'),
-    (4, 'Friday'),
-    (5, 'Saturday'),
-    (6, 'Sunday'),
+    (0, 'Dilluns'),
+    (1, 'Dimarts'),
+    (2, 'Dimecres'),
+    (3, 'Dijous'),
+    (4, 'Divendres'),
+    (5, 'Dissabte'),
+    (6, 'Diumenge'),
 ]
 
 
@@ -58,6 +58,8 @@ class Shop(models.Model):
     services = models.ManyToManyField(to=Service, blank=True)
 
     photo = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
+
+    description = models.CharField(max_length=256)
 
     def __str__(self):
         return '%s__%s' % (self.name, self.CIF)
