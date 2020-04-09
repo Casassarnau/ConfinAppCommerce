@@ -301,3 +301,21 @@ h4 * {
     text-align: center;
     padding: 20px;
 }
+
+.buttons-container {
+    background-color: transparent;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    padding-top: 18px;
+}
+
+.buttons-container > * {
+    align-self: center;
+    justify-self: center;
+    width: 60px;
+    text-align: center;
+}
