@@ -5,25 +5,25 @@
     <div class="shop-card">
 
         <div class="image-card" style="background-image: url('{{ shop.photo.url }}')">
-                <h4><span>Shop {{ shop.name }}</span></h4>
+                <h4><span>Botiga {{ shop.name }}</span></h4>
         </div>
 
-        <p><span><a href="{% url 'modify_shop' id=shop.id   %}">Edit</a></span></p>
+        <p><span><a href="{% url 'modify_shop' id=shop.id   %}">Editar</a></span></p>
 
         <div>
             <label>CIF</label> {{ shop.CIF }}
         </div>
 
         <div>
-            <label>Mean time user spends in your shop:</label> {{ shop.meanTime }}
+            <label>Temps mitjà:</label> {{ shop.meanTime }}
         </div>
 
         <div>
-            <label>Latitude:</label> {{ shop.latitude }}
+            <label>Latitud:</label> {{ shop.latitude }}
         </div>
 
         <div>
-            <label>Longitude:</label> {{ shop.longitude }}
+            <label>Longitud:</label> {{ shop.longitude }}
         </div>
 
         <label>Categories:</label>
@@ -31,15 +31,15 @@
             {% for sc in shop.secondaryCategories.all %}
                 <li>{{ sc.name }} </li>
             {% empty %}
-                <li>No secondary categories.</li>
+                <li>No hi ha categories.</li>
             {% endfor %}
         </ul>
-        <label>Services:</label>
+        <label>Serveis:</label>
         <ul>
               {% for ss in shop.services.all %}
                 <li>{{ ss.name }} </li>
               {% empty %}
-                  <li>No services.</li>
+                  <li>No hi ha serveis.</li>
               {% endfor %}
           </ul>
           <a href="{% url 'list_shop' %}" class="button">Tornar</a>
