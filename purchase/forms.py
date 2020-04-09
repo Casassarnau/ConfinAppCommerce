@@ -2,15 +2,18 @@ from django import forms
 from django.utils import timezone
 
 from shop import models
+from shop.select_category import SelectCategoryField
 
 
 class FilterForm(forms.Form):
-    category = forms.ModelMultipleChoiceField(queryset=models.PrimaryCategory.objects.all(), required=False)
-    service = forms.ModelMultipleChoiceField(queryset=models.Service.objects.all(), required=False)
+    # services = SelectCategoryField(queryset=models.Service.objects.all())
+    category = SelectCategoryField(queryset=models.PrimaryCategory.objects.all(), required=False)
+    service = SelectCategoryField(queryset=models.Service.objects.all(), required=False)
     time = forms.TimeField(required=True, label='When will you buy?',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
     location = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Click me!',
                                                                             'readonly': 'True'}))
+
 
     def clean(self):
         return self.cleaned_data
