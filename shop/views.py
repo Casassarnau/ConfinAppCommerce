@@ -36,6 +36,7 @@ def add(request):
 
         # check whether it's valid:
         if form.is_valid():
+            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
             shop = form.save()
             shop.admins.add(request.user)
             return HttpResponseRedirect(reverse('root'))

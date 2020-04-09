@@ -74,9 +74,18 @@
             childContainer.appendChild(child);
             childContainer.appendChild(cross);
 
+            console.log("hidden-option-" + category.textContent);
+            let hiddenOption = document.getElementById("hidden-option-" + category.textContent);
+            hiddenOption.selected = true;
+
             // Exit handle
             cross.onclick = function() {
+                console.log("hidden-option-" + category.textContent);
+                let hiddenOption = document.getElementById("hidden-option-" + category.textContent);
+                hiddenOption.selected = false;
                 childContainer.remove();
+
+
             };
 
             // Append to choice bag
@@ -132,7 +141,7 @@
 
 </div>
 
-<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} style="display: none; ">
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% if group_name %}
             <optgroup label="{{ group_name }}">

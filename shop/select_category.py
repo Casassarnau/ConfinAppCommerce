@@ -38,5 +38,4 @@ class SelectCategory(forms.SelectMultiple):
     def render(self, name, value, attrs=None, renderer=None):
         context = self.get_context(name, value, attrs)
         s = self._render(self.template_name, context, renderer)
-        print(s)
         return mark_safe(s)
