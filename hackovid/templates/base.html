@@ -12,10 +12,17 @@
   <script src="https://use.fontawesome.com/3d2bb823fb.js"></script>
   <script src="{% static 'functions.js' %}"></script>
 {% block head %}{% endblock %}
+
+
 </head>
 <body>
 
   {% if request.user.is_authenticated %}
+      <style>
+        .container-fluid {
+            top: 60px;
+        }
+      </style>
       <nav>
           <ul>
                   <a href="{% url 'purchase_list'   %}" class="button"><li>Purchase</li></a>
@@ -26,7 +33,6 @@
 
           </ul>
       </nav>
-
   {% endif %}
   <div class="container-fluid">
     <div class="row">
