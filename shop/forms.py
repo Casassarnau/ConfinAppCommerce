@@ -58,9 +58,9 @@ class ShopForm(forms.ModelForm):
 
 
 class ScheduleForm(forms.ModelForm):
-    startHour = forms.TimeField(required=True, label='Principle of the schedule',
+    startHour = forms.TimeField(required=True, label='Beggining of schedule',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
-    endHour = forms.TimeField(required=True, label='End of the schedule',
+    endHour = forms.TimeField(required=True, label='End of schedule',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
 
     class Meta:
