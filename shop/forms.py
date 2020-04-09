@@ -73,12 +73,12 @@ class ScheduleForm(forms.ModelForm):
         startHour = self.cleaned_data['startHour']
         endHour = self.cleaned_data['endHour']
 
-        f = Schedule.objects.filter(day=day).all()
+        list = Schedule.objects.filter(day=day).all()
         go = True
-        for i in f:
-            if (startHour >= i.startHour and startHour <= i.endHour) or (
-                    endHour >= i.startHour and endHour <= i.endHour) or (
-                    startHour >= i.startHour and endHour <= i.endHour):
+        for schedule in list:
+            if (startHour >= schedule.startHour and startHour <= schedule.endHour) or (
+                    endHour >= schedule.startHour and endHour <= schedule.endHour) or (
+                    startHour >= schedule.startHour and endHour <= schedule.endHour):
                 go = False
         if go:
             pass
