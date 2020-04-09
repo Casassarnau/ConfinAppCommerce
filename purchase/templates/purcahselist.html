@@ -2,6 +2,7 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
+        <h3>Cercar botigues</h3>
         {{ form }}
         <a id = "map-link" target="_blank"></a>
         <input type="submit" value="Search">
@@ -18,6 +19,7 @@
                 <h4><span><a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">{{ shop.shop.name }}</a></span></h4>
 
             </div>
+
             <div class="content-card">
                 <span>
                     <a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">
@@ -25,6 +27,7 @@
                     </a>
                 </span>
             </div>
+
 
         </div>
         {% endfor %}

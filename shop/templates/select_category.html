@@ -1,6 +1,6 @@
 <style>
 
-    #secondary-cats {
+    #{{ widget.name }}-cats {
         width: 100%;
         height: 150px;
         list-style-type: none;
@@ -16,7 +16,7 @@
 
     }
 
-    #secondary-cats > li {
+    #{{ widget.name }}-cats > li {
         margin: 5px 5px;
         margin-bottom: 0;
         width: 350px !important;
@@ -35,7 +35,7 @@
         border-radius: 15px;
     }
 
-    #secondary-cats > li > span {
+    #{{ widget.name }}-cats > li > span {
         font-size: 12px;
         color: black;
     }
@@ -48,7 +48,7 @@
         background-color: var(--primary);
     }
 
-    #choice-bag {
+    #{{ widget.name }}-choice-bag {
         width: 300px;
         height: fit-content;
         display: flex;
@@ -78,18 +78,25 @@
         font-size: 8px;
     }
 
+    .explain-widget {
+        margin: 0;
+        padding: 12px 0;
+        text-align: left;
+    }
+
 </style>
 
 <script>
+    console.log("NOOOMBRE: {{ widget.name }}");
     // Function to choose a category and append it into the choice box
-    const choose = (category) => {
+    const choose_{{ widget.name }} = (category) => {
 
         if (!category.classList.contains("selected")) {
             let childContainer = document.createElement('div');
             // Create a container for the category and the exit handle
 
             childContainer.setAttribute('class', 'child-container');
-            childContainer.setAttribute('id', 'child-container-' + category.childNodes[1].textContent);
+            childContainer.setAttribute('id', '{{ widget.name }}-child-container-' + category.childNodes[1].textContent);
 
             let child = document.createElement('span');
             let text = category.childNodes[1].textContent;
@@ -102,14 +109,14 @@
             childContainer.appendChild(child);
             childContainer.appendChild(cross);
 
-            console.log("hidden-option-" + category.childNodes[1].textContent);
-            let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+            console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
+            let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
             hiddenOption.selected = true;
 
             // Exit handle
             cross.onclick = () => {
-                console.log("hidden-option-" + category.childNodes[1].textContent);
-                let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+                console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
+                let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
                 hiddenOption.selected = false;
                 childContainer.remove();
                 category.classList.remove("selected");
@@ -117,18 +124,18 @@
             };
 
             // Append to choice bag
-            document.getElementById("choice-bag").appendChild(childContainer);
+            document.getElementById("{{ widget.name }}-choice-bag").appendChild(childContainer);
 
             category.classList.add("selected");
             category.classList.remove("unselected");
 
         }
         else {
-            console.log("hidden-option-" + category.childNodes[1].textContent);
-            let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+            console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
+            let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
             hiddenOption.selected = false;
 
-            let childContainer = document.getElementById('child-container-' + category.childNodes[1].textContent);
+            let childContainer = document.getElementById('{{ widget.name }}-child-container-' + category.childNodes[1].textContent);
             childContainer.remove();
 
             category.classList.remove("selected");
@@ -138,8 +145,8 @@
     };
 
     // Function for filtering functions with search input (with regex)
-    const filter = (value) => {
-        var categories = Array.from(document.getElementById("secondary-cats").getElementsByTagName("li"));
+    const filter_{{ widget.name }} = (value) => {
+        var categories = Array.from(document.getElementById("{{ widget.name }}-cats").getElementsByTagName("li"));
 
         const regex = new RegExp(value + '.*');
         console.log(regex);
@@ -173,11 +180,13 @@
     };
 </script>
 
-<input type='text' onkeydown="filter(this.value)" placeholder="Find categories ...">
+<p class="explain-widget">Filtra per {{ widget.name }}:</p>
 
-<div id="choice-bag"></div>
+<input type='text' onkeydown="filter_{{ widget.name }}(this.value)" placeholder="{{ widget.placeholder }}">
 
-<ul id="secondary-cats" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+<div id="{{ widget.name }}-choice-bag"></div>
+
+<ul id="{{ widget.name }}-cats" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% for option in group_choices %}
           {% include option.template_name with widget=option %}
@@ -185,6 +194,8 @@
     {% endfor %}
     <div style="height: 5px; width: 100%; background-color: transparent;"></div>
 </ul>
+
+
 
 
 
@@ -205,12 +216,12 @@
 </select>
 
 <script>
-    const select = document.getElementById("id_secondaryCategories");
+    const select_{{ widget.name }} = document.getElementById("id_{{ widget.name }}");
 
-    for (let i = 0; i < select.children.length; i++) {
-        category = select.children[i].value;
-        c = document.getElementById("li-option-" + category);
-        choose(c);
+    for (let i = 0; i < select_{{ widget.name }}.children.length; i++) {
+        category = select_{{ widget.name }}.children[i].value;
+        c = document.getElementById("{{ widget.name }}-li-option-" + category);
+        choose_{{ widget.name }}(c);
     }
 
 </script>
