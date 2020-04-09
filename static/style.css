@@ -114,3 +114,23 @@ p a:hover {
     box-shadow: none;
 }
 
+#id_map {
+    margin-bottom: 10px;
+}
+
+#secret-id-map-mapbox-location-field {
+    border-radius: 10px !important;
+}
+
+.mapboxgl-ctrl-geocoder--input {
+    padding: 6px 45px;
+    padding-right: 6px !important;
+    width: 240px !important;
+}
+
+.mapboxgl-ctrl-geocoder {
+    width: auto !important;
+    background-color: transparent !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+}

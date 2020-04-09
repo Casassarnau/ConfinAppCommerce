@@ -20,7 +20,7 @@
             </div>
             <div class="content-card">
                 <span>
-                    <a href="{% url 'modify_shop' id=shop.shop.id   %}">
+                    <a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">
                         {{ shop.shop.name }}
                     </a>
                 </span>
