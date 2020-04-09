@@ -2,11 +2,14 @@ from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
 from mapbox_location_field.forms import LocationField
+from django.utils import timezone
 
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
 
+from shop.models import Schedule
 from shop.range import RangeSliderField
+from shop.select_category import SelectCategoryField
 
 
 class ShopForm(forms.ModelForm):
@@ -21,6 +24,8 @@ class ShopForm(forms.ModelForm):
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
+    secondaryCategories = SelectCategoryField(name='MY_SELECT', queryset=models.SecondaryCategory.objects.all())
+
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="How many time does the user stay in your shop while shopping?")
@@ -29,7 +34,7 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'secondaryCategories', 'services', 'photo']
+        fields = ['CIF', 'name', 'meanTime', 'services', 'photo']
 
         labels = {
             'name': '',
@@ -50,3 +55,32 @@ class ShopForm(forms.ModelForm):
 
     def is_add_shop(self):
         return True
+
+
+class ScheduleForm(forms.ModelForm):
+    startHour = forms.TimeField(required=True, label='When will you buy?',
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+    endHour = forms.TimeField(required=True, label='When will you buy?',
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+
+    class Meta:
+        model = models.Schedule
+        fields = ['day', 'startHour', 'endHour']
+        exclude = ['shop']
+
+    def clean(self):
+        day = self.cleaned_data['day']
+        startHour = self.cleaned_data['startHour']
+        endHour = self.cleaned_data['endHour']
+
+        f = Schedule.objects.filter(day=day).all()
+        go = True
+        for i in f:
+            if (startHour >= i.startHour and startHour <= i.endHour) or (
+                    endHour >= i.startHour and endHour <= i.endHour) or (
+                    startHour >= i.startHour and endHour <= i.endHour):
+                go = False
+        if go:
+            pass
+        else:
+            raise forms.ValidationError("It's overlapping with another schedue")

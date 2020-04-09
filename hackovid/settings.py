@@ -25,7 +25,7 @@ SECRET_KEY = '1b)^txygf)tyc*93oiyok$xj*2k^)fin8!b5^4(k6w3ftyib!4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'hackovid.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['hackovid/templates', ],
+        'DIRS': ['hackovid/templates', 'shop/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,4 +143,6 @@ STATICFILES_DIRS = [
 print("Static path:", os.path.join(BASE_DIR, "static"))
 REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
 
+
 MAPBOX_KEY = "pk.eyJ1IjoiY2FzYXNzYXJuYXUiLCJhIjoiY2s4cnBxbmtyMDFkaTNvcXdvZW1wYXQxZSJ9.HLjdZAhoplLRKOyW-QacQw"
+

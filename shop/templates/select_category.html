@@ -1,0 +1,195 @@
+<style>
+
+    #secondary-cats {
+        width: 100%;
+        height: 150px;
+        list-style-type: none;
+        padding: 0;
+        margin: 8px 0;
+
+        display: flex;
+        flex-wrap: wrap;
+        background-color: red;
+        overflow: scroll;
+
+        align-items: flex-start;
+        background-color: var(--secondary);
+
+    }
+
+    #secondary-cats > li {
+        margin: 5px 5px;
+        margin-bottom: 0;
+        width: 350px !important;
+        height: fit-content;
+        background-color: var(--primary);
+
+        -webkit-transition: background-color ease 0.5s;
+        transition: background-color ease 0.5s;
+        color: black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 15px;
+    }
+
+    #secondary-cats > li > span {
+        font-size: 12px;
+        color: black;
+    }
+
+
+    .selected {
+        background-color: darkseagreen;
+    }
+    .unselected {
+        background-color: var(--primary);
+    }
+
+    #choice-bag {
+        width: 300px;
+        height: fit-content;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .child-container {
+        display: grid;
+        grid-template-columns: auto 15px;
+        align-items: center;
+        background-color: var(--placeholder);
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 5px;
+        border-radius: 20px;
+        margin: 2px 2px;
+        color: white;
+    }
+
+    .cross {
+        cursor: pointer;
+        text-align: center;
+
+    }
+
+    .child-container span {
+        font-size: 8px;
+    }
+
+</style>
+
+<script>
+    // Function to choose a category and append it into the choice box
+    const choose = (category) => {
+
+        if (!category.classList.contains("selected")) {
+
+            // Create a container for the category and the exit handle
+            let childContainer = document.createElement('div');
+            childContainer.setAttribute('class', 'child-container');
+
+            let child = document.createElement('span');
+            let text = category.childNodes[1].textContent;
+            console.log(typeof(text));
+            child.textContent = text;
+
+            let cross = document.createElement('i');
+            cross.setAttribute('class', 'cross fa fa-times');
+
+            childContainer.appendChild(child);
+            childContainer.appendChild(cross);
+
+            console.log("hidden-option-" + category.childNodes[1].textContent);
+            let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+            hiddenOption.selected = true;
+
+            // Exit handle
+            cross.onclick = function() {
+                console.log("hidden-option-" + category.childNodes[1].textContent);
+                let hiddenOption = document.getElementById("hidden-option-" + category.childNodes[1].textContent);
+                hiddenOption.selected = false;
+                childContainer.remove();
+                category.classList.remove("selected");
+                category.classList.add("unselected");
+
+
+            };
+
+            // Append to choice bag
+            document.getElementById("choice-bag").appendChild(childContainer);
+
+            category.classList.add("selected");
+            category.classList.remove("unselected");
+
+        }
+
+    };
+
+    // Function for filtering functions with search input (with regex)
+    const filter = (value) => {
+        var categories = Array.from(document.getElementById("secondary-cats").getElementsByTagName("li"));
+
+        const regex = new RegExp(value + '.*');
+        console.log(regex);
+        const matchedCategories = categories.filter((elem) => {
+            return elem.textContent.match(regex);
+        });
+
+        const unmatchedCategories = categories.filter((elem) => {
+            return !matchedCategories.includes(elem);
+        });
+
+        unmatchedCategories.forEach((elem) => {
+            elem.style.display = 'none';
+            elem.style.visibility = 'collapse';
+            elem.style.width = 0;
+            elem.style.height = 0;
+            /*elem.style.padding = 0;
+            elem.style.margin = 0;
+            elem.childNodes[1].style.height = 0;
+            elem.childNodes[1].style.visibility = 'collapse';
+            elem.childNodes[1].style.display = 'none';*/
+        });
+
+        matchedCategories.forEach((elem) => {
+            elem.style.display = 'block';
+            elem.style.visibility = 'visible';
+            elem.style.width = '300px';
+            elem.style.height = '15px';
+        });
+
+    };
+</script>
+
+<input type='text' onkeydown="filter(this.value)" placeholder="Find categories ...">
+
+<div id="choice-bag"></div>
+
+<ul id="secondary-cats" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+        {% for option in group_choices %}
+          {% include option.template_name with widget=option %}
+        {% endfor %}
+    {% endfor %}
+    <div style="height: 5px; width: 100%; background-color: transparent;"></div>
+</ul>
+
+
+
+<select name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} style="display: none; ">
+    {% for group_name, group_choices, group_index in widget.optgroups %}
+        {% if group_name %}
+            <optgroup label="{{ group_name }}">
+        {% endif %}
+
+        {% for option in group_choices %}
+            {% include "select_category_option_hidden.html" with widget=option %}
+        {% endfor %}
+
+        {% if group_name %}
+            </optgroup>
+        {% endif %}
+    {% endfor %}
+</select>

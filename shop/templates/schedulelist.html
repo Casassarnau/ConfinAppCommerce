@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% csrf_token %}
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    <h3>Schedules</h3>
+
+
+
+    <ul class="shop-list">
+    {% for schedule in schedules %}
+        <div class="shop-row-container">
+            <li style="display: inline-block;">{{ schedule.get_day_name }} </li>
+            <li style="display: inline-block;">{{ schedule.startHour.isoformat }} </li>
+            <li style="display: inline-block;">{{ schedule.endHour.isoformat }} </li>
+            <a href="{% url 'del_schedule' id=id idS=schedule.id %}" class="button">Delete</a>
+        </div>
+
+    {% empty %}
+        <li>No schedules yet.</li>
+
+
+    {% endfor %}
+    </ul>
+<a href="{% url 'add_schedule' id=id %}" class="button">Create Schedule</a>
+</form>
+
+{% endblock %}
