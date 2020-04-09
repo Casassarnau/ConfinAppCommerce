@@ -124,10 +124,10 @@ def add_schedule(request, id=None):
         # check whether it's valid:
         if form.is_valid():
             day = form.cleaned_data['day']
+
             startHour = form.cleaned_data['startHour']
             endHour = form.cleaned_data['endHour']
             Schedule.objects.create(shop=shop, day=day, startHour=startHour, endHour=endHour)
-
             return HttpResponseRedirect(reverse('list_schedule', kwargs={'id':id}))
 
     # if a GET (or any other method) we'll create a blank form
