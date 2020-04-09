@@ -59,6 +59,9 @@ class Shop(models.Model):
 
     photo = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
 
+    def __str__(self):
+        return '%s__%s' % (self.name, self.CIF)
+
     class Meta:
         unique_together = (('CIF', 'name'),)
 
