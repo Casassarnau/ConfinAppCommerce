@@ -6,6 +6,8 @@
 
     <h3>Shop {{ shop.name }}</h3>
 
+    <img src={{ shop.photo.url }}>
+
     <div>
         <label>CIF</label> {{ shop.CIF }}
     </div>
@@ -42,6 +44,7 @@
 
     {% endfor %}
     </ul>
+
 
     <a href="{% url 'list_shop' %}" class="button">Back to list</a>
 
