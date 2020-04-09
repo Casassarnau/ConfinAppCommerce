@@ -7,7 +7,9 @@
     --secondary: #eceff1;
     --secondary-light: #ffffff;
     --secondary-dark: #babdbe;
+
     --focus: #c8e0e8;
+    --placeholder: #4f4f4f;
 }
 
 /* Fonts style*/
@@ -42,6 +44,8 @@ form {
     border-radius: 15px;
     padding: 20px;
     box-shadow: 5px 5px 15px 0px var(--primary);
+    height: fit-content;           /* Safari/WebKit uses a non-standard name */
+    height: -moz-fit-content;      /* Firefox/Gecko */
 
 }
 form > label {
@@ -49,6 +53,7 @@ form > label {
 }
 input {
     width: 100%;
+    height: 15.5px;
     border-radius: 10px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -60,17 +65,23 @@ input[type=text], input[type=email], input[type=password], select {
 }
 
 input[type=text]::placeholder, input[type=email]::placeholder, input[type=password]::placeholder {
-    color: #4f4f4f;
+    color: var(--placeholder);
+}
+
+/* Solved a Mozilla bug (dashed outline in range input)*/
+input[type=range]::-moz-focus-outer {
+    border: 0;
 }
 
 /*Button submit style*/
 input[type=submit] {
     width: 100px;
+    height: auto;
     background-color: var(--primary-dark);
     color: white;
     border: none;
-    /*border-radius: 4px;*/
     cursor: pointer;
+    -webkit-transition: background-color ease 0.5s;
     transition: background-color ease 0.5s;
     font-weight: bold;
     
@@ -120,5 +131,171 @@ h3 {
     font-weight: bold;
     font-size: 18px;
 
+}
+
+.shop-list {
+    background-color: transparent;
+    color: black;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.shop-row-container  {
+    background-color: var(--secondary);
+    display: flex;
+    margin: 10px;
+    width: 100%;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.shop-row-container > li {
+    background-color:transparent;
+    width: 100%;
+    padding: 10px 20px;
+    padding-right: 0;
+    word-break: break-all;
+}
+
+/*Button submit style*/
+.button {
+    width: fit-content;
+    height: 15.5px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    cursor: pointer;
+    -webkit-transition: background-color ease 0.5s;
+    transition: background-color ease 0.5s;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: var(--primary);
+    /*transition: ease 0.5s;*/
+}
+
+.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active {
+    text-decoration: none;
+}
+
+.button-iconic {
+    font-size: 25px;
+    width: 65px;
+    text-align: center;
+    color: var(--placeholder);
+    -webkit-transition: color ease 0.5s;
+    transition: color ease 0.5s;
+}
+
+.shop-card-container {
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    width: 340px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+
+
+}
+
+.shop-card {
+    background-color: var(--secondary);
+    width: 100%;
+    /*padding: 20px;*/
+    margin: 15px 0;
+    box-shadow: 5px 5px 15px 0px var(--primary);
+    border-radius: 15px;
+    overflow: hidden;
+
+    /*-webkit-transition: transform ease 0.5s;
+    transition: transform ease 0.5s;*/
+
+
+}
+
+img {
+    width: 100%;
+    height: auto;
+    position: relative;
+
+}
+
+h4 {
+
+    position: relative;
+    left: 0;
+    width: 100%;
+   /* background-color: rgba(186, 189, 190, 0.85);
+    background-color: rgba(186, 107, 108, 0.85);
+    background-color: rgba(255,255,255,0.85);*/
+
+    /*
+    background-image: linear-gradient(rgba(186, 107, 108, 0) 0%,
+    rgba(186, 107, 108, 0.8) 80%,
+    var(--primary-dark) 100%);
+    */
+
+    /*
+
+    background-image: linear-gradient(rgba(119, 121, 121, 0) 0%,
+    rgba(119, 121, 121, 0.8) 80%,
+    rgba(119, 121, 121, 1) 100%);
+
+    */
+
+    background-image: linear-gradient(rgba(79, 79, 79, 0) 0%,
+    rgba(79, 79, 79, 0.8) 80%,
+    var(--placeholder) 100%);
+
+
+
+    padding: 12px 20px;
+    padding-top: 80px;
+    margin: 0;
+}
+
+h4 span {
+
+    display: flex;
+
+    align-items: center;
+}
+
+h4 span a {
+    color: white;
+     font-size: 18px;
+    font-weight: bold;
+    /*letter-spacing: 1px;*/
+}
+
+
+
+.image-card {
+    height: 200px;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+/*
+.shop-card:hover {
+    transform: scale(1.1);
+    -webkit-transition: transform ease 0.5s;
+    transition: transform ease 0.5s;
+}*/
+
+.shop-card a:hover, .shop-card a:visited, .shop-card a:link, .shop-card a:active {
+    text-decoration: none;
 }
 

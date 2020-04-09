@@ -12,7 +12,11 @@
     {% endif %}
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit">
+        <ul>
+        <input type="submit" value="Submit">
+        <a href="{% url 'list_shop' %}" class="button">Back to list</a>
+        <a href="{% url 'del_shop' id=id  %}" class="button">Delete</a>
+    </ul>
 </form>
 {{ form.media }}
 {% endblock %}

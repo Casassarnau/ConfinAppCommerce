@@ -31,6 +31,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+#  File upload configuration
+MEDIA_ROOT = 'files'
+MEDIA_URL = '/files/'
+MAX_UPLOAD_SIZE =  5242880
+
 # Set up custom auth
 AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = 'login'
@@ -45,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mapbox_location_field',
     'user',
     'shop',
     'purchase',
@@ -65,7 +71,7 @@ ROOT_URLCONF = 'hackovid.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['hackovid/templates', ],
+        'DIRS': ['hackovid/templates', 'shop/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,3 +142,7 @@ STATICFILES_DIRS = [
 
 print("Static path:", os.path.join(BASE_DIR, "static"))
 REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
+
+
+MAPBOX_KEY = "pk.eyJ1IjoiY2FzYXNzYXJuYXUiLCJhIjoiY2s4cnBxbmtyMDFkaTNvcXdvZW1wYXQxZSJ9.HLjdZAhoplLRKOyW-QacQw"
+

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <a id = "map-link" target="_blank"></a>
+        <input type="submit" value="Search">
+    </form>
+    <br><br>
+
+    <div class="shop-card-container">
+        {% for shop in shops %}
+        <div class="shop-card">
+
+            <!--<img src={{ shop.photo.url }}>-->
+
+            <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
+                <h4><span><a href="{% url 'modify_shop' id=shop.shop.id   %}">{{ shop.shop.name }}</a></span></h4>
+
+            </div>
+            <p><span><a href="{% url 'modify_shop' id=shop.shop.id   %}">{{ shop.shop.name }}</a></span></p>
+
+        </div>
+        {% endfor %}
+    </div>
+<script>
+function geoFindMe() {
+
+  const status = document.querySelector('#id_location');
+
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    status.value = `${latitude}, ${longitude}`;
+    console.log(status.value)
+  }
+
+  function error() {
+    status.value = 'Unable to retrieve your location';
+  }
+
+  if (!navigator.geolocation) {
+    status.value = 'Geolocation is not supported by your browser';
+  } else {
+    status.value = 'Locating…';
+    navigator.geolocation.getCurrentPosition(success, error);
+  }
+
+}
+
+document.querySelector('#id_location').addEventListener("click", geoFindMe);
+</script>
+
+{% endblock %}
