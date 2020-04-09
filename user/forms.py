@@ -12,7 +12,7 @@ class UserChangeForm(forms.ModelForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-    password = ReadOnlyPasswordHashField(label=("Password"),
+    password = ReadOnlyPasswordHashField(label=("Contrasenya"),
                                          help_text=("Passwords are not stored in plaintext, so there is no way to see "
                                                     "this user's password"))
 
@@ -28,15 +28,15 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'E-mail'}))
-    password = forms.CharField(required=True, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'Correu electrònic'}))
+    password = forms.CharField(required=True, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Contrasenya'}))
 
     def is_login(self):
         return True
 
 class RegisterForm(LoginForm):
-    password2 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirm password'}), )
-    name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Name'}))
+    password2 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirma la contrasenya'}), )
+    name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Nom'}))
 
     field_order = ['name', 'email', 'password', 'password2']
 
@@ -44,7 +44,7 @@ class RegisterForm(LoginForm):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
         if password2 and password and password2 != password:
-            raise forms.ValidationError('Passwords don\'t match')
+            raise forms.ValidationError('Les contrasenyes no coincideixen')
         validate_password(password)
         return password2
 
@@ -53,11 +53,11 @@ class RegisterForm(LoginForm):
 
 
 class RegisterShopAdminForm(RegisterForm):
-    token = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Registration code'}))
+    token = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Codi de registre'}))
 
     def clean_token(self):
         validToken = getattr(settings, 'REGISTRATION_CODE', '')
         token = self.cleaned_data['token']
         if token and token != validToken:
-            raise forms.ValidationError('Invalid registration code')
+            raise forms.ValidationError('Codi de registre invàlid')
         return token
