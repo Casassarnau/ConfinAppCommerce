@@ -16,7 +16,7 @@ def list(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
     shopsList = []
-    time = ''
+    time_str = ''
     if request.method == 'POST':
         form = forms.FilterForm(request.POST)
         if form.is_valid():
