@@ -2,7 +2,7 @@
 {% block content %}
 {% csrf_token %}
 
-<div class="view">
+<form action="" method="post" enctype="multipart/form-data">
 
     <h3>Shop {{ shop.name }}</h3>
 
@@ -12,42 +12,48 @@
         <label>CIF</label> {{ shop.CIF }}
     </div>
 
-    <div>
-        <label>Mean time user spends in your shop:</label> {{ shop.meanTime }}
+        <div>
+            <label>CIF</label> {{ shop.CIF }}
+        </div>
+
+        <div>
+            <label>Mean time user spends in your shop:</label> {{ shop.meanTime }}
+        </div>
+
+        <div>
+            <label>Latitude:</label> {{ shop.latitude }}
+        </div>
+
+        <div>
+            <label>Longitude:</label> {{ shop.longitude }}
+        </div>
+
+        <label>Categories:</label>
+        <ul>
+        {% for sc in shop.secondaryCategories.all %}
+            <li>{{ sc.name }} </li>
+
+        {% empty %}
+            <li>No secondary categories.</li>
+
+        {% endfor %}
+        </ul>
+        <label>Services:</label>
+        <ul>
+          {% for ss in shop.services.all %}
+            <li>{{ ss.name }} </li>
+
+          {% empty %}
+              <li>No services.</li>
+
+          {% endfor %}
+          </ul>
+          <a href="{% url 'list_shop' %}" class="button">Back to list</a>
+
+        {% endfor %}
+        </ul>
     </div>
-
-    <div>
-        <label>Latitude:</label> {{ shop.latitude }}
-    </div>
-
-    <div>
-        <label>Longitude:</label> {{ shop.longitude }}
-    </div>
-
-    <label>Categories:</label>
-    <ul>
-    {% for sc in shop.secondaryCategories.all %}
-        <li>{{ sc.name }} </li>
-
-    {% empty %}
-        <li>No secondary categories.</li>
-
-    {% endfor %}
-    </ul>
-<label>Services:</label>
-    <ul>
-    {% for ss in shop.services.all %}
-        <li>{{ ss.name }} </li>
-
-    {% empty %}
-        <li>No services.</li>
-
-    {% endfor %}
-    </ul>
-
-
-    <a href="{% url 'list_shop' %}" class="button">Back to list</a>
-
-</div>
+    <a href="{% url 'list_shop' %}" class="button">Back to shops</a>
+</form>
 
 {% endblock %}
