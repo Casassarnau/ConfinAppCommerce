@@ -71,3 +71,7 @@ class Schedule(models.Model):
 
     class Meta:
         unique_together = (("day", "startHour", 'shop'),)
+
+    def get_day_name(self):
+        return SCH_DAYS[self.day][1]
+
