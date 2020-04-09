@@ -1,6 +1,6 @@
 from cmath import sqrt
 
-from django.db.models import Count, F, FloatField, DecimalField, Func
+from django.db.models import Count, F, FloatField, DecimalField, Func, Q, DateTimeField
 from django.db.models.functions import Cast
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
@@ -26,10 +26,17 @@ def list(request):
             category = form.cleaned_data['category']
             service = form.cleaned_data['service']
             time = form.cleaned_data['time']
+            time_str = time.strftime('%H:%M')
+            dateTime = timezone.now()
+            dateTime_str = dateTime.strftime('%d-%m-%Y-')
+            dateTime = dateTime.strptime(dateTime_str + time_str, '%d-%m-%Y-%H:%M')
             todayDay = timezone.now().weekday()
             shopsList = sModels.Schedule.objects.filter(day=todayDay,
                                                         startHour__lt=time,
-                                                        endHour__gt=time)
+                                                        endHour__gt=time)\
+                .annotate(ocupacio=Count('shop__purchase',
+                                         filter=Q(shop__purchase__dateTime__lt=dateTime,
+                                                  shop__purchase__endTime__gt=dateTime)))
             if service and category:
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category,
                                              shop__services__in=service)
@@ -37,18 +44,18 @@ def list(request):
                 shopsList = shopsList.filter(shop__services__in=service)
             elif category:
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category)
-            shopsList = shopsList.annotate(Cpoints=Func(Cast(Count('shop__purchase') + 1, DecimalField()) *
-                                                        F('shop__latitude') + F('shop__longitude') -
-                                                        Cast(latitude - longitude, DecimalField()),
+            shopsList = shopsList.annotate(Cpoints=Func(Cast(F('ocupacio') + 1, DecimalField()) *
+                                                        (F('shop__latitude') + F('shop__longitude') -
+                                                         Cast(latitude - longitude, DecimalField())) * 1000000,
                                                         function='ABS')
                                            ).order_by('Cpoints')
-            time = time.strftime('%H:%M')
+
     else:
         form = forms.FilterForm()
     if shopsList is None:
         shopsList = []
-
-    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time})
+    print(shopsList)
+    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time_str})
 
 
 def info(request, id, time_str):
@@ -60,9 +67,33 @@ def info(request, id, time_str):
     except:
         return HttpResponse(status=404)
     if request.method == 'POST':
-        time = timezone.now()
-        time.strftime(time_str)
-        purchase = models.Purchase(shop=shop, user=request.user, dateTime=time)
+        dateTime = timezone.now()
+        dateTime_str = dateTime.strftime('%d-%m-%Y-')
+        dateTime = dateTime.strptime(dateTime_str + time_str, '%d-%m-%Y-%H:%M')
+        dateTimeFuture = dateTime + timezone.timedelta(minutes=shop.meanTime)
+        purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture)
         purchase.save()
 
     return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str})
+
+
+def userList(request):
+    # if user is already logged, no need to log in
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('root'))
+
+    purchaseListAll = models.Purchase.objects.all().filter(user=request.user)
+    purchaseListActive = purchaseListAll.filter(dateTime__gt=timezone.now())
+    viewAllText = 'Totes'
+    viewActiveText = 'Actives'
+    list = purchaseListActive
+    text = viewAllText
+    if request.method == 'POST':
+        all = request.POST.get("value", "")
+        if all == viewActiveText:
+            list = purchaseListActive
+        else:
+            text = viewActiveText
+            list = purchaseListAll
+
+    return render(request, 'purchaselistuser.html', {'list': list, 'text': text})

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="value" value={{ text }}>
+        <input type="submit" value={{ text }}>
+    </form>
+    <br><br>
+
+    <div class="shop-card-container">
+        {% for shop in list %}
+        <div class="shop-card">
+
+            <!--<img src={{ shop.photo.url }}>-->
+
+            <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
+                <h4><span><a href="">{{ shop.shop.name }}</a></span></h4>
+
+            </div>
+            <div class="content-card">
+                <span>
+                    <a href="">
+                        {{ shop.dateTime|date:"D-M-Y H:m" }}
+                    </a>
+                </span>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
