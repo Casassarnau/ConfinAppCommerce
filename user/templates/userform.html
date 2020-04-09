@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% block head %}
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
+{% endblock %}
 {% block content %}
 
 <form action="" method="post">
@@ -12,6 +17,7 @@
 
     <input type="submit" value="Submit">
 </form>
+{{ form.media }}
 
 {% if form.is_login %}
 <p>New to Confinapp? <a href="/user/register">Sign up</a> </p>

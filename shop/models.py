@@ -55,9 +55,12 @@ class Shop(models.Model):
 
     admins = models.ManyToManyField(User, related_name='shop')
     secondaryCategories = models.ManyToManyField(to=SecondaryCategory)
-    services = models.ManyToManyField(to=Service)
+    services = models.ManyToManyField(to=Service, blank=True)
 
     photo = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
+
+    def __str__(self):
+        return '%s__%s' % (self.name, self.CIF)
 
     class Meta:
         unique_together = (('CIF', 'name'),)

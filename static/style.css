@@ -26,7 +26,9 @@ html {
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    position: absolute;
+    /*margin-top: 50px;
+    margin-bottom: 50px;*/
 }
 
 p {
@@ -50,4 +52,10 @@ p a:hover {
 *:focus {
     outline: none;
     box-shadow: none;
+}
+
+.container-fluid {
+    padding: 50px 0;
+    height: fit-content;           /* Safari/WebKit uses a non-standard name */
+    height: -moz-fit-content;      /* Firefox/Gecko */
 }

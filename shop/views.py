@@ -36,8 +36,12 @@ def add(request):
 
         # check whether it's valid:
         if form.is_valid():
-            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
+            map = form.cleaned_data['map']
+            (lon, lat) = map.split(',')
             shop = form.save()
+            shop.longitude = lon
+            shop.latitude = lat
+            shop.save()
             shop.admins.add(request.user)
             return HttpResponseRedirect(reverse('root'))
 
@@ -69,18 +73,24 @@ def modify(request, id=None):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = forms.ShopForm(request.POST,instance=shop)
+        form = forms.ShopForm(request.POST, instance=shop)
 
         # check whether it's valid:
         if form.is_valid():
+            map = form.cleaned_data['map']
+            (lon, lat) = map.split(',')
+            shop = form.save()
+            shop.longitude = lon
+            shop.latitude = lat
             shop2 = form.save()
+
             shop.save()
 
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = forms.ShopForm(instance=shop)
+        form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
     return render(request, 'modifyshopform.html', {'form': form, 'id': id})
 
 

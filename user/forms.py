@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.password_validation import validate_password
+from mapbox_location_field.forms import LocationField
 
 from hackovid import settings
 from user.models import User
@@ -38,6 +39,8 @@ class RegisterForm(LoginForm):
     name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Name'}))
 
     field_order = ['name', 'email', 'password', 'password2']
+
+    map = LocationField(map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10})
 
     def clean_password2(self):
         password = self.cleaned_data.get('password')

@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.template.defaultfilters import filesizeformat
+from mapbox_location_field.forms import LocationField
 
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
@@ -21,9 +22,13 @@ class ShopForm(forms.ModelForm):
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
-    meanTime= RangeSliderField(label="", minimum=0, maximum=60,  step=5, name="How many time does the user stay in your shop while shopping?" )
     secondaryCategories = SelectCategoryField(name='MY_SELECT', queryset=models.SecondaryCategory.objects.all())
 
+
+    meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
+                               name="How many time does the user stay in your shop while shopping?")
+
+    map = LocationField(map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10})
 
     class Meta:
         model = models.Shop
