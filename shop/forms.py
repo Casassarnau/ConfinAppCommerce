@@ -24,8 +24,8 @@ class ShopForm(forms.ModelForm):
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
-    secondaryCategories = SelectCategoryField(name='MY_SELECT', queryset=models.SecondaryCategory.objects.all())
-
+    secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all())
+    services = SelectCategoryField(queryset=models.Service.objects.all())
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="How many time does the user stay in your shop while shopping?")
@@ -34,7 +34,7 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'meanTime', 'services', 'photo']
+        fields = ['CIF', 'name', 'meanTime', 'photo']
 
         labels = {
             'name': '',
@@ -51,7 +51,16 @@ class ShopForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Shop name'}),
         }
 
-
+    def clean(self):
+        map = self.cleaned_data['map']
+        if map is None:
+            raise forms.ValidationError("You ned a coords")
+        elif float(map.split(',')[0]) <= -180 or float(map.split(',')[0]) >= 180:
+            raise forms.ValidationError("Longitude out of range")
+        elif float(map.split(',')[1]) < -90 or float(map.split(',')[1]) >= 90:
+            raise forms.ValidationError("Latitude out of range")
+        else:
+            pass
 
     def is_add_shop(self):
         return True
@@ -73,12 +82,12 @@ class ScheduleForm(forms.ModelForm):
         startHour = self.cleaned_data['startHour']
         endHour = self.cleaned_data['endHour']
 
-        f = Schedule.objects.filter(day=day).all()
+        list = Schedule.objects.filter(day=day).all()
         go = True
-        for i in f:
-            if (startHour >= i.startHour and startHour <= i.endHour) or (
-                    endHour >= i.startHour and endHour <= i.endHour) or (
-                    startHour >= i.startHour and endHour <= i.endHour):
+        for schedule in list:
+            if (startHour >= schedule.startHour and startHour <= schedule.endHour) or (
+                    endHour >= schedule.startHour and endHour <= schedule.endHour) or (
+                    startHour >= schedule.startHour and endHour <= schedule.endHour):
                 go = False
         if go:
             pass

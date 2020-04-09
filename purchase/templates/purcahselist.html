@@ -19,7 +19,14 @@
 
             </div>
 
-            <p>La mejor del barrio</p>
+            <div class="content-card">
+                <span>
+                    <a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">
+                        {{ shop.shop.name }}
+                    </a>
+                </span>
+            </div>
+
 
         </div>
         {% endfor %}
