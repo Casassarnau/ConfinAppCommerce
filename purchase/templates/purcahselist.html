@@ -6,8 +6,8 @@
     {% csrf_token %}
     {% for shop in shops %}
         <div>
-            <h1><a href="{% url 'modify_shop' id=shop.id   %}">{{ shop.name }}</a></h1>
-            <img src={{ shop.photo.url }}>
+            <h1><a href="{% url 'modify_shop' id=shop.shop.id   %}">{{ shop.shop.name }}</a></h1>
+            <img src={{ shop.shop.photo.url }}>
         </div>
     {% endfor %}
 </form>
