@@ -11,9 +11,15 @@ class SelectCategoryField(forms.ModelMultipleChoiceField):
         self.name = kwargs.pop('name', '')
         print("SELF select", self)
 
+        placeholder = kwargs['placeholder']
+        del kwargs['placeholder']
+
+        is_loading = kwargs['is_loading']
+        del kwargs['is_loading']
+
         copy_kwargs = kwargs.copy()
         del copy_kwargs['queryset']
-        kwargs['widget'] = SelectCategory(self.name, *args, copy_kwargs)
+        kwargs['widget'] = SelectCategory(self.name, placeholder, is_loading, *args, copy_kwargs)
 
         if 'label' not in kwargs.keys():
             kwargs['label'] = False
@@ -23,9 +29,11 @@ class SelectCategoryField(forms.ModelMultipleChoiceField):
 
 class SelectCategory(forms.SelectMultiple):
 
-    def __init__(self, elem_name, *args, **kwargs):
+    def __init__(self, elem_name, placeholder, is_loading, *args, **kwargs):
         widget = super(SelectCategory, self).__init__(*args, **kwargs)
         self.elem_name = str(elem_name)
+        self.placeholder = placeholder
+        self.is_loading = is_loading
         self.template_name = 'select_category.html'
         self.option_template_name = 'select_category_option.html'
         self.option_template_hidden_name = 'select_category_option.html'
@@ -33,6 +41,8 @@ class SelectCategory(forms.SelectMultiple):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context['widget']['optgroups'] = self.optgroups(name, context['widget']['value'], attrs)
+        context['widget']['placeholder'] = self.placeholder
+        context['widget']['is_loading'] = self.is_loading
         return context
 
     def render(self, name, value, attrs=None, renderer=None):

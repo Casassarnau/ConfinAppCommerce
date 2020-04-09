@@ -24,8 +24,8 @@ class ShopForm(forms.ModelForm):
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
-    secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all())
-    services = SelectCategoryField(queryset=models.Service.objects.all())
+    secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all(), placeholder='Find category ...', is_loading=False)
+    services = SelectCategoryField(queryset=models.Service.objects.all(), placeholder='Find service ...', is_loading=False)
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="How many time does the user stay in your shop while shopping?")
