@@ -7,6 +7,7 @@ from django.utils import timezone
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
 
+from shop.models import Schedule
 from shop.range import RangeSliderField
 from shop.select_category import SelectCategoryField
 
@@ -67,3 +68,19 @@ class ScheduleForm(forms.ModelForm):
         fields = ['day', 'startHour', 'endHour']
         exclude = ['shop']
 
+    def clean(self):
+        day = self.cleaned_data['day']
+        startHour = self.cleaned_data['startHour']
+        endHour = self.cleaned_data['endHour']
+
+        f = Schedule.objects.filter(day=day).all()
+        go = True
+        for i in f:
+            if (startHour >= i.startHour and startHour <= i.endHour) or (
+                    endHour >= i.startHour and endHour <= i.endHour) or (
+                    startHour >= i.startHour and endHour <= i.endHour):
+                go = False
+        if go:
+            pass
+        else:
+            raise forms.ValidationError("It's overlapping with another schedue")
