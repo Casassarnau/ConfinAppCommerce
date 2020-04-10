@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block head %}
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
+{% endblock %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% if form.is_add_shop %}
+    <h3>Modifica la teva botiga</h3>
+
+    {% endif %}
+    {% csrf_token %}
+    {% for f in form %}
+        {% if f.name == 'photo' %}
+            <div style=
+                         "background-image: url('{{ shop.url }}');
+                                 width: 300px;
+                                 height: 200px;
+                                 background-size: contain;
+                                 border-radius: 15px;
+                                 margin: 12px 0;
+                                 "></div>
+            {{ f }}
+        {% elif f.name == 'map' %}
+            <label>Inserta les coordenades <b>(latitud, longitud)</b> o selecciona la ubicació amb el selector en el mapa:</label>
+            {{ f }}
+        {% else %}
+            {{ f }}
+        {% endif %}
+    {% endfor %}
+    <div class="buttons-container">
+        <a href="{% url 'list_shop' %}" class="button">Tornar</a>
+        <input type="submit" value="Guardar">
+        <a href="{% url 'list_schedule'  id=id  %}" class="button">Horaris</a>
+        <a href="{% url 'del_shop' id=id  %}" class="button">Borrar</a>
+    </div>
+</form>
+{{ form.media }}
+{% endblock %}
