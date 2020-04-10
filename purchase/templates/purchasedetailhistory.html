@@ -14,7 +14,7 @@
     </div>
     {% if purchase.is_pending %}
     <div>
-        {% qr_from_text purchase.id %}
+        {% qr_from_text qrurl %}
     </div>
     {% endif %}
 
