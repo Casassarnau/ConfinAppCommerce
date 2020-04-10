@@ -38,7 +38,7 @@ class ShopForm(forms.ModelForm):
 
     class Meta:
         model = models.Shop
-        fields = ['CIF', 'name', 'description', 'meanTime', 'services', 'photo']
+        fields = ['CIF', 'name', 'description', 'meanTime', 'services', 'secondaryCategories', 'photo']
 
         labels = {
             'name': '',

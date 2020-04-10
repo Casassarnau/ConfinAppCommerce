@@ -56,7 +56,7 @@ def add(request):
             map = form.cleaned_data['map']
             (lon, lat) = map.split(',')
 
-            shop =Shop(CIF=CIF, name=name, meanTime=meanTime, latitude=lat, longitude=lon,
+            shop = Shop(CIF=CIF, name=name, meanTime=meanTime, latitude=lat, longitude=lon,
                        owner=request.user, photo=photo, description=description)
             shop.save()
             shop.secondaryCategories.set(secondaryCategories)
