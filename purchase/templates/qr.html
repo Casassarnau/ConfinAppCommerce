@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="">
+{% csrf_token %}
+    <h3>{{ purchase.user.name }}</h3>
+
+    <div>
+        <label>Numero de compres: </label> {{ user.count }}
+    </div>
+
+    <div>
+        <label>Inici: </label> {{ purchase.dateTime|date:'d, M, Y H:m' }}
+    </div>
+    <a href="{% url 'show_shop' id=purchase.shop.id %}" class="button">Tornar a la botiga</a>
+</form>
+{% endblock %}
