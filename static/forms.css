@@ -434,15 +434,22 @@ h5 {
     background-color: var(--secondary);
 }
 
+.schedules-card {
+    height: fit-content;
+    margin-bottom: 30px;
+}
+
 .schedules-card > div  {
     display: grid;
-    grid-template-rows: 30px 1fr;
+    grid-template-rows: 32px 1fr;
+    height: max-content;
 }
 
 .datacontainer-header {
-    height: 20px;
+    height: 100%;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .datacontainer-header label {
