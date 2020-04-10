@@ -25,11 +25,12 @@
       </style>
       <nav>
           <ul>
-                  <a href="{% url 'purchase_list'   %}" class="button"><li>Compres</li></a>
+                  <a href="{% url 'purchase_list'   %}" class="button"><li>Comprar</li></a>
+                  <a href="{% url 'purchase_list'   %}" class="button"><li>Historial</li></a>
               {% if request.user.is_shopAdmin %}
                   <a href="{% url 'list_shop'   %}" class="button"> <li>Botigues</li></a>
               {% endif %}
-                  <a href="{% url 'user_logout'   %}" class="button"><li>Desconnecta't</li></a>
+                  <a href="{% url 'user_logout'   %}" class="button"><li>Surt</li></a>
 
           </ul>
       </nav>
