@@ -12,23 +12,38 @@
 
     <div class="shop-card-container">
         {% for shop in list %}
-        <div class="shop-card">
+        <a class="link-card" href="{% url 'purchase' id=shop.id %}">
+            <div class="shop-card">
 
-            <!--<img src={{ shop.photo.url }}>-->
+                <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
+                    <h4><span>
+                        {{ shop.shop.name }}
+                    </span></h4>
 
-            <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
-                <h4><span><a href="{% url 'purchase' id=shop.id %}">{{ shop.shop.name }}</a></span></h4>
+                </div>
+                <div class="content-card">
+                    <div class="rank-container">
+                        <span>
+                            {{ shop.dateTime|date:"d-m-Y G:i" }}
+                        </span>
+                        {% if shop.status == 'A' %} <!--accepted-->
+                            <span id="span_ocupacio" style="background-color: lightgreen;">
+                                   {{ shop.status_str }}
+                            </span>
+                        {% elif shop.status == 'P' %} <!--pending-->
+                            <span id="span_ocupacio" style="background-color: khaki;">
+                                   {{ shop.status_str }}
+                            </span>
+                        {% else %} <!--rejected-->
+                            <span id="span_ocupacio">
+                                   {{ shop.status_str }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
 
             </div>
-            <div class="content-card">
-                <span>
-                    <a class="go-shop" href="{% url 'purchase' id=shop.id %}">
-                        {{ shop.dateTime|date:"d-m-Y G:i" }}
-                    </a>
-                </span>
-            </div>
-
-        </div>
+        </a>
         {% endfor %}
     </div>
 {% endblock %}
