@@ -5,10 +5,14 @@ from django.db import models
 from shop.models import Shop
 from user.models import User
 
+PCH_PENDING = 'P'
+PCH_ACCEPTED = 'A'
+PCH_EXPIRED = 'E'
+
 PCH_STATUS = [
-    ('P', 'Pending'),
-    ('A', 'Accepted'),
-    ('E', 'Expired'),
+    (PCH_PENDING, 'Pending'),
+    (PCH_ACCEPTED, 'Accepted'),
+    (PCH_EXPIRED, 'Expired'),
 ]
 PCH_STR_POS = {
     'P': 0,
@@ -27,3 +31,12 @@ class Purchase(models.Model):
 
     def status_str(self):
         return PCH_STATUS[PCH_STR_POS[self.status]][1]
+
+    def is_pending(self):
+        return self.status == PCH_PENDING
+
+    def accept(self):
+        self.status = PCH_ACCEPTED
+
+    def expire(self):
+        self.status = PCH_EXPIRED
