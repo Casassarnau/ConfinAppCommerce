@@ -107,5 +107,8 @@ def infoUserPurchase(request, id):
         purchase = models.Purchase.objects.filter(id=id, user=request.user).first()
     except:
         return HttpResponse(status=404)
-
+    date = timezone.now().date()
+    if purchase.is_pending() and purchase.dateTime.date() != date:
+        purchase.expire()
+        purchase.save()
     return render(request, 'purchasedetailhistory.html', {'purchase': purchase})
