@@ -12,7 +12,9 @@ from shop.models import Shop, Schedule
 
 def show(request, id=None):
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
+        if shop is None:
+            shop = Shop.objects.filter(id=id, admins=request.user).first()
     except:
         shop = None
 
@@ -36,13 +38,38 @@ def add(request):
 
         # check whether it's valid:
         if form.is_valid():
+
+
+            CIF = form.cleaned_data['CIF']
+            name = form.cleaned_data['name']
+            s = Shop.objects.filter(CIF=CIF, name=name).first()
+            print(s)
+            if not s is None:
+                form.add_error('CIF', 'Ja existeix aquesta botiga')
+                return render(request, 'shopform.html', {'form': form})
+
+            meanTime = form.cleaned_data['meanTime']
+            secondaryCategories = form.cleaned_data['secondaryCategories']
+            services = form.cleaned_data['services']
+            photo = form.cleaned_data['photo']
+            description = form.cleaned_data['description']
             map = form.cleaned_data['map']
             (lon, lat) = map.split(',')
+
+            shop =Shop(CIF=CIF, name=name, meanTime=meanTime, latitude=lat, longitude=lon,
+                       owner=request.user, photo=photo, description=description)
+            shop.save()
+
+            shop.secondaryCategories.set(secondaryCategories)
+            shop.services.add(services)
+
+            """
             shop = form.save()
             shop.longitude = lon
             shop.latitude = lat
             shop.save()
             shop.admins.add(request.user)
+            """
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
@@ -56,14 +83,14 @@ def list(request):
     # if user is already logged, no need to log in
     if not request.user.is_authenticated or not request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('root'))
-
-    shopsList = Shop.objects.filter(admins__id__contains=request.user.id)
+    shopsList = Shop.objects.filter(owner=request.user.id)
+    shopsList = shopsList | Shop.objects.filter(admins__id__contains=request.user.id)
     return render(request, 'shoplist.html', {'shops': shopsList})
 
 
 def modify(request, id=None):
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
 
@@ -96,7 +123,7 @@ def modify(request, id=None):
 
 def delete(request, id=None):
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
@@ -108,7 +135,7 @@ def delete(request, id=None):
 def add_schedule(request, id=None):
 
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
@@ -127,7 +154,8 @@ def add_schedule(request, id=None):
 
             startHour = form.cleaned_data['startHour']
             endHour = form.cleaned_data['endHour']
-            Schedule.objects.create(shop=shop, day=day, startHour=startHour, endHour=endHour)
+            sch = Schedule(shop=shop, day=day, startHour=startHour, endHour=endHour)
+            sch.save()
             return HttpResponseRedirect(reverse('list_schedule', kwargs={'id':id}))
 
     # if a GET (or any other method) we'll create a blank form
@@ -139,7 +167,7 @@ def list_schedule(request, id=None):
 
     # if user is already logged, no need to log in
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
@@ -153,7 +181,7 @@ def list_schedule(request, id=None):
 
 def delete_schedule(request, id=None, idS = None):
     try:
-        shop = Shop.objects.filter(id=id, admins=request.user).first()
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:

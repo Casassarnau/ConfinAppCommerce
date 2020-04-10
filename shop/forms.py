@@ -17,6 +17,8 @@ class ShopForm(forms.ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data['photo']
+        if photo is None:
+            raise forms.ValidationError("Siusplau, afegeix una fotografia")
         size = getattr(photo, '_size', 0)
         if size > settings.MAX_UPLOAD_SIZE:
             raise forms.ValidationError("Please keep photo size under %s. Current filesize %s" % (

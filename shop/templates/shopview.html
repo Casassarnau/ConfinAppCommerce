@@ -47,7 +47,9 @@
 
         <div class="buttons-container-simple">
             <a href="{% url 'list_shop' %}" class="button">Tornar</a>
-          <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
+            {% if shop.owner == requet.user %}
+            <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
+            {% endif %}
 
         </div>
 
