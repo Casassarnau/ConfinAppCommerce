@@ -41,6 +41,7 @@ def add(request):
             shop = form.save()
             shop.longitude = lon
             shop.latitude = lat
+            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
             shop.save()
             shop.admins.add(request.user)
             return HttpResponseRedirect(reverse('root'))
@@ -83,7 +84,7 @@ def modify(request, id=None):
             shop.longitude = lon
             shop.latitude = lat
             shop2 = form.save()
-
+            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
             shop.save()
 
             return HttpResponseRedirect(reverse('root'))

@@ -186,7 +186,7 @@
 
 <div id="{{ widget.name }}-choice-bag"></div>
 
-<ul id="{{ widget.name }}-cats" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
+<ul id="{{ widget.name }}-cats" name="ul-{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% for option in group_choices %}
           {% include option.template_name with widget=option %}

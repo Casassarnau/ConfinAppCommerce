@@ -33,6 +33,20 @@ class RangeSlider(forms.TextInput):
         self.elem_id = re.findall(r'id_([A-Za-z0-9_./\\-]*)"',s)[0]
 
         print("Render max:", self.maximum)
+        js = """
+        <script>
+        let original_input = document.getElementById('id_"""+self.elem_id+"""');
+        let range_slider =  document.getElementById('slider-"""+self.elem_id+"""');
+        let span_label = document.getElementById('sliderLab-"""+self.elem_id+"""');
+        
+        if (original_input.value == "") {
+            original_input.value = 30;
+        }
+        
+        range_slider.value = original_input.value;
+        span_label.innerHTML = ' ' + parseInt(original_input.value) + ' min';
+        </script>
+        """
         html = """
         
         <label>"""+self.elem_name+"""</label>
@@ -46,4 +60,4 @@ class RangeSlider(forms.TextInput):
         </div>
         
         """
-        return mark_safe(s+html)
+        return mark_safe(s+html+js)
