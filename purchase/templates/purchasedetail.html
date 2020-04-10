@@ -4,7 +4,7 @@
 <div class="shop-card-container">
     <div class="shop-card">
         <div class="image-card" style="background-image: url('{{ shop.photo.url }}')">
-                <h4><span>Botiga {{ shop.name }}</span></h4>
+                <h4><span>{{ shop.name }}</span></h4>
         </div>
         <div class="content-card">
             <div class="categories-card">
@@ -35,7 +35,7 @@
 
             <div class="schedules-card">
                     <h5>Horaris</h5>
-                    {% if schedule.all %}
+                    {% if shop.schedule.all %}
                         <div>
                             <div class="datacontainer-header">
                                 <div>
@@ -46,12 +46,12 @@
 
                             <div class="data-container">
                                 <div class="days-container">
-                                    {% for ss in schedule.all %}
+                                    {% for ss in shop.schedule.all %}
                                         <label>{{ ss.get_day_name }} </label>
                                     {% endfor %}
                                 </div>
                                 <div class="hours-container">
-                                    {% for ss in schedule.all %}
+                                    {% for ss in shop.schedule.all %}
                                         <label>{{ ss.startHour|time:"H:i" }} </label>
                                       <label>{{ ss.endHour|time:"H:i" }} </label>
                                   {% endfor %}
