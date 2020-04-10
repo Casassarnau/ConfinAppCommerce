@@ -12,7 +12,14 @@
 
     {% endif %}
     {% csrf_token %}
-    {{ form }}
+    {% for f in form %}
+        {% if f.name == 'photo' %}
+            <div style="background-image: url('{{ shop.url }}'); width: 100px; height: 100px;"></div>
+            {{ f }}
+        {% else %}
+            {{ f }}
+        {% endif %}
+    {% endfor %}
     <div class="buttons-container">
         <a href="{% url 'list_shop' %}" class="button">Tornar</a>
         <input type="submit" value="Guardar">

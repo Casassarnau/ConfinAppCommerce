@@ -52,7 +52,9 @@ class ShopForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nom de la botiga'}),
-            'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
+            #'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
+            'description': forms.Textarea(attrs={'rows': 4,'placeholder': 'Descripció'}),
+            'photo': forms.FileInput(),
         }
 
     def clean(self):
