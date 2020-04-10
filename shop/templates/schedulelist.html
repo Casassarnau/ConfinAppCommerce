@@ -10,8 +10,8 @@
 
     <ul class="shop-list">
     {% for schedule in schedules %}
-        <div class="shop-row-container">
-            <li style="display: inline-block;">{{ schedule.get_day_name }} </li>
+        <div class="shop-row-container schedules">
+            <li style="display: inline-block; font-weight: bold;">{{ schedule.get_day_name }} </li>
             <li style="display: inline-block;">{{ schedule.startHour.isoformat }} </li>
             <li style="display: inline-block;">{{ schedule.endHour.isoformat }} </li>
             <a href="{% url 'del_schedule' id=id idS=schedule.id %}" class="button">Borrar</a>
