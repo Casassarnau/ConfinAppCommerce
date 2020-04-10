@@ -43,7 +43,41 @@
                       {% endfor %}
                   </ul>
             </div>
-        </div>
+
+            <div class="schedules-card">
+                    <h5>Horaris</h5>
+                    {% if shop.schedule.all %}
+                        <div>
+                            <div class="datacontainer-header">
+                                <div>
+                                    <label>Hora inici</label>
+                                    <label>Hora fi</label>
+                                </div>
+                            </div>
+
+                            <div class="data-container">
+                                <div class="days-container">
+                                    {% for ss in shop.schedule.all %}
+                                        <label>{{ ss.get_day_name }} </label>
+                                    {% endfor %}
+                                </div>
+                                <div class="hours-container">
+                                    {% for ss in shop.schedule.all %}
+                                        <label>{{ ss.startHour|time:"H:i" }} </label>
+                                      <label>{{ ss.endHour|time:"H:i" }} </label>
+                                  {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    {% else %}
+                        <div>
+                            <label>No hi ha horari.</label>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
             <div class="buttons-container-simple">
                 {% if shop.owner == request.user %}
                     <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
