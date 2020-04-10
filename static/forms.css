@@ -384,3 +384,7 @@ h5 {
     height: 14.85px;
     text-align: center;
 }
+
+#id_photo {
+    background-color: var(--secondary);
+}

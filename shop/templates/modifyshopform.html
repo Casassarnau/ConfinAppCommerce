@@ -14,7 +14,14 @@
     {% csrf_token %}
     {% for f in form %}
         {% if f.name == 'photo' %}
-            <div style="background-image: url('{{ shop.url }}'); width: 100px; height: 100px;"></div>
+            <div style=
+                         "background-image: url('{{ shop.url }}');
+                                 width: 300px;
+                                 height: 200px;
+                                 background-size: contain;
+                                 border-radius: 15px;
+                                 margin: 12px 0;
+                                 "></div>
             {{ f }}
         {% else %}
             {{ f }}
