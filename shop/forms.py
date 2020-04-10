@@ -11,6 +11,7 @@ from shop.models import Schedule
 from shop.range import RangeSliderField
 from shop.select_category import SelectCategoryField
 
+from datetime import time
 
 class ShopForm(forms.ModelForm):
     # TODO: Obtain latitude and longitude from the street in google maps.
@@ -77,7 +78,7 @@ class ShopForm(forms.ModelForm):
 
 class ScheduleForm(forms.ModelForm):
     startHour = forms.TimeField(required=True, label='Començament de la jornada',
-                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute),)
     endHour = forms.TimeField(required=True, label='Fi de la jornada',
                            initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
 
@@ -93,18 +94,9 @@ class ScheduleForm(forms.ModelForm):
         day = self.cleaned_data['day']
         startHour = self.cleaned_data['startHour']
         endHour = self.cleaned_data['endHour']
-
-        list = Schedule.objects.filter(day=day).all()
-        go = True
-        for schedule in list:
-            if (startHour >= schedule.startHour and startHour <= schedule.endHour) or (
-                    endHour >= schedule.startHour and endHour <= schedule.endHour) or (
-                    startHour >= schedule.startHour and endHour <= schedule.endHour):
-                go = False
-        if go:
-            pass
-        else:
-            raise forms.ValidationError("It's overlapping with another schedue")
+        if startHour > endHour:
+            raise forms.ValidationError('L\'hora d\'inici no pot ser més gran que la hora final')
+        return self.cleaned_data
 
 
 class AddShopAdminForm(forms.Form):
