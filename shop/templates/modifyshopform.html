@@ -23,6 +23,9 @@
                                  margin: 12px 0;
                                  "></div>
             {{ f }}
+        {% elif f.name == 'map' %}
+            <label>Inserta les coordenades <b>(latitud, longitud)</b> o selecciona la ubicació amb el selector en el mapa:</label>
+            {{ f }}
         {% else %}
             {{ f }}
         {% endif %}
