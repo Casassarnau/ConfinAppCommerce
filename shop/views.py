@@ -99,9 +99,18 @@ def delete(request, id=None):
         shop = Shop.objects.filter(id=id, admins=request.user).first()
     except:
         shop = None
+
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
-    shop.delete()
+
+    if request.method == 'POST':
+        shop.delete()
+
+    else:
+        form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
+        return render(request, 'deleteshopform.html', {'form': form, 'id': id, 'shop': shop.photo})
+
+
     return HttpResponseRedirect(reverse('root'))
 
 
