@@ -38,7 +38,7 @@ def list(request):
             todayDay = timezone.now().weekday()
             shopsList = sModels.Schedule.objects.filter(day=todayDay,
                                                         startHour__lt=time,
-                                                        endHour__gt=time)\
+                                                        endHour__gt=time) \
                 .annotate(ocupacio=Count('shop__purchase',
                                          filter=Q(shop__purchase__dateTime__lt=dateTime,
                                                   shop__purchase__endTime__gt=dateTime)))
@@ -49,10 +49,14 @@ def list(request):
                 shopsList = shopsList.filter(shop__services__in=service)
             elif category:
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category)
-            shopsList = shopsList.annotate(Cpoints=Func(Cast(F('ocupacio') + 1, DecimalField()) *
-                                                        (F('shop__latitude') + F('shop__longitude') -
-                                                         Cast(latitude - longitude, DecimalField())) * 1000000,
-                                                        function='ABS')
+
+            shopsList = shopsList.annotate(user_latitude=Cast(latitude, DecimalField()))
+            shopsList = shopsList.annotate(user_longitude=Cast(longitude, DecimalField()))
+            shopsList = shopsList.annotate(distance=Func(
+                    F('shop__latitude') + F('shop__longitude') - Cast(latitude + longitude, DecimalField()), function='ABS'))
+
+            shopsList = shopsList.annotate(Cpoints=Cast(F('ocupacio') + 1, DecimalField()) *
+                                                        F('distance') * 1000000
                                            ).order_by('Cpoints')
 
     else:
