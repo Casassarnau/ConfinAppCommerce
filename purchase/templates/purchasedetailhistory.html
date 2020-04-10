@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="">
+{% csrf_token %}
+    <h3>{{ purchase.shop.name }}</h3>
+
+    <img src={{ purchase.shop.photo.url }}>
+    <div>
+        <label>Time:</label> {{ purchase.dateTime|date:'d, M, Y H:m' }}
+    </div>
+    <div>
+        <label>Status:</label> {{ purchase.status_str }}
+    </div>
+
+    <a onclick="goBack()" class="button">Back to list</a>
+</form>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+{% endblock %}

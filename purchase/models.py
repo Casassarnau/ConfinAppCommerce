@@ -5,11 +5,15 @@ from django.db import models
 from shop.models import Shop
 from user.models import User
 
-
-PCH_STATUS = {
+PCH_STATUS = [
     ('P', 'Pending'),
     ('A', 'Accepted'),
     ('E', 'Expired'),
+]
+PCH_STR_POS = {
+    'P': 0,
+    'A': 1,
+    'E': 2,
 }
 
 
@@ -20,3 +24,6 @@ class Purchase(models.Model):
     dateTime = models.DateTimeField()
     endTime = models.DateTimeField()
     status = models.CharField(choices=PCH_STATUS, max_length=2)
+
+    def status_str(self):
+        return PCH_STATUS[PCH_STR_POS[self.status]][1]

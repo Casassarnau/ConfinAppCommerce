@@ -97,3 +97,15 @@ def userList(request):
             list = purchaseListAll
 
     return render(request, 'purchaselistuser.html', {'list': list, 'text': text})
+
+
+def infoUserPurchase(request, id):
+    # if user is already logged, no need to log in
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('root'))
+    try:
+        purchase = models.Purchase.objects.filter(id=id, user=request.user).first()
+    except:
+        return HttpResponse(status=404)
+
+    return render(request, 'purchasedetailhistory.html', {'purchase': purchase})

@@ -14,12 +14,12 @@
             <!--<img src={{ shop.photo.url }}>-->
 
             <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
-                <h4><span><a href="">{{ shop.shop.name }}</a></span></h4>
+                <h4><span><a href="{% url 'purchase' id=shop.id %}">{{ shop.shop.name }}</a></span></h4>
 
             </div>
             <div class="content-card">
                 <span>
-                    <a href="">
+                    <a href="{% url 'purchase' id=shop.id %}">
                         {{ shop.dateTime|date:"D-M-Y H:m" }}
                     </a>
                 </span>
