@@ -7,6 +7,7 @@ from user import models
 from user import forms
 
 
+# Use of one form or another in just one view
 USR_TYPE_FORM = {
     True: forms.RegisterForm,
     False: forms.RegisterShopAdminForm
