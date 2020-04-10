@@ -38,7 +38,7 @@ def list(request):
             todayDay = timezone.now().weekday()
             shopsList = sModels.Schedule.objects.filter(day=todayDay,
                                                         startHour__lt=time,
-                                                        endHour__gt=time)\
+                                                        endHour__gt=time) \
                 .annotate(ocupacio=Count('shop__purchase',
                                          filter=Q(shop__purchase__dateTime__lt=dateTime,
                                                   shop__purchase__endTime__gt=dateTime)))
@@ -127,8 +127,10 @@ def qrreaded(request, id):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
     try:
-        purchase = models.Purchase.objects.filter(id=id, user=request.user).first()
+        purchase = models.Purchase.objects.filter(id=id).first()
     except:
+        return HttpResponse(status=404)
+    if not request.user in purchase.shop.admins.all() and request.user.id != purchase.shop.owner.id:
         return HttpResponse(status=404)
     date = timezone.now().date()
     if purchase.is_pending() and purchase.dateTime.date() != date:

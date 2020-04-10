@@ -1,16 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="">
-{% csrf_token %}
-    <h3>{{ purchase.user.name }}</h3>
+ <div class="shop-card-container">
+    <div class="shop-card">
+        <div class="image-card" style="background-image: url('{{ purchase.shop.photo.url }}')">
+                <h4><span>Compra de l'usuari:<br>{{ purchase.user.name }}</span></h4>
+        </div>
 
-    <div>
-        <label>Numero de compres: </label> {{ user.count }}
-    </div>
+        <div class="content-card">
 
-    <div>
-        <label>Inici: </label> {{ purchase.dateTime|date:'d, M, Y H:m' }}
+            <div class="categories-card">
+                <div class="basic-info">
+                    <h5>Informació de la compra</h5>
+                    <p><label>Hora inici: </label> {{ purchase.dateTime|time:'H:i' }}</p>
+                    <p><label>Hora fi: </label> {{ purchase.endTime|time:'H:i' }}</p>
+                    <p><label>Numero de compres totals: </label>{{ user.count }}</p>
+                    <p><label>Oferta cada: </label>5 compres</p>
+                    <p>Queden <label id="id_nLeft">{{ user.count }}</label> compres per la oferta</p>
+                </div>
+            </div>
+            <div class="buttons-container-simple-centered">
+                <a href="{% url 'show_shop' id=purchase.shop.id %}" class="button">Tornar</a>
+            </div>
+        </div>
     </div>
-    <a href="{% url 'show_shop' id=purchase.shop.id %}" class="button">Tornar a la botiga</a>
-</form>
+ </div>
+<script>
+function init() {
+    var item = document.getElementById('id_nLeft');
+    var n = parseInt(item.textContent);
+    n = 5 -(n%5);
+    item.innerText = n.toString()
+}
+init()
+</script>
+
 {% endblock %}
