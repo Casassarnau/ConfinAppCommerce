@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 
+from hackovid import settings
 from hackovid.utils import reverse
 from purchase import forms, models
 from shop import models as sModels
@@ -119,7 +120,7 @@ def infoUserPurchase(request, id):
     if purchase.is_pending() and purchase.dateTime.date() != date:
         purchase.expire()
         purchase.save()
-    base_url = request.build_absolute_uri().split('purchase')[0]
+    base_url = getattr(settings, 'BASE_DIR', 'localhost:800/')
     url = base_url[:-1] + reverse('qr_read', kwargs={'id': purchase.id})
     return render(request, 'purchasedetailhistory.html', {'purchase': purchase, 'qrurl': url})
 
