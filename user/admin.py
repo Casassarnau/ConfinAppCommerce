@@ -2,11 +2,11 @@ from django.contrib import admin
 from django.contrib.admin.forms import AdminPasswordChangeForm
 from django.contrib.auth.admin import UserAdmin
 
-from hackovid import settings
 from user.forms import UserChangeForm
 from user.models import User
 
 
+# Admin model
 class UserAdmin(admin.ModelAdmin):
     form = UserChangeForm
     change_password_form = AdminPasswordChangeForm
@@ -25,4 +25,5 @@ class UserAdmin(admin.ModelAdmin):
         return super(UserAdmin, self).get_fieldsets(request, obj)
 
 
+# Adding admin Model to Admin site
 admin.site.register(User, UserAdmin)

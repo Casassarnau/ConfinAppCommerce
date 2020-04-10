@@ -19,8 +19,8 @@ from django.views.generic import RedirectView
 
 from user import views
 
+
 urlpatterns = [
-    url(r'^index/$', views.index, name='user_index'),
     url(r'^login/$', views.login, name='user_login'),
     url(r'^register/$', RedirectView.as_view(url=reverse_lazy('user_register_client')),
         name='user_register'),

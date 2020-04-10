@@ -5,7 +5,10 @@ from django.db import models
 from django.utils import timezone
 
 
+# manager of the user object from the data base, creates clients, shopAdmins and Admins
 class UserManager(BaseUserManager):
+
+    # creates client
     def create_user(self, email, name, password=None):
         if not email:
             return ValueError('Email pls')
@@ -17,6 +20,7 @@ class UserManager(BaseUserManager):
         client.save(using=self._db)
         return client
 
+    # creates shopAdmins (can be owners or admins)
     def create_shopadmin(self, email, name, password):
         user = self.create_user(
             email=email,
@@ -27,6 +31,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    # creates Admins (can enter to Admin view)
     def create_superuser(self, email, name, password):
         user = self.create_user(
             email=email,
@@ -70,6 +75,7 @@ class User(AbstractBaseUser):
 
     @property
     def is_superuser(self):
+        """Is the user Admin?"""
         return self.admin
 
     @property
@@ -77,9 +83,11 @@ class User(AbstractBaseUser):
         """Is the user a member of staff?"""
         return self.is_admin
 
+    # Has the user have Admin or shopAdmin?
     def is_client(self):
         return not self.is_admin and not self.is_shopAdmin
     is_client.boolean = True
 
+    # string referenced to the Object is the email (unique)
     def __str__(self):
         return self.email

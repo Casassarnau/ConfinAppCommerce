@@ -15,6 +15,7 @@ USR_TYPE_FORM = {
 
 
 def login(request):
+
     # if user is already logged, no need to log in
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
@@ -84,19 +85,21 @@ def register(request, client):
     return render(request, 'userform.html', {'form': form})
 
 
+# calls a register view unified with client=False
 def register_shop_admin(request):
     return register(request, False)
 
 
+# calls a register view unified with client=True
 def register_client(request):
     return register(request, True)
 
 
 def logout(request):
+
+    # logs out
     auth.logout(request)
     messages.success(request, 'Successfully logged out!')
-    return HttpResponseRedirect(reverse('user_login'))
 
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index. %s")
+    # redirect to root -> log in
+    return HttpResponseRedirect(reverse('root'))
