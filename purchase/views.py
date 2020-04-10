@@ -120,8 +120,8 @@ def infoUserPurchase(request, id):
     if purchase.is_pending() and purchase.dateTime.date() != date:
         purchase.expire()
         purchase.save()
-    base_url = getattr(settings, 'BASE_DIR', 'localhost:800/')
-    url = base_url[:-1] + reverse('qr_read', kwargs={'id': purchase.id})
+    base_url = getattr(settings, 'APP_DOMAIN', 'localhost:8000')
+    url = base_url + reverse('qr_read', kwargs={'id': purchase.id})
     return render(request, 'purchasedetailhistory.html', {'purchase': purchase, 'qrurl': url})
 
 
