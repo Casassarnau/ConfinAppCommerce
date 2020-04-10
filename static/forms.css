@@ -241,6 +241,10 @@ h3 {
 
 }
 
+.shop-card-container > a {
+
+}
+
 .shop-card {
     background-color: var(--secondary);
     width: 100%;
