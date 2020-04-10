@@ -76,7 +76,8 @@ def info(request, id, time_str):
         dateTime_str = dateTime.strftime('%d-%m-%Y-')
         dateTime = dateTime.strptime(dateTime_str + time_str, '%d-%m-%Y-%H:%M')
         dateTimeFuture = dateTime + timezone.timedelta(minutes=shop.meanTime)
-        purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture)
+        purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture,
+                                   status=models.PCH_PENDING)
         purchase.save()
         return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
 
@@ -119,7 +120,6 @@ def infoUserPurchase(request, id):
         purchase.save()
     base_url = request.build_absolute_uri().split('purchase')[0]
     url = base_url[:-1] + reverse('qr_read', kwargs={'id': purchase.id})
-    print(url)
     return render(request, 'purchasedetailhistory.html', {'purchase': purchase, 'qrurl': url})
 
 
