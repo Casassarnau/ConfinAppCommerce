@@ -8,6 +8,7 @@ from django.shortcuts import render
 from hackovid.utils import reverse
 from shop import forms
 from shop.models import Shop, Schedule
+from user.models import User
 
 
 def show(request, id=None):
@@ -140,13 +141,21 @@ def list_admins(request, id=None):
         return HttpResponseRedirect(reverse('root'))
 
     if request.method == 'POST':
+        form = forms.AddShopAdminForm(request.POST)
 
-        return HttpResponseRedirect(reverse('root'))
-
+        # check whether it's valid:
+        if form.is_valid():
+            mail = form.cleaned_data['email']
+            u = User.objects.filter(email=mail).first()
+            if u is None:
+                form.add_error('email', 'No s\'ha trobat l\'usuari')
+            else:
+                shop.admins.add(u)
     # if a GET (or any other method) we'll create a blank form
-
+    else:
+        form = forms.AddShopAdminForm()
     admin_list = shop.admins.all()
-    return render(request, 'adminlist.html', {'admins': admin_list, 'id': id})
+    return render(request, 'adminlist.html', {'form':form, 'admins': admin_list, 'id': id})
 
 
 def delete_admin(request, id=None, idA = None):

@@ -105,3 +105,7 @@ class ScheduleForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError("It's overlapping with another schedue")
+
+
+class AddShopAdminForm(forms.Form):
+    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'Correu electrònic'}))

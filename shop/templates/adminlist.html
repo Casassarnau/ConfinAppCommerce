@@ -6,7 +6,9 @@
 <form action="" method="post" enctype="multipart/form-data">
     <h3>Admins</h3>
 
-
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Afegeix">
 
     <ul class="shop-list">
     {% for admin in admins %}
