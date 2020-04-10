@@ -69,7 +69,6 @@ class Shop(models.Model):
         unique_together = (('CIF', 'name'),)
 
 
-
 class Schedule(models.Model):
     shop = models.ForeignKey(to=Shop, related_name='schedule', on_delete=models.CASCADE)
     day = models.IntegerField(choices=SCH_DAYS)
