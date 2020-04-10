@@ -1,5 +1,6 @@
 import os
 
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -41,7 +42,6 @@ def add(request):
         # check whether it's valid:
         if form.is_valid():
 
-
             CIF = form.cleaned_data['CIF']
             name = form.cleaned_data['name']
             s = Shop.objects.filter(CIF=CIF, name=name).first()
@@ -75,8 +75,8 @@ def list(request):
     # if user is already logged, no need to log in
     if not request.user.is_authenticated or not request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('root'))
-    shopsList = Shop.objects.filter(owner=request.user.id)
-    shopsList = shopsList | Shop.objects.filter(admins__id__contains=request.user.id)
+    shopsList = Shop.objects.filter(Q(admins__email__in=request.user.email) | Q(owner__email=request.user.email))\
+        .distinct()
     return render(request, 'shoplist.html', {'shops': shopsList})
 
 
@@ -92,7 +92,7 @@ def modify(request, id=None):
     if request.method == 'POST':
 
         # create a form instance and populate it with data from the request:
-        form = forms.ShopForm(request.POST, instance=shop)
+        form = forms.ShopForm(request.POST, request.FILES, instance=shop)
 
         # check whether it's valid:
         if form.is_valid():
