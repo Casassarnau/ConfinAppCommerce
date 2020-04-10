@@ -34,7 +34,7 @@ AUTHENTICATION_BACKENDS = (
 #  File upload configuration
 MEDIA_ROOT = 'files'
 MEDIA_URL = '/files/'
-MAX_UPLOAD_SIZE =  5242880
+MAX_UPLOAD_SIZE = 1000000
 
 # Set up custom auth
 AUTH_USER_MODEL = 'user.User'
