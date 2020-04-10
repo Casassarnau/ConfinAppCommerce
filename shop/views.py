@@ -154,6 +154,7 @@ def list_admins(request, id=None):
                 form.add_error('email', 'No s\'ha trobat l\'usuari')
             else:
                 shop.admins.add(u)
+                form = forms.AddShopAdminForm()
     # if a GET (or any other method) we'll create a blank form
     else:
         form = forms.AddShopAdminForm()

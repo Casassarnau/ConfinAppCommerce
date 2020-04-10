@@ -12,10 +12,12 @@
 
     <ul class="shop-list">
     {% for admin in admins %}
-        <div class="shop-row-container">
-            <li style="display: inline-block;">{{ admin.email }} </li>
-            <li style="display: inline-block;">{{ admin.name }} </li>
-            <a href="{% url 'delete_shop_admins' id=id idA=admin.id %}" class="button">Borrar</a>
+        <div class="shop-row-container admin-info-container">
+            <div class="admin-info">
+                <li style="display: inline-block; font-weight: bold;">{{ admin.name }} </li>
+                <li style="display: inline-block;">({{ admin.email }}) </li>
+            </div>
+            <a href="{% url 'delete_shop_admins' id=id idA=admin.id %}" class="button admin-button">Borrar</a>
 
         </div>
 

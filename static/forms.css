@@ -159,9 +159,10 @@ h3 {
 .shop-row-container  {
     background-color: var(--secondary);
     display: flex;
-    margin: 10px;
+    padding: 0 10px;
+    margin: 10px 0;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 10px;
     align-items: center;
     justify-content: center;
 }
@@ -501,4 +502,29 @@ h5 {
     padding: 10px 5px;
     background-color: var(--secondary-light);
     border-bottom-right-radius: 10px;
+}
+
+.admin-info-container {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+}
+
+.admin-info {
+    display: grid;
+    padding: 5px 10px;
+}
+
+.admin-info > li {
+    margin: 0;
+    padding: 0;
+}
+
+.admin-button {
+    padding: 5px 5px;
+    background-color: transparent;
+    color: var(--primary-dark);
+}
+
+.admin-button:hover {
+    background-color: transparent;
 }
