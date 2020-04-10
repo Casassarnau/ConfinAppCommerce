@@ -35,7 +35,7 @@
 
             <div class="schedules-card">
                     <h5>Horaris</h5>
-                    {% if shop.schedule.all %}
+                    {% if schedule.all %}
                         <div>
                             <div class="datacontainer-header">
                                 <div>
@@ -46,12 +46,12 @@
 
                             <div class="data-container">
                                 <div class="days-container">
-                                    {% for ss in shop.schedule.all %}
+                                    {% for ss in schedule.all %}
                                         <label>{{ ss.get_day_name }} </label>
                                     {% endfor %}
                                 </div>
                                 <div class="hours-container">
-                                    {% for ss in shop.schedule.all %}
+                                    {% for ss in schedule.all %}
                                         <label>{{ ss.startHour|time:"H:i" }} </label>
                                       <label>{{ ss.endHour|time:"H:i" }} </label>
                                   {% endfor %}

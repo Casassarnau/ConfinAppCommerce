@@ -81,8 +81,8 @@ def info(request, id, time_str):
                                    status=models.PCH_PENDING)
         purchase.save()
         return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
-
-    return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str})
+    schedule = shop.schedule.all().order_by('day', 'startHour')
+    return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str, 'schedule': schedule})
 
 
 def userList(request):
