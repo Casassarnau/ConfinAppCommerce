@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load qr_code %}
-<form action="">
-{% csrf_token %}
-    <h3>{{ purchase.shop.name }}</h3>
+<div class="shop-card-container">
+    <div class="shop-card">
 
-    <img src={{ purchase.shop.photo.url }}>
-    <div>
-        <label>Time:</label> {{ purchase.dateTime|date:'d, M, Y H:m' }}
-    </div>
-    <div>
-        <label>Status:</label> {{ purchase.status_str }}
-    </div>
-    {% if purchase.is_pending %}
-    <div>
-        {% qr_from_text qrurl %}
-    </div>
-    {% endif %}
+        <div class="image-card" style="background-image: url('{{ purchase.shop.photo.url }}')">
+                <h4><span>Botiga {{ purchase.shop.name }}</span></h4>
+        </div>
 
-    <a onclick="goBack()" class="button">Back to list</a>
-</form>
-<script>
-    function goBack() {
-      window.history.back();
+        <div class="content-card">
+            <div class="basic-info">
+                <h5>Informació de la compra</h5>
+                <p><label>Data: </label> {{ purchase.dateTime|date:'d, M, Y H:m' }}</p>
+                <p><label>Estat: </label>{{ purchase.status_str }}</p>
+            </div>
+
+            {% if purchase.is_pending %}
+                <div>
+                    {% qr_from_text qrurl %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="buttons-container-simple">
+            <a href="{% url 'user_list' %}" class="button">Tornar</a>
+        </div>
+    </div>
+</div>
+<style>
+    svg {
+        height: auto;
+        width: 100%;
     }
-</script>
+</style>
 {% endblock %}
