@@ -59,7 +59,6 @@ def add(request):
             shop =Shop(CIF=CIF, name=name, meanTime=meanTime, latitude=lat, longitude=lon,
                        owner=request.user, photo=photo, description=description)
             shop.save()
-
             shop.secondaryCategories.set(secondaryCategories)
             shop.services.add(services)
 
@@ -130,6 +129,37 @@ def delete(request, id=None):
         return HttpResponseRedirect(reverse('root'))
     shop.delete()
     return HttpResponseRedirect(reverse('root'))
+
+def list_admins(request, id=None):
+    try:
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
+    except:
+        shop = None
+
+    if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
+        return HttpResponseRedirect(reverse('root'))
+
+    if request.method == 'POST':
+
+        return HttpResponseRedirect(reverse('root'))
+
+    # if a GET (or any other method) we'll create a blank form
+
+    admin_list = shop.admins.all()
+    return render(request, 'adminlist.html', {'admins': admin_list, 'id': id})
+
+
+def delete_admin(request, id=None, idA = None):
+    try:
+        shop = Shop.objects.filter(id=id, owner=request.user).first()
+    except:
+        shop = None
+    if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
+        return HttpResponseRedirect(reverse('root'))
+    shop.admins.remove(idA)
+    shop.save()
+    return HttpResponseRedirect(reverse('list_shop_admins', kwargs={'id': id}))
+
 
 
 def add_schedule(request, id=None):
