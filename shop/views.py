@@ -195,9 +195,19 @@ def add_schedule(request, id=None):
 
             startHour = form.cleaned_data['startHour']
             endHour = form.cleaned_data['endHour']
-            sch = Schedule(shop=shop, day=day, startHour=startHour, endHour=endHour)
-            sch.save()
-            return HttpResponseRedirect(reverse('list_schedule', kwargs={'id':id}))
+            list = Schedule.objects.filter(day=day,shop=shop).all()
+            go = True
+            for schedule in list:
+                if (startHour >= schedule.startHour and startHour <= schedule.endHour) or (
+                        endHour >= schedule.startHour and endHour <= schedule.endHour) or (
+                        startHour >= schedule.startHour and endHour <= schedule.endHour):
+                    go = False
+            if not go:
+                form.add_error(None,"It's overlapping with another schedue")
+            else:
+                sch = Schedule(shop=shop, day=day, startHour=startHour, endHour=endHour)
+                sch.save()
+                return HttpResponseRedirect(reverse('list_schedule', kwargs={'id':id}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
