@@ -12,12 +12,10 @@
     <div class="shop-card-container">
         {% for shop in shops %}
         <div class="shop-card">
-
             <!--<img src={{ shop.photo.url }}>-->
 
             <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
                 <h4><span><a href="{% url 'go_shop' id=shop.shop.id time_str=time %}">{{ shop.shop.name }}</a></span></h4>
-
             </div>
 
             <div class="content-card">
@@ -26,6 +24,23 @@
                         Ocupació: {{ shop.ocupacio }}
                     </a>
                 </span>
+                <span id="span_distance">
+
+                </span>
+                <script>
+                    const shopLatitude = {{ shop.shop.latitude }};
+                    const shopLongitude = {{ shop.shop.longitude }};
+                    const userLatitude = {{ shop.user_latitude }};
+                    const userLongitude = {{ shop.user_longitude }};
+
+                    const distance = Math.abs(shopLatitude - userLatitude) * 111000 +
+                                     Math.abs(shopLongitude - userLongitude) * 111000;
+
+                    //const speed = 5; // Human speef of 5Km/H.
+
+                    let span_distance = document.getElementById('span_distance');
+                    span_distance.innerHTML = "A " + Math.round(distance / 70) + " minuts.";
+                </script>
             </div>
 
 
@@ -38,8 +53,8 @@ function geoFindMe() {
   const status = document.querySelector('#id_location');
 
   function success(position) {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
 
     status.value = `${latitude}, ${longitude}`;
     console.log(status.value)
