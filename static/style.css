@@ -115,7 +115,8 @@ p a:hover {
 }
 
 #id_map {
-    margin-bottom: 10px;
+    margin: 12px 0;
+
 }
 
 #secret-id-map-mapbox-location-field {
