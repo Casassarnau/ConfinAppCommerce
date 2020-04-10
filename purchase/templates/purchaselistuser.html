@@ -22,8 +22,8 @@
             </div>
             <div class="content-card">
                 <span>
-                    <a href="{% url 'purchase' id=shop.id %}">
-                        {{ shop.dateTime|date:"D-M-Y H:m" }}
+                    <a class="go-shop" href="{% url 'purchase' id=shop.id %}">
+                        {{ shop.dateTime|date:"d-m-Y G:i" }}
                     </a>
                 </span>
             </div>

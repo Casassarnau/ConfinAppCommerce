@@ -10,9 +10,9 @@ PCH_ACCEPTED = 'A'
 PCH_EXPIRED = 'E'
 
 PCH_STATUS = [
-    (PCH_PENDING, 'Pending'),
-    (PCH_ACCEPTED, 'Accepted'),
-    (PCH_EXPIRED, 'Expired'),
+    (PCH_PENDING, 'Pendent'),
+    (PCH_ACCEPTED, 'Acceptat'),
+    (PCH_EXPIRED, 'Caducat'),
 ]
 PCH_STR_POS = {
     'P': 0,
