@@ -212,8 +212,12 @@ h3 {
     /*transition: ease 0.5s;*/
 }
 
-.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active {
+.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active, .go-shop {
     text-decoration: none;
+}
+
+.go-shop {
+    color: black;
 }
 
 .button-iconic {
