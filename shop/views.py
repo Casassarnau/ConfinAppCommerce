@@ -91,7 +91,7 @@ def modify(request, id=None):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
-    return render(request, 'modifyshopform.html', {'form': form, 'id': id})
+    return render(request, 'modifyshopform.html', {'form': form, 'id': id, 'shop': shop.photo})
 
 
 def delete(request, id=None):
