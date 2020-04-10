@@ -8,11 +8,12 @@ from shop.select_category import SelectCategoryField
 class FilterForm(forms.Form):
     # services = SelectCategoryField(queryset=models.Service.objects.all())
     category = SelectCategoryField(queryset=models.PrimaryCategory.objects.all(),
-                                   placeholder="Find a category ...", required=False, is_loading=False, title="Filtra per categoria:")
+                                   placeholder="Buscar categoria...", required=False, is_loading=False, title="Filtra per categoria:")
     service = SelectCategoryField(queryset=models.Service.objects.all(),
-                                  placeholder="Find a service ...", required=False, is_loading=False, title="Filtra per servei:")
+                                  placeholder="Buscar servei...", required=False, is_loading=False, title="Filtra per servei:")
     time = forms.TimeField(required=True, label='A quina hora vols anar a comprar?',
-                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+                           initial='%02d:%02d' % ((timezone.now() + timezone.timedelta(minutes=30)).hour,
+                                                  (timezone.now() + timezone.timedelta(minutes=30)).minute))
     location = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Clica\'m!',
                                                                             'readonly': 'True'}))
 

@@ -21,8 +21,9 @@ def show(request, id=None):
 
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
+    schedule = shop.schedule.all().order_by('day', 'startHour')
 
-    return render(request, 'shopview.html', {'shop': shop})
+    return render(request, 'shopview.html', {'shop': shop, 'schedule': schedule})
 
 
 def add(request):
@@ -130,8 +131,8 @@ def delete(request, id=None):
         form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
         return render(request, 'deleteshopform.html', {'form': form, 'id': id, 'shop': shop.photo})
 
-
     return HttpResponseRedirect(reverse('root'))
+
 
 def list_admins(request, id=None):
     try:
@@ -156,8 +157,8 @@ def list_admins(request, id=None):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = forms.AddShopAdminForm()
-    admin_list = shop.admins.all()
-    return render(request, 'adminlist.html', {'form':form, 'admins': admin_list, 'id': id})
+    admin_list = shop.admins.all().order_by('name')
+    return render(request, 'adminlist.html', {'form': form, 'admins': admin_list, 'id': id})
 
 
 def delete_admin(request, id=None, idA = None):

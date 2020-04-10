@@ -37,11 +37,8 @@ def list(request):
             dateTime = dateTime.strptime(dateTime_str + time_str, '%d-%m-%Y-%H:%M')
             todayDay = timezone.now().weekday()
             shopsList = sModels.Schedule.objects.filter(day=todayDay,
-                                                        startHour__lt=time,
-                                                        endHour__gt=time) \
-                .annotate(ocupacio=Count('shop__purchase',
-                                         filter=Q(shop__purchase__dateTime__lt=dateTime,
-                                                  shop__purchase__endTime__gt=dateTime)))
+                                                        startHour__lte=time,
+                                                        endHour__gt=time)
             if service and category:
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category,
                                              shop__services__in=service)
@@ -49,22 +46,21 @@ def list(request):
                 shopsList = shopsList.filter(shop__services__in=service)
             elif category:
                 shopsList = shopsList.filter(shop__secondaryCategories__primary__in=category)
-
-            shopsList = shopsList.annotate(user_latitude=Cast(latitude, DecimalField()))
-            shopsList = shopsList.annotate(user_longitude=Cast(longitude, DecimalField()))
-            shopsList = shopsList.annotate(distance_lat=Func((F('shop__latitude') - Cast(latitude, DecimalField())) * 111000, function='ABS'))
-            shopsList = shopsList.annotate(distance_lon=Func((F('shop__longitude') - Cast(longitude, DecimalField())) * 111000, function='ABS'))
-            shopsList = shopsList.annotate(distance=(F('distance_lat') + F('distance_lon')) / 70)
-
-            shopsList = shopsList.annotate(Cpoints=Cast(F('ocupacio') + 1, DecimalField()) *
-                                                        F('distance') * 1000000
-                                           ).order_by('Cpoints')
-
+            shopsList = shopsList.annotate(distance=(Func((F('shop__latitude') -
+                                                           Cast(latitude, DecimalField())) * 111000,
+                                                          function='ABS') +
+                                                     Func((F('shop__longitude') -
+                                                           Cast(longitude, DecimalField())) * 111000,
+                                                          function='ABS')) / 70).filter(distance__lt=60)\
+                                 .annotate(ocupacio=Count('shop__purchase',
+                                                          filter=Q(shop__purchase__dateTime__lte=dateTime,
+                                                                   shop__purchase__endTime__gt=dateTime)),
+                                           Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance'))\
+                                 .order_by('Cpoints')[:20]
     else:
         form = forms.FilterForm()
     if shopsList is None:
         shopsList = []
-    print(shopsList)
     return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time_str})
 
 
@@ -94,19 +90,19 @@ def userList(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
 
-    purchaseListAll = models.Purchase.objects.all().filter(user=request.user)
-    purchaseListActive = purchaseListAll.filter(dateTime__gt=timezone.now())
+    purchaseListAll = models.Purchase.objects.filter(user=request.user).order_by('-dateTime')
+    purchaseListActive = purchaseListAll.filter(status=models.PCH_PENDING)
     viewAllText = 'Totes'
-    viewActiveText = 'Actives'
+    viewActiveText = 'Pendents'
     list = purchaseListActive
     text = viewAllText
     if request.method == 'POST':
         all = request.POST.get("value", "")
         if all == viewActiveText:
-            list = purchaseListActive
+            list = purchaseListActive[:20]
         else:
             text = viewActiveText
-            list = purchaseListAll
+            list = purchaseListAll[:20]
 
     return render(request, 'purchaselistuser.html', {'list': list, 'text': text})
 
