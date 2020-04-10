@@ -147,7 +147,7 @@ def list_admins(request, id=None):
         if form.is_valid():
             mail = form.cleaned_data['email']
             u = User.objects.filter(email=mail).first()
-            if u is None:
+            if u is None or not u.is_shopAdmin:
                 form.add_error('email', 'No s\'ha trobat l\'usuari')
             else:
                 shop.admins.add(u)
