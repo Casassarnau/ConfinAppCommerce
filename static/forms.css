@@ -212,12 +212,26 @@ h3 {
     /*transition: ease 0.5s;*/
 }
 
-.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active, .go-shop {
+.shop-list a:hover, .shop-list a:visited, .shop-list a:link, .shop-list a:active, .go-shop, .link-card  {
     text-decoration: none;
 }
 
-.go-shop {
+.go-shop, .link-card {
     color: black;
+}
+
+.rank-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#span_ocupacio {
+    background-color: var(--primary);
+    padding: 5px 5px;
+    border-radius: 10px;
+    color: black;
+    font-weight: normal;
 }
 
 .button-iconic {
@@ -240,6 +254,7 @@ h3 {
 
 
 }
+
 
 .shop-card {
     background-color: var(--secondary);
