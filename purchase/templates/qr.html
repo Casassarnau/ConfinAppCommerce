@@ -2,7 +2,7 @@
 {% block content %}
 <form action="">
 {% csrf_token %}
-    <h3>{{ user.name }}</h3>
+    <h3>{{ purchase.user.name }}</h3>
 
     <div>
         <label>Numero de compres: </label> {{ user.count }}
@@ -10,9 +10,6 @@
 
     <div>
         <label>Inici: </label> {{ purchase.dateTime|date:'d, M, Y H:m' }}
-    </div>
-    <div>
-        <label>Fi: </label> {{ purchase.endTime|date:'d, M, Y H:m' }}
     </div>
     <a href="{% url 'show_shop' id=purchase.shop.id %}" class="button">Tornar a la botiga</a>
 </form>

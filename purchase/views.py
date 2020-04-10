@@ -114,6 +114,7 @@ def infoUserPurchase(request, id):
         purchase.save()
     base_url = request.build_absolute_uri().split('purchase')[0]
     url = base_url[:-1] + reverse('qr_read', kwargs={'id': purchase.id})
+    print(url)
     return render(request, 'purchasedetailhistory.html', {'purchase': purchase, 'qrurl': url})
 
 
