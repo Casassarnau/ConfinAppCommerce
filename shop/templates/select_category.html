@@ -215,7 +215,6 @@
 
 
 <script>
-    if ('{{ widget.is_loading }}' == 'True') {
         const select_{{ widget.name }} = document.getElementById("id_{{ widget.name }}");
 
         for (let i = 0; i < select_{{ widget.name }}.children.length; i++)
@@ -223,7 +222,7 @@
             category = select_{{ widget.name }}.children[i].value;
             c = document.getElementById("{{ widget.name }}-li-option-" + category);
             choose_{{ widget.name }}(c);
+
         }
-    }
 
 </script>
