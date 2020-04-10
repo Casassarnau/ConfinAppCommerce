@@ -17,6 +17,8 @@ class ShopForm(forms.ModelForm):
 
     def clean_photo(self):
         photo = self.cleaned_data['photo']
+        if photo is None:
+            raise forms.ValidationError("Siusplau, afegeix una fotografia")
         size = getattr(photo, '_size', 0)
         if size > settings.MAX_UPLOAD_SIZE:
             raise forms.ValidationError("Please keep photo size under %s. Current filesize %s" % (
@@ -103,3 +105,7 @@ class ScheduleForm(forms.ModelForm):
             pass
         else:
             raise forms.ValidationError("It's overlapping with another schedue")
+
+
+class AddShopAdminForm(forms.Form):
+    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'Correu electrònic'}))

@@ -14,8 +14,10 @@
             <li style="display: inline-block;">{{ shop.name }} </li>
             <a href="{% url 'show_shop' id=shop.id   %}" class="button-iconic">
                 <i class="fa fa-eye"></i></a>
+            {% if shop.owner == request.user %}
             <a href="{% url 'modify_shop' id=shop.id   %}" class="button-iconic">
                 <i class="fa fa-edit"></i></a>
+            {% endif %}
             </a>
         </div>
 
