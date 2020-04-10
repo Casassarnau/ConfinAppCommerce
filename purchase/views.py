@@ -78,6 +78,7 @@ def info(request, id, time_str):
         dateTimeFuture = dateTime + timezone.timedelta(minutes=shop.meanTime)
         purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture)
         purchase.save()
+        return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
 
     return render(request, 'purchasedetail.html', {'shop': shop, 'time': time_str})
 
