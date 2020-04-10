@@ -5,7 +5,6 @@ from django.shortcuts import render
 from hackovid.utils import reverse
 from user import models
 from user import forms
-from shop import models as s_models
 
 
 USR_TYPE_FORM = {
@@ -15,7 +14,6 @@ USR_TYPE_FORM = {
 
 
 def login(request):
-
     # if user is already logged, no need to log in
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
