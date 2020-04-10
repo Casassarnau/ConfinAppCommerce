@@ -7,12 +7,12 @@
 {% block content %}
 
 <form action="" method="post">
+{% csrf_token %}
     {% if form.is_login %}
     <h3>Entra</h3>
     {% else %}
     <h3>Registra't</h3>
     {% endif %}
-    {% csrf_token %}
     {{ form }}
 
     <input type="submit" value="Envia">

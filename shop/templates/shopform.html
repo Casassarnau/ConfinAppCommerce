@@ -6,6 +6,7 @@
 {% endblock %}
 {% block content %}
 <form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
 
     {% if form.is_add_shop %}
     <h3>Crea la teva botiga</h3>

@@ -30,7 +30,8 @@ class ShopForm(forms.ModelForm):
     secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all(),
                                               placeholder='Find category ...', is_loading=False, title="Filtra per categoria:")
     services = SelectCategoryField(queryset=models.Service.objects.all(),
-                                   placeholder='Find service ...', is_loading=False, title="Filtra per servei:")
+                                   placeholder='Find service ...', is_loading=False, title="Filtra per servei:",
+                                   required=False)
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="Quant temps passen els teus usuaris de mitjana?")
