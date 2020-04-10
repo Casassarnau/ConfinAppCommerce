@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load qr_code %}
 <form action="">
 {% csrf_token %}
     <h3>{{ purchase.shop.name }}</h3>
@@ -10,6 +11,9 @@
     </div>
     <div>
         <label>Status:</label> {{ purchase.status_str }}
+    </div>
+    <div>
+        {% qr_from_text purchase.id %}
     </div>
 
     <a onclick="goBack()" class="button">Back to list</a>
