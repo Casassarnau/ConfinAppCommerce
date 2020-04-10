@@ -67,6 +67,7 @@ def add(request):
             shop = form.save()
             shop.longitude = lon
             shop.latitude = lat
+            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
             shop.save()
             shop.admins.add(request.user)
             """
@@ -110,7 +111,7 @@ def modify(request, id=None):
             shop.longitude = lon
             shop.latitude = lat
             shop2 = form.save()
-
+            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
             shop.save()
 
             return HttpResponseRedirect(reverse('root'))
@@ -126,9 +127,18 @@ def delete(request, id=None):
         shop = Shop.objects.filter(id=id, owner=request.user).first()
     except:
         shop = None
+
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
-    shop.delete()
+
+    if request.method == 'POST':
+        shop.delete()
+
+    else:
+        form = forms.ShopForm(instance=shop, initial={'map': [float(shop.longitude), float(shop.latitude)]})
+        return render(request, 'deleteshopform.html', {'form': form, 'id': id, 'shop': shop.photo})
+
+
     return HttpResponseRedirect(reverse('root'))
 
 def list_admins(request, id=None):
