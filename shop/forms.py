@@ -6,12 +6,9 @@ from django.utils import timezone
 
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
-
-from shop.models import Schedule
 from shop.range import RangeSliderField
 from shop.select_category import SelectCategoryField
 
-from datetime import time
 
 class ShopForm(forms.ModelForm):
     # TODO: Obtain latitude and longitude from the street in google maps.
@@ -56,7 +53,6 @@ class ShopForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nom de la botiga'}),
-            #'description': forms.TextInput(attrs={'placeholder': 'Descripció'}),
             'description': forms.Textarea(attrs={'rows': 4,'placeholder': 'Descripció'}),
             'photo': forms.FileInput(),
         }

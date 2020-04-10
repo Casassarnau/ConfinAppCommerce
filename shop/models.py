@@ -15,6 +15,7 @@ SCH_DAYS = [
 ]
 
 
+# sets the path to the file image
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return '{0}/{1}'.format(instance.id, filename)
@@ -23,15 +24,18 @@ def user_directory_path(instance, filename):
 class Category(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
 
+    # returns the name for the object
     def __str__(self):
         return self.name
 
+    # Abstract class, this is not in the data base
     class Meta:
         abstract = True
 
 
 class PrimaryCategory(Category):
 
+    # gets all the secondaries categories from the primary
     def get_secondaries(self):
         return self.secondary
 
@@ -62,9 +66,11 @@ class Shop(models.Model):
 
     description = models.CharField(max_length=256)
 
+    # name of the object as name + CIF
     def __str__(self):
         return '%s__%s' % (self.name, self.CIF)
 
+    # "Primary key" of Shop
     class Meta:
         unique_together = (('CIF', 'name'),)
 
@@ -75,9 +81,11 @@ class Schedule(models.Model):
     startHour = models.TimeField()
     endHour = models.TimeField()
 
+    # "Primary key" of Schedule
     class Meta:
         unique_together = (("day", "startHour", 'shop'),)
 
+    # get name of the day
     def get_day_name(self):
         return SCH_DAYS[self.day][1]
 
