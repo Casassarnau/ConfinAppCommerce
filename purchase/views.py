@@ -17,6 +17,7 @@ def list(request):
         return HttpResponseRedirect(reverse('root'))
     shopsList = []
     time = ''
+    time_str = None;
     if request.method == 'POST':
         form = forms.FilterForm(request.POST)
         if form.is_valid():
