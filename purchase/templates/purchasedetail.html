@@ -1,36 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="" method="post" enctype="multipart/form-data">
-{% csrf_token %}
-    <h3>Shop {{ shop.name }}</h3>
+<form action="" method="post" enctype="multipart/form-data" id="form_id" style="display: none;">{% csrf_token %}</form>
+<div class="shop-card-container">
+    <div class="shop-card">
+        <div class="image-card" style="background-image: url('{{ shop.photo.url }}')">
+                <h4><span>Botiga {{ shop.name }}</span></h4>
+        </div>
+        <div class="content-card">
+            <div class="categories-card">
+                <h5>Descripció</h5>
+                <p>{{ shop.description }}</p>
+            </div>
 
-    <img src={{ shop.photo.url }}>
+            <div class="categories-card">
+                <h5>Categories</h5>
+                <ul class="card-list">
+                    {% for sc in shop.secondaryCategories.all %}
+                        <li>{{ sc.name }} </li>
+                    {% empty %}
+                        <li>No hi ha categories.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="services-card">
+                <h5>Serveis</h5>
+                <ul class="card-list">
+                      {% for ss in shop.services.all %}
+                        <li>{{ ss.name }} </li>
+                      {% empty %}
+                          <li>No hi ha serveis.</li>
+                      {% endfor %}
+                  </ul>
+            </div>
+            <div class="categories-card">
+                <h5>Hora</h5>
+                <p>{{ time }}</p>
+            </div>
+            <div class="categories-card">
+                <h5>Indicació a la botiga</h5>
+                <a class="button-iconic" href="https://www.google.com/maps/dir/?api=1&destination={{ shop.latitude }},{{ shop.longitude }}">
+                    <i class="fa fa-map"></i>
+                </a>
+            </div>
+        </div>
+        <div class="buttons-container-simple">
+            <a onclick="goBack()" class="button">Tornar</a>
+            <input type="submit" value="Anar" form="form_id">
+        </div>
 
-    <label>Categories:</label>
-    <ul>
-        {% for sc in shop.secondaryCategories.all %}
-            <li>{{ sc.name }} </li>
-        {% empty %}
-            <li>No secondary categories.</li>
-        {% endfor %}
-    </ul>
-    <label>Services:</label>
-    <ul>
-          {% for ss in shop.services.all %}
-            <li>{{ ss.name }} </li>
-          {% empty %}
-              <li>No services.</li>
-          {% endfor %}
-    </ul>
-    <div>
-        <label>Time:</label> {{ time }}
     </div>
-    <div>
-        <a href="https://www.google.com/maps/dir/?api=1&destination={{ shop.latitude }},{{ shop.longitude }}"><i class="fa fa-map"></i></a>
-    </div>
-    <input type="submit" value="Go shop">
-    <a onclick="goBack()" class="button">Back to list</a>
-</form>
+</div>
 <script>
     function goBack() {
       window.history.back();

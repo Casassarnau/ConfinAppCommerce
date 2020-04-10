@@ -377,6 +377,15 @@ h5 {
     padding-top: 18px;
 }
 
+.buttons-container-simple-centered {
+    background-color: transparent;
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    justify-content: center;
+    padding-top: 18px;
+}
+
 .buttons-container > *,  .buttons-container-simple > *{
     align-self: center;
     justify-self: center;
