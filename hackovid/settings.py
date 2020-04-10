@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'user',
     'shop',
     'purchase',
+    'qr_code',
 ]
 
 MIDDLEWARE = [

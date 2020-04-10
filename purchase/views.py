@@ -9,6 +9,7 @@ from django.utils import timezone
 from hackovid.utils import reverse
 from purchase import forms, models
 from shop import models as sModels
+from user import models as uModels
 
 
 def list(request):
@@ -16,8 +17,7 @@ def list(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('root'))
     shopsList = []
-    time = ''
-    time_str = None;
+    time_str = ''
     if request.method == 'POST':
         form = forms.FilterForm(request.POST)
         if form.is_valid():
@@ -102,3 +102,40 @@ def userList(request):
             list = purchaseListAll
 
     return render(request, 'purchaselistuser.html', {'list': list, 'text': text})
+
+
+def infoUserPurchase(request, id):
+    # if user is already logged, no need to log in
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('root'))
+    try:
+        purchase = models.Purchase.objects.filter(id=id, user=request.user).first()
+    except:
+        return HttpResponse(status=404)
+    date = timezone.now().date()
+    if purchase.is_pending() and purchase.dateTime.date() != date:
+        purchase.expire()
+        purchase.save()
+    base_url = request.build_absolute_uri().split('purchase')[0]
+    url = base_url[:-1] + reverse('qr_read', kwargs={'id': purchase.id})
+    print(url)
+    return render(request, 'purchasedetailhistory.html', {'purchase': purchase, 'qrurl': url})
+
+
+def qrreaded(request, id):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('root'))
+    try:
+        purchase = models.Purchase.objects.filter(id=id, user=request.user).first()
+    except:
+        return HttpResponse(status=404)
+    date = timezone.now().date()
+    if purchase.is_pending() and purchase.dateTime.date() != date:
+        purchase.expire()
+        purchase.save()
+        return HttpResponseRedirect(reverse('root'))
+    purchase.accept()
+    purchase.save()
+    user = uModels.User.objects.filter(id=purchase.user.id).annotate(count=Count('purchase',
+                                                                                 filter=Q(purchase__status='A')))
+    return render(request, 'qr.html', {'purchase': purchase, 'user': user})
