@@ -44,7 +44,6 @@ def add(request):
             CIF = form.cleaned_data['CIF']
             name = form.cleaned_data['name']
             s = Shop.objects.filter(CIF=CIF, name=name).first()
-            print(s)
             if not s is None:
                 form.add_error('CIF', 'Ja existeix aquesta botiga')
                 return render(request, 'shopform.html', {'form': form})
@@ -61,16 +60,7 @@ def add(request):
                        owner=request.user, photo=photo, description=description)
             shop.save()
             shop.secondaryCategories.set(secondaryCategories)
-            shop.services.add(services)
-
-            """
-            shop = form.save()
-            shop.longitude = lon
-            shop.latitude = lat
-            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
-            shop.save()
-            shop.admins.add(request.user)
-            """
+            shop.services.set(services)
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
@@ -110,9 +100,11 @@ def modify(request, id=None):
             shop = form.save()
             shop.longitude = lon
             shop.latitude = lat
-            shop2 = form.save()
-            print("Secondary categories: ", form.cleaned_data['secondaryCategories'])
+            secondaryCategories = form.cleaned_data['secondaryCategories']
+            services = form.cleaned_data['services']
             shop.save()
+            shop.secondaryCategories.set(secondaryCategories)
+            shop.services.set(services)
 
             return HttpResponseRedirect(reverse('root'))
 
