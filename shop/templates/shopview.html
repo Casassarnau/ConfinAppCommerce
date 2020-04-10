@@ -19,7 +19,7 @@
 
             <div class="categories-card">
                 <h5>Descripció</h5>
-                <!--<p>{{ shop.description }}</p>-->
+                <p>{{ shop.description }}</p>
             </div>
 
             <div class="categories-card">
@@ -47,7 +47,11 @@
 
         <div class="buttons-container-simple">
             <a href="{% url 'list_shop' %}" class="button">Tornar</a>
-          <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
+            {% if shop.owner == request.user %}
+            <a href="{% url 'modify_shop' id=shop.id   %}" class="button">Editar</a>
+            <a href="{% url 'list_shop_admins' id=shop.id   %}" class="button">Llista dd admins</a>
+
+            {% endif %}
 
         </div>
 

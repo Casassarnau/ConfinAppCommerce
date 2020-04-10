@@ -22,7 +22,11 @@ def list(request):
         form = forms.FilterForm(request.POST)
         if form.is_valid():
             location = form.cleaned_data['location']
-            (latitude, longitude) = location.split(', ')
+            if location.find(',') != -1:
+                (latitude, longitude) = location.split(', ')
+            else:
+                latitude = 0
+                longitude = 0
             (latitude, longitude) = (float(latitude), float(longitude))
             category = form.cleaned_data['category']
             service = form.cleaned_data['service']

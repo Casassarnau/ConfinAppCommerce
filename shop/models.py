@@ -53,7 +53,8 @@ class Shop(models.Model):
     latitude = models.DecimalField(decimal_places=7, max_digits=11, null=True, blank=True)
     longitude = models.DecimalField(decimal_places=7, max_digits=11, null=True, blank=True)
 
-    admins = models.ManyToManyField(User, related_name='shop')
+    owner = models.ForeignKey(to=User, related_name='my_shop', on_delete=models.CASCADE)
+    admins = models.ManyToManyField(User, blank=True, related_name='shop')
     secondaryCategories = models.ManyToManyField(to=SecondaryCategory)
     services = models.ManyToManyField(to=Service, blank=True)
 
@@ -66,6 +67,7 @@ class Shop(models.Model):
 
     class Meta:
         unique_together = (('CIF', 'name'),)
+
 
 
 class Schedule(models.Model):

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
+{% endblock %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for f in form %}
+        {% if f.name == 'name' %}
+            <h3>Estas segur que vols esborrar la botiga {{ f.value }}?</h3>
+        {% endif %}
+    {% endfor %}
+    <div class="buttons-container">
+        <a href="{% url 'list_shop' %}" class="button">Tornar</a>
+        <input type="submit" value="Confirmar" style="background-color: var(--focus);">
+    </div>
+</form>
+{{ form.media }}
+{% endblock %}

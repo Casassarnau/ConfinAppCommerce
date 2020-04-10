@@ -97,6 +97,21 @@ input[type=submit]:hover {
     /*transition: ease 0.5s;*/
 }
 
+#id_description {
+    resize: none;
+    width: 260px;
+    height: auto;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    background-color: var(--secondary);
+    border: none;
+}
+
+#id_description:focus {
+    background-color: var(--focus);
+}
+
 /*
 input[type=text]:active {
     background-color: #2e7032;
@@ -330,6 +345,10 @@ h4 * {
     margin: 0;
 }
 
+.categories-card > p {
+    text-align: left;
+}
+
 h5 {
     margin: 5px 0;
     font-size: 16px;
@@ -364,4 +383,8 @@ h5 {
     width: 60px;
     height: 14.85px;
     text-align: center;
+}
+
+#id_photo {
+    background-color: var(--secondary);
 }

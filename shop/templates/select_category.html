@@ -28,9 +28,9 @@
         transition: background-color ease 0.5s;
         color: black;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
 
         border-radius: 15px;
     }
@@ -80,7 +80,7 @@
 
     .explain-widget {
         margin: 0;
-        padding: 12px 0;
+        padding: 0;
         text-align: left;
     }
 
@@ -186,7 +186,7 @@
 
 <div id="{{ widget.name }}-choice-bag"></div>
 
-<ul id="{{ widget.name }}-cats" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
+<ul id="{{ widget.name }}-cats" name="ul-{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}>
     {% for group_name, group_choices, group_index in widget.optgroups %}
         {% for option in group_choices %}
           {% include option.template_name with widget=option %}
