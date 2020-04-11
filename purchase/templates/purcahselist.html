@@ -9,44 +9,51 @@
     </form>
     <br><br>
 
-    <div class="shop-card-container">
-        {% for shop in shops %}
-        <a class="link-card" href="{% url 'go_shop' id=shop.shop.id time_str=time %}">
-            <div class="shop-card">
-                <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
-                    <h4><span>
-                        {{ shop.shop.name }}
-                    </span></h4>
+    {% if shops %}
+        <div class="shop-card-container">
+            {% for shop in shops %}
+            <a class="link-card" href="{% url 'go_shop' id=shop.shop.id time_str=time %}">
+                <div class="shop-card">
+                    <div class="image-card" style="background-image: url('{{ shop.shop.photo.url }}')">
+                        <h4><span>
+                            {{ shop.shop.name }}
+                        </span></h4>
 
 
-                </div>
-
-                <div class="content-card">
-                    <div class="rank-container">
-                        <span id="span_distance">
-                            A {{ shop.distance|stringformat:'d' }} minuts.
-                        </span>
-                        {% if shop.ocupacio < 5  %}
-                        <span id="span_ocupacio"  style="background-color: lightgreen;"> <!--lightgreen-->
-                                Ocupació: {{ shop.ocupacio }}
-                        </span>
-                        {% elif shop.ocupacio < 10  %}
-                        <span id="span_ocupacio" style="background-color: khaki;"> <!--khaki-->
-                                Ocupació: {{ shop.ocupacio }}
-                        </span>
-                        {% else  %}
-                        <span id="span_ocupacio">
-                                Ocupació: {{ shop.ocupacio }}
-                        </span>
-                        {% endif %}
                     </div>
-                    <p style="text-align: left;">{{ shop.shop.description }}</p>
 
+                    <div class="content-card">
+                        <div class="rank-container">
+                            <span id="span_distance">
+                                A {{ shop.distance|stringformat:'d' }} minuts.
+                            </span>
+                            {% if shop.ocupacio < 5  %}
+                            <span id="span_ocupacio"  style="background-color: lightgreen;"> <!--lightgreen-->
+                                    Ocupació: {{ shop.ocupacio }}
+                            </span>
+                            {% elif shop.ocupacio < 10  %}
+                            <span id="span_ocupacio" style="background-color: khaki;"> <!--khaki-->
+                                    Ocupació: {{ shop.ocupacio }}
+                            </span>
+                            {% else  %}
+                            <span id="span_ocupacio">
+                                    Ocupació: {{ shop.ocupacio }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <p style="text-align: left;">{{ shop.shop.description }}</p>
+
+                    </div>
                 </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
+            </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <form>
+            No s'ha trobat cap botiga amb aquests paràmetres de cerca.
+        </form>
+
+    {% endif %}
 <script>
 function geoFindMe() {
 
