@@ -32,7 +32,6 @@ class RangeSlider(forms.TextInput):
         s = super(RangeSlider, self).render(name, value, attrs)
         self.elem_id = re.findall(r'id_([A-Za-z0-9_./\\-]*)"',s)[0]
 
-        print("Render max:", self.maximum)
         js = """
         <script>
         let original_input = document.getElementById('id_"""+self.elem_id+"""');
