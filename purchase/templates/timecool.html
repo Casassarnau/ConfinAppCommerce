@@ -1,6 +1,51 @@
+<style>
+    .time-widget-container {
+        width 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .time-widget-container > input {
+        width: 40px;
+        border: none;
+    }
+
+    .time-widget-container * {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #time-hour {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .time-widget-container div {
+        background-color: var(--secondary);
+        height: 39.5px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+
+
+    #time-minute {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+</style>
+
 <input style="display: none;" type="{{ widget.type }}" name="time-{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
-<input id="{{ widget.name }}-hour" onchange="updateHiddenInput()" class="time" type="number" value="5" min="0" max="23">
-<input id="{{ widget.name }}-minute" onchange="updateHiddenInput()" class="time" type="number" value="30" min="0" max="60" step="5">
+<div class="time-widget-container">
+    <input id="{{ widget.name }}-hour" onchange="updateHiddenInput()" class="time" type="number" value="5" min="0" max="23">
+    <div><span id="points">:</span></div>
+    <input id="{{ widget.name }}-minute" onchange="updateHiddenInput()" class="time" type="number" value="30" min="0" max="60" step="5">
+</div>
+
 <script>
     let {{ widget.name }}_inputTime = document.getElementsByName("time-{{ widget.name }}")[0];
     let {{ widget.name }}_inputHour = document.getElementById("{{ widget.name }}-hour");
@@ -10,7 +55,7 @@
     let {{ widget.name }}_minute = {{ widget.name }}_inputTime.value.split(":")[1];
 
     {{ widget.name }}_inputHour.value = {{ widget.name }}_hour;
-    {{ widget.name }}_inputMinute.value = {{ widget.name }}_minute;
+    {{ widget.name }}_inputMinute.value = {{ widget.name }}_minute - {{ widget.name }}_minute % 5 ;
 
     function updateHiddenInput() {
         {{ widget.name }}_inputHour.value = parseInt({{ widget.name }}_inputHour.value) + parseInt({{ widget.name }}_inputMinute.value / 60);
