@@ -25,7 +25,7 @@ class FilterForm(forms.Form):
     def clean_time(self):
         time = self.cleaned_data['time']
         if time < timezone.now().time():
-            raise forms.ValidationError('Outdated')
+            raise forms.ValidationError('Siusplau, fica una hora posterior a la actual')
         return time
 
     class Meta:
