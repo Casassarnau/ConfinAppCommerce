@@ -148,6 +148,14 @@ h3 {
 
 }
 
+.time {
+    background-color: var(--secondary);
+    display: inline;
+    width: 35%;
+    border: solid black 1px;
+    text-align: center;
+}
+
 .shop-list {
     background-color: transparent;
     color: black;

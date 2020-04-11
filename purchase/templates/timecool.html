@@ -1,0 +1,18 @@
+<input style="display: none;" type="{{ widget.type }}" name="time-{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+<input id="{{ widget.name }}-hour" onchange="updateHiddenInput()" class="time" type="number" value="5" min="0" max="23">
+<input id="{{ widget.name }}-minute" onchange="updateHiddenInput()" class="time" type="number" value="30" min="0" max="59">
+<script>
+    let inputTime = document.getElementsByName("time-{{ widget.name }}")[0];
+    let inputHour = document.getElementById("{{ widget.name }}-hour");
+    let inputMinute = document.getElementById("{{ widget.name }}-minute");
+
+    let hour = inputTime.value.split(":")[0];
+    let minute = inputTime.value.split(":")[1];
+
+    inputHour.value = hour;
+    inputMinute.value = minute;
+
+    function updateHiddenInput() {
+        inputTime.value = inputHour.value + ":" + inputMinute.value;
+    }
+</script>

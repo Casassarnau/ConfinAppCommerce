@@ -1,6 +1,7 @@
 from django import forms
 from django.utils import timezone
 
+from purchase.TimeInputCool import TimeInputCool
 from shop import models
 from shop.select_category import SelectCategoryField
 
@@ -12,7 +13,8 @@ class FilterForm(forms.Form):
                                   placeholder="Buscar servei...", required=False, is_loading=False, title="Filtra per servei:")
     time = forms.TimeField(required=True, label='A quina hora vols anar a comprar?',
                            initial='%02d:%02d' % ((timezone.now() + timezone.timedelta(minutes=30)).hour,
-                                                  (timezone.now() + timezone.timedelta(minutes=30)).minute))
+                                                  (timezone.now() + timezone.timedelta(minutes=30)).minute), widget=TimeInputCool())
+
     location = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Clica\'m!',
                                                                             'readonly': 'True'}))
 
@@ -28,3 +30,4 @@ class FilterForm(forms.Form):
 
     class Meta:
         fields = ['category', 'service', 'time']
+
