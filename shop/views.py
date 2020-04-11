@@ -81,10 +81,9 @@ def list(request):
     if not request.user.is_authenticated or not request.user.is_shopAdmin:
         return HttpResponseRedirect(reverse('root'))
 
-    # TODO fix issue els admins no veuen la botiga
     # gets the shops with user as admin or owner
-    shopsList = Shop.objects.filter(Q(admins__email__in=request.user.email) | Q(owner__email=request.user.email)) \
-        .distinct()
+    shopsList = Shop.objects.filter(Q(admins__email=request.user.email) | Q(owner__email=request.user.email))\
+        .order_by('name').distinct()
     return render(request, 'shoplist.html', {'shops': shopsList})
 
 
