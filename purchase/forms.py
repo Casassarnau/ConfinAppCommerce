@@ -15,7 +15,7 @@ class FilterForm(forms.Form):
                            initial='%02d:%02d' % ((timezone.now() + timezone.timedelta(minutes=30)).hour,
                                                   (timezone.now() + timezone.timedelta(minutes=30)).minute), widget=TimeInputCool())
 
-    location = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Clica\'m!',
+    location = forms.CharField(required=True, label= 'Localització', widget=forms.TextInput(attrs={'placeholder': 'Clica\'m!',
                                                                             'readonly': 'True'}))
 
     def clean(self):
