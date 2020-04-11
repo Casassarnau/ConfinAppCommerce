@@ -4,6 +4,7 @@ from django.template.defaultfilters import filesizeformat
 from mapbox_location_field.forms import LocationField
 from django.utils import timezone
 
+from purchase.TimeInputCool import TimeInputCool
 from shop import models
 from localflavor.es.forms import ESIdentityCardNumberField
 from shop.range import RangeSliderField
@@ -76,9 +77,9 @@ class ShopForm(forms.ModelForm):
 
 class ScheduleForm(forms.ModelForm):
     startHour = forms.TimeField(required=True, label='Començament de la jornada',
-                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute),)
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute), widget=TimeInputCool())
     endHour = forms.TimeField(required=True, label='Fi de la jornada',
-                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute))
+                           initial='%02d:%02d' % (timezone.now().hour, timezone.now().minute), widget=TimeInputCool())
 
     class Meta:
         model = models.Schedule
