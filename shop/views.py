@@ -232,7 +232,8 @@ def add_schedule(request, id=None):
             for schedule in list:
                 if (schedule.startHour <= startHour <= schedule.endHour) or (
                         schedule.startHour <= endHour <= schedule.endHour) or (
-                        startHour >= schedule.startHour and endHour <= schedule.endHour):
+                        startHour >= schedule.startHour and endHour <= schedule.endHour) or (
+                        startHour <= schedule.startHour and endHour >= schedule.endHour):
                     go = False
             if not go:
                 form.add_error(None, "It's overlapping with another schedue")
