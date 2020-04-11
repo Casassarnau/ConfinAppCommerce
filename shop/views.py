@@ -260,9 +260,8 @@ def list_schedule(request, id=None):
     if not request.user.is_authenticated or not request.user.is_shopAdmin or shop is None:
         return HttpResponseRedirect(reverse('root'))
 
-    # TODO order it
     # gets the schedules from the shop
-    scheduleList = Schedule.objects.filter(shop=shop).all()
+    scheduleList = Schedule.objects.filter(shop=shop).order_by('day', 'startHour')
     return render(request, 'schedulelist.html', {'schedules': scheduleList, 'id': id})
 
 

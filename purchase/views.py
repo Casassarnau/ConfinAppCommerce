@@ -62,12 +62,12 @@ def list(request):
                                                           function='ABS') +
                                                      Func((F('shop__longitude') -
                                                            Cast(longitude, DecimalField())) * 111000,
-                                                          function='ABS')) / 70).filter(distance__lt=60)\
-                                 .annotate(ocupacio=Count('shop__purchase',
-                                                          filter=Q(shop__purchase__dateTime__lte=dateTime,
-                                                                   shop__purchase__endTime__gt=dateTime)),
-                                           Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance'))\
-                                 .order_by('Cpoints')[:20]
+                                                          function='ABS')) / 70).filter(distance__lt=60) \
+                            .annotate(ocupacio=Count('shop__purchase',
+                                                     filter=Q(shop__purchase__dateTime__lte=dateTime,
+                                                              shop__purchase__endTime__gt=dateTime)),
+                                      Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance')) \
+                            .order_by('Cpoints')[:20]
 
     else:
         form = forms.FilterForm()
@@ -87,7 +87,6 @@ def info(request, id, time_str):
     except:
         return HttpResponse(status=404)
     if request.method == 'POST':
-
         # gets the time by the url
         dateTime = timezone.now()
         dateTime_str = dateTime.strftime('%d-%m-%Y-')
@@ -165,10 +164,10 @@ def qrreaded(request, id):
         return HttpResponse(status=404)
 
     # if user has no permissions to accept the purchase, gets not found
-    if not request.user in purchase.shop.admins.all() and request.user.id != purchase.shop.owner.id:
+    if not purchase.is_pending() or request.user not in purchase.shop.admins.all() and \
+            request.user.id != purchase.shop.owner.id:
         return HttpResponse(status=404)
 
-    # TODO purchase must be pending
     # checks again if the purchase is on day, just in case
     date = timezone.now().date()
     if purchase.is_pending() and purchase.dateTime.date() != date:
@@ -180,8 +179,9 @@ def qrreaded(request, id):
     purchase.accept()
     purchase.save()
 
-    # TODO only in this shop
     # count number of purchases accepted from the user
     user = uModels.User.objects.filter(id=purchase.user.id).annotate(count=Count('purchase',
-                                                                                 filter=Q(purchase__status='A')))
+                                                                                 filter=Q(purchase__status='A',
+                                                                                          purchase__shop=purchase.shop
+                                                                                          )))
     return render(request, 'qr.html', {'purchase': purchase, 'user': user})

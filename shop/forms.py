@@ -11,7 +11,6 @@ from shop.select_category import SelectCategoryField
 
 
 class ShopForm(forms.ModelForm):
-    # TODO: Obtain latitude and longitude from the street in google maps.
 
     def clean_photo(self):
         photo = self.cleaned_data['photo']
