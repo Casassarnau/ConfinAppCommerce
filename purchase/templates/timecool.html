@@ -55,12 +55,15 @@
     let {{ widget.name }}_hour = {{ widget.name }}_inputTime.value.split(":")[0];
     let {{ widget.name }}_minute = {{ widget.name }}_inputTime.value.split(":")[1];
 
-    {{ widget.name }}_inputHour.value = {{ widget.name }}_hour;
-    {{ widget.name }}_inputMinute.value = {{ widget.name }}_minute - {{ widget.name }}_minute % 5 ;
+    {{ widget.name }}_inputHour.value = {{ widget.name }}_hour.padStart(2, 0);
+    {{ widget.name }}_inputMinute.value = ({{ widget.name }}_minute - {{widget.name}}_minute % 5).padStart(2, 0);
 
     function updateHiddenInput() {
         {{ widget.name }}_inputHour.value = parseInt({{ widget.name }}_inputHour.value) + parseInt({{ widget.name }}_inputMinute.value / 60);
         {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute.value % 60;
         {{ widget.name }}_inputTime.value = {{ widget.name }}_inputHour.value + ":" + {{ widget.name }}_inputMinute.value;
+
+        {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute.value.padStart(2, 0);
+        {{ widget.name }}_inputHour.value = {{ widget.name }}_inputHour.value.padStart(2, 0);
     }
 </script>
