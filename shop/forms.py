@@ -24,7 +24,7 @@ class ShopForm(forms.ModelForm):
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
     secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all(),
-                                              placeholder='Busca ina categoria ...', is_loading=False, title="Filtra per categoria:")
+                                              placeholder='Busca una categoria ...', is_loading=False, title="Filtra per categoria:")
     services = SelectCategoryField(queryset=models.Service.objects.all(),
                                    placeholder='Busca un servei ...', is_loading=False, title="Filtra per servei:",
                                    required=False)
@@ -32,7 +32,7 @@ class ShopForm(forms.ModelForm):
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
                                name="Quant temps passen els teus usuaris de mitjana?")
 
-    map = LocationField(map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10})
+    map = LocationField(label= 'Mapa', map_attrs={"center": [2.1589899, 41.3887901], "marker_color": "#ba6b6c", 'zoom': 10, 'placeholder':'Tria una localització a sota'})
 
     class Meta:
         model = models.Shop
@@ -40,12 +40,14 @@ class ShopForm(forms.ModelForm):
 
         labels = {
             'name': '',
-            'description': ''
+            'description': '',
+            'photo': 'Foto'
         }
 
         help_text = {
             'CIF': 'CIF',
             'name': 'Name',
+
         }
 
         exclude = ['latitude', 'longitude']
