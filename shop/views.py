@@ -236,7 +236,7 @@ def add_schedule(request, id=None):
                         startHour <= schedule.startHour and endHour >= schedule.endHour):
                     go = False
             if not go:
-                form.add_error(None, "It's overlapping with another schedue")
+                form.add_error(None, "S'està sobreposant amb un altre horari")
             else:
                 sch = Schedule(shop=shop, day=day, startHour=startHour, endHour=endHour)
                 sch.save()

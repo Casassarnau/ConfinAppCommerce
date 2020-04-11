@@ -18,15 +18,15 @@ class ShopForm(forms.ModelForm):
             raise forms.ValidationError("Siusplau, afegeix una fotografia")
         size = getattr(photo, '_size', 0)
         if size > settings.MAX_UPLOAD_SIZE:
-            raise forms.ValidationError("Please keep photo size under %s. Current filesize %s" % (
+            raise forms.ValidationError("Siusplau, la foto ha de tenir un tamany inferior a %s. Actualment %s" % (
                 filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(size)))
         return photo
 
     CIF = ESIdentityCardNumberField(only_nif=False, label='', widget=forms.TextInput(attrs={'placeholder': 'CIF'}))
     secondaryCategories = SelectCategoryField(queryset=models.SecondaryCategory.objects.all(),
-                                              placeholder='Find category ...', is_loading=False, title="Filtra per categoria:")
+                                              placeholder='Busca ina categoria ...', is_loading=False, title="Filtra per categoria:")
     services = SelectCategoryField(queryset=models.Service.objects.all(),
-                                   placeholder='Find service ...', is_loading=False, title="Filtra per servei:",
+                                   placeholder='Busca un servei ...', is_loading=False, title="Filtra per servei:",
                                    required=False)
 
     meanTime = RangeSliderField(label="", minimum=0, maximum=60,  step=5,
@@ -59,11 +59,11 @@ class ShopForm(forms.ModelForm):
     def clean(self):
         map = self.cleaned_data['map']
         if map is None:
-            raise forms.ValidationError("You ned a coords")
+            raise forms.ValidationError("Necesites unes coordenades")
         elif float(map.split(',')[0]) <= -180 or float(map.split(',')[0]) >= 180:
-            raise forms.ValidationError("Longitude out of range")
+            raise forms.ValidationError("Longitude fora de rang")
         elif float(map.split(',')[1]) < -90 or float(map.split(',')[1]) >= 90:
-            raise forms.ValidationError("Latitude out of range")
+            raise forms.ValidationError("Latitude fora de rang")
         else:
             pass
         return self.cleaned_data

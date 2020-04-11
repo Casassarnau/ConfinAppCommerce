@@ -11,7 +11,7 @@ class UserManager(BaseUserManager):
     # creates client
     def create_user(self, email, name, password=None):
         if not email:
-            return ValueError('Email pls')
+            return ValueError('Siusplau, afegeix un correu electrònic')
         client = self.model(
             name=name,
             email=email,

@@ -67,7 +67,7 @@ def register(request, client):
 
             # check if user email already exists
             if models.User.objects.filter(email=email).first() is not None:
-                form.add_error('email', 'An account with this email already exists')
+                form.add_error('email', 'Ja existeix un compte amb aquest correu')
             else:
 
                 # create user & log in new user
@@ -99,7 +99,7 @@ def logout(request):
 
     # logs out
     auth.logout(request)
-    messages.success(request, 'Successfully logged out!')
+    messages.success(request, 'Has sortit correctament!')
 
     # redirect to root -> log in
     return HttpResponseRedirect(reverse('root'))

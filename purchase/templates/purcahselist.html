@@ -61,13 +61,13 @@ function geoFindMe() {
   }
 
   function error() {
-    status.value = 'Unable to retrieve your location';
+    status.value = 'No s\'ha pogut trobar la teba localització';
   }
 
   if (!navigator.geolocation) {
-    status.value = 'Geolocation is not supported by your browser';
+    status.value = 'El teu navegador no soporta la geolocalització';
   } else {
-    status.value = 'Locating…';
+    status.value = 'Carregant…';
     navigator.geolocation.getCurrentPosition(success, error);
   }
 
