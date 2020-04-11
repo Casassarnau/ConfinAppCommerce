@@ -26,7 +26,7 @@ Necessita: Python 3.X, virtualenv
 - `source ./env/bin/activate`
 - `pip install -r requirements.txt`
 - `python manage.py migrate`
-- `python manage.py createsuperuser` (creates super user to manage all the app)
+- `python manage.py createsuperuser` (crea admin per administrar l'aplicació)
 
 ## Variables requerides de l'entorn (enviroment)
 
