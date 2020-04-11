@@ -409,17 +409,19 @@ h5 {
     grid-template-rows: 1fr 1fr;
     justify-content: center;
     padding-top: 18px;
+
 }
 
 .buttons-container-simple {
-    background-color: transparent;
-    width: 100%;
+    width: 300px;
     height: fit-content;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     justify-content: center;
     padding-top: 18px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .buttons-container-simple-centered {
