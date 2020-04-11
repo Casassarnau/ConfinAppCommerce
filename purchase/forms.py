@@ -6,7 +6,6 @@ from shop.select_category import SelectCategoryField
 
 
 class FilterForm(forms.Form):
-    # services = SelectCategoryField(queryset=models.Service.objects.all())
     category = SelectCategoryField(queryset=models.PrimaryCategory.objects.all(),
                                    placeholder="Buscar categoria...", required=False, is_loading=False, title="Filtra per categoria:")
     service = SelectCategoryField(queryset=models.Service.objects.all(),
@@ -20,6 +19,7 @@ class FilterForm(forms.Form):
     def clean(self):
         return self.cleaned_data
 
+    # checks if time is not outdated
     def clean_time(self):
         time = self.cleaned_data['time']
         if time < timezone.now().time():

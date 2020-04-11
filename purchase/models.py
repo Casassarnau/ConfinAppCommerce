@@ -29,14 +29,17 @@ class Purchase(models.Model):
     endTime = models.DateTimeField()
     status = models.CharField(choices=PCH_STATUS, max_length=2)
 
+    # gets string from status
     def status_str(self):
         return PCH_STATUS[PCH_STR_POS[self.status]][1]
 
     def is_pending(self):
         return self.status == PCH_PENDING
 
+    # accept the purchase
     def accept(self):
         self.status = PCH_ACCEPTED
 
+    # expire the purchase
     def expire(self):
         self.status = PCH_EXPIRED
