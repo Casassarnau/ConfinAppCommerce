@@ -15,7 +15,7 @@
 - Cerca de botigues per proximitat i ocupació	:mag:
 - Control automatic dels estats de les compres 🔄
 - Botiguers validen compres amb un QR 📱
-- Emmagatzematge de les compres per poder fer una possible oferta cada 5 compres :shop:
+- Emmagatzematge de les compres per poder fer una possible oferta cada 5 compres :purse:
 
 ## Configuració
 
@@ -84,6 +84,7 @@ Si necesites nous camps per els teus models
 - Search less ocupied local shops nearby 	:mag:
 - Automatic control of purchase expired, pending or accepted 🔄
 - Personal shopper validates purchase with QR 📱
+- Saves purchases in order to make a possible offer to the client :purse:
 
 ## Setup
 
