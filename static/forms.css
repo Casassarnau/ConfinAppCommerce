@@ -75,6 +75,7 @@ input[type=range]::-moz-focus-outer {
 
 /*Button submit style*/
 input[type=submit] {
+    -webkit-appearance: none; /* Display submit botton well on iPhone/iPad*/
     width: 100px;
     height: auto;
     background-color: var(--primary-dark);
