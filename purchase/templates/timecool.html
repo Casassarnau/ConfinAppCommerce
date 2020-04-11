@@ -60,7 +60,7 @@
     {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute.value.padStart(2, 0);
 
     function updateHiddenInput() {
-        {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute - {{widget.name}}_inputMinute % 5;
+        {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute.value - {{widget.name}}_inputMinute.value % 5;
         {{ widget.name }}_inputHour.value = parseInt({{ widget.name }}_inputHour.value) + parseInt({{ widget.name }}_inputMinute.value / 60);
         {{ widget.name }}_inputMinute.value = {{ widget.name }}_inputMinute.value % 60;
         {{ widget.name }}_inputTime.value = {{ widget.name }}_inputHour.value + ":" + {{ widget.name }}_inputMinute.value;
