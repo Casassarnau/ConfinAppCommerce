@@ -30,8 +30,7 @@ Necessita: Python 3.X, virtualenv
 
 ## Variables requerides de l'entorn (enviroment)
 
-- **REGISTRATION_TOKEN**: Token that gives acces to shop owners or workers to register in the app
-
+- **REGISTRATION_TOKEN**: Token que dona accès al comprador per poder-se registrar a la app
 
 ## Servidor
 
