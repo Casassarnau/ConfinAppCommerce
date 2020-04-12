@@ -50,7 +50,7 @@ Necessita: Python 3.X, virtualenv
 
 ### Estil
 
-- Colors i presentació: [hackovid/static/style.css](hackovid/static/style.css)
+- Colors i presentació: [static/style.css](static/style.css)
 - Plantilla base i NavBar: [hackovid/templates/base.html](hackovid/templates/base.html)
 
 ### Contingut
@@ -126,7 +126,7 @@ Needs: Python 3.X, virtualenv
 
 ### Style
 
-- Colors and presentation: [hackovid/static/style.css](hackovid/static/style.css)
+- Colors and presentation: [static/style.css](static/style.css)
 - Base template & Navbar: [hackovid/templates/base.html](hackovid/templates/base.html)
 
 ### Content
