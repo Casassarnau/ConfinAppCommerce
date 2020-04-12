@@ -1,5 +1,5 @@
 <br>
-<p align="rigth">
+<p>
   <a href="https://github.com/Casassarnau/confinappComerce/blob/master/README.md#catal%C3%A0">
     <img scr="https://cdn1.iconfinder.com/data/icons/famfamfam_flag_icons/catalonia.png"/>
   </a>
