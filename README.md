@@ -84,7 +84,7 @@ MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
 # English
 
-📝 App designed to promote local commerce
+📝 App designed to promote local commerce - [Video demo](https://www.youtube.com/watch?v=9T0vEAJG4lQ&feature=youtu.be)
 
 ## Features
 
