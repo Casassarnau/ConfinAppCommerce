@@ -6,7 +6,7 @@
 
 # Català
 
-📝 App dissenyada per promocionar el comerç de proximitat
+📝 App dissenyada per promocionar el comerç de proximitat - [Video demo](https://www.youtube.com/watch?v=9T0vEAJG4lQ&feature=youtu.be)
 
 ## Característiques
 
