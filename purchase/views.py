@@ -60,12 +60,12 @@ def list(request):
 
             # orders by the nearest-lessOccupied shops and filters by nearest ones, gets 20 of them in order for the
             # user to have a good experience
-            shopsList = shopsList.annotate(distance=(Func((F('shop__latitude') -
-                                                           Cast(latitude, DecimalField())) * 111000,
-                                                          function='ABS') +
-                                                     Func((F('shop__longitude') -
-                                                           Cast(longitude, DecimalField())) * 111000,
-                                                          function='ABS')) / 70).filter(distance__lt=60) \
+            shopsList = shopsList.annotate(distance=(Func((F('shop__latitude')
+                                                           - Cast(latitude, DecimalField())) * 111000,
+                                                          function='ABS')
+                                                     + Func((F('shop__longitude')
+                                                             - Cast(longitude, DecimalField())) * 111000,
+                                                            function='ABS')) / 70).filter(distance__lt=60) \
                                  .annotate(ocupacio=Count('shop__purchase',
                                                           filter=Q(shop__purchase__dateTime__lte=dateTime,
                                                                    shop__purchase__endTime__gt=dateTime)),
