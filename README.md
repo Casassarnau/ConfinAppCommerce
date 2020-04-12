@@ -65,6 +65,13 @@ Si necesites nous camps per els teus models
    - `python manage.py makemigrations`
    - Fes test i modifica les migracions per aixì no borrar la base de dades
    - `python manage.py migrate`
+   
+## UML
+<br>
+<p align="center">
+  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML.png" width="100%"/>
+</p>
+<br>
 
 ## Creat per
 
