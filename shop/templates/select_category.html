@@ -87,7 +87,6 @@
 </style>
 
 <script>
-    console.log("NOOOMBRE: {{ widget.name }}");
     // Function to choose a category and append it into the choice box
     const choose_{{ widget.name }} = (category) => {
 
@@ -100,7 +99,7 @@
 
             let child = document.createElement('span');
             let text = category.childNodes[1].textContent;
-            console.log(typeof(text));
+
             child.textContent = text;
 
             let cross = document.createElement('i');
@@ -109,13 +108,13 @@
             childContainer.appendChild(child);
             childContainer.appendChild(cross);
 
-            console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
+
             let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
             hiddenOption.selected = true;
 
             // Exit handle
             cross.onclick = () => {
-                console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
+
                 let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
                 hiddenOption.selected = false;
                 childContainer.remove();
@@ -131,7 +130,6 @@
 
         }
         else {
-            console.log("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
             let hiddenOption = document.getElementById("{{ widget.name }}-hidden-option-" + category.childNodes[1].textContent);
             hiddenOption.selected = false;
 
@@ -147,9 +145,7 @@
     // Function for filtering functions with search input (with regex)
     const filter_{{ widget.name }} = (value) => {
         var categories = Array.from(document.getElementById("{{ widget.name }}-cats").getElementsByTagName("li"));
-
         const regex = new RegExp(value + '.*');
-        console.log(regex);
         const matchedCategories = categories.filter((elem) => {
             return elem.textContent.match(regex);
         });
@@ -165,9 +161,7 @@
             elem.style.height = 0;
             elem.style.padding = 0;
             elem.style.margin = 0;
-            /*elem.childNodes[1].style.height = 0;
-            elem.childNodes[1].style.visibility = 'collapse';
-            elem.childNodes[1].style.display = 'none';*/
+
         });
 
         matchedCategories.forEach((elem) => {
@@ -184,7 +178,7 @@
 
 <p class="explain-widget">{{ widget.title }}</p>
 
-<input type='text' onkeydown="filter_{{ widget.name }}(this.value)" placeholder="{{ widget.placeholder }}">
+<input type='text' onkeyup="filter_{{ widget.name }}(this.value)" placeholder="{{ widget.placeholder }}">
 
 <div id="{{ widget.name }}-choice-bag"></div>
 
