@@ -69,7 +69,7 @@ Si necesites nous camps per els teus models
 ## UML
 <br>
 <p align="center">
-  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML.png" width="200"/>
+  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML.png" width="100%"/>
 </p>
 <br>
 
