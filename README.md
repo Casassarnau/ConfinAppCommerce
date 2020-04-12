@@ -73,7 +73,7 @@ Si necesites nous camps per els teus models
 </p>
 <br>
 
-# Llicència
+## Llicència
 
 MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
@@ -151,7 +151,7 @@ If you need extra labels for the app, you can change it and add your own fields.
 </p>
 <br>
 
-# License
+## License
 
 MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
