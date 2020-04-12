@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.db import IntegrityError
 from django.db.models import Count, F, DecimalField, Func, Q
 from django.db.models.functions import Cast
 from django.http import HttpResponseRedirect, HttpResponse
@@ -100,9 +102,9 @@ def info(request, id, time_str):
             purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture,
                                        status=models.PCH_PENDING)
             purchase.save()
-        except:
-            return render(reverse('user_list'))
-        return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
+            return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
+        except IntegrityError:
+            pass
 
     # order schedules of the shop by day and startHour
     schedule = shop.schedule.all().order_by('day', 'startHour')
