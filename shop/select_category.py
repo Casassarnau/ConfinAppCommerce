@@ -1,5 +1,3 @@
-import re
-
 from django import forms
 from django.utils.safestring import mark_safe
 
@@ -33,7 +31,7 @@ class SelectCategoryField(forms.ModelMultipleChoiceField):
 class SelectCategory(forms.SelectMultiple):
 
     def __init__(self, elem_name, placeholder, is_loading, title, *args, **kwargs):
-        widget = super(SelectCategory, self).__init__(*args, **kwargs)
+        super(SelectCategory, self).__init__(*args, **kwargs)
         self.elem_name = str(elem_name)
         self.placeholder = placeholder
         self.is_loading = is_loading

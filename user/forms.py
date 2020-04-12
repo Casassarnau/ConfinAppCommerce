@@ -27,8 +27,10 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=True, label='', widget=forms.EmailInput(attrs={'placeholder': 'Correu electrònic'}))
-    password = forms.CharField(required=True, label='', widget=forms.PasswordInput(attrs={'placeholder': 'Contrasenya'}))
+    email = forms.EmailField(required=True, label='',
+                             widget=forms.EmailInput(attrs={'placeholder': 'Correu electrònic'}))
+    password = forms.CharField(required=True, label='',
+                               widget=forms.PasswordInput(attrs={'placeholder': 'Contrasenya'}))
 
     # function used to see the type of form in the template
     def is_login(self):
@@ -36,7 +38,8 @@ class LoginForm(forms.Form):
 
 
 class RegisterForm(LoginForm):
-    password2 = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Confirma la contrasenya'}), )
+    password2 = forms.CharField(label='', required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Confirma la contrasenya'}), )
     name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Nom'}))
 
     field_order = ['name', 'email', 'password', 'password2']

@@ -88,4 +88,3 @@ class Schedule(models.Model):
     # get name of the day
     def get_day_name(self):
         return SCH_DAYS[self.day][1]
-

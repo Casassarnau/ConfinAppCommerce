@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from django.contrib import admin
 from django.urls import reverse as django_reverse
 

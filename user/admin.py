@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.contrib.admin.forms import AdminPasswordChangeForm
-from django.contrib.auth.admin import UserAdmin
 
 from user.forms import UserChangeForm
 from user.models import User

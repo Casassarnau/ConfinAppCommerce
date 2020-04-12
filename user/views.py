@@ -1,5 +1,5 @@
 from django.contrib import messages, auth
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from hackovid.utils import reverse

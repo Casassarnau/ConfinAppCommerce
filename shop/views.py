@@ -1,5 +1,3 @@
-import os
-
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render

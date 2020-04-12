@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.db import IntegrityError
 from django.db.models import Count, F, DecimalField, Func, Q
 from django.db.models.functions import Cast
@@ -67,11 +66,11 @@ def list(request):
                                                      Func((F('shop__longitude') -
                                                            Cast(longitude, DecimalField())) * 111000,
                                                           function='ABS')) / 70).filter(distance__lt=60) \
-                            .annotate(ocupacio=Count('shop__purchase',
-                                                     filter=Q(shop__purchase__dateTime__lte=dateTime,
-                                                              shop__purchase__endTime__gt=dateTime)),
-                                      Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance')) \
-                            .order_by('Cpoints')[:20]
+                                 .annotate(ocupacio=Count('shop__purchase',
+                                                          filter=Q(shop__purchase__dateTime__lte=dateTime,
+                                                                   shop__purchase__endTime__gt=dateTime)),
+                                           Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance')) \
+                                 .order_by('Cpoints')[:20]
             llista = True
     else:
         form = forms.FilterForm()
