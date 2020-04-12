@@ -49,9 +49,11 @@
             {% endfor %}
         </div>
     {% else %}
-        <form>
-            No s'ha trobat cap botiga amb aquests paràmetres de cerca.
-        </form>
+        {% if llista %}
+            <form>
+                No s'ha trobat cap botiga amb aquests paràmetres de cerca.
+            </form>
+        {% endif %}
 
     {% endif %}
 <script>

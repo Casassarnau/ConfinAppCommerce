@@ -17,7 +17,9 @@ def list(request):
         return HttpResponseRedirect(reverse('root'))
     shopsList = []
     time_str = ''
+    llista = False
     if request.method == 'POST':
+
         form = forms.FilterForm(request.POST)
 
         if form.is_valid():
@@ -68,12 +70,12 @@ def list(request):
                                                               shop__purchase__endTime__gt=dateTime)),
                                       Cpoints=Cast(F('ocupacio') + 1, DecimalField()) * F('distance')) \
                             .order_by('Cpoints')[:20]
-
+            llista = True
     else:
         form = forms.FilterForm()
     if shopsList is None:
         shopsList = []
-    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time_str})
+    return render(request, 'purcahselist.html', {'shops': shopsList, 'form': form, 'time': time_str, 'llista': llista})
 
 
 def info(request, id, time_str):
