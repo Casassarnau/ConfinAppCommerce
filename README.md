@@ -1,14 +1,10 @@
 <br>
-<p>
-  <a href="https://github.com/Casassarnau/confinappComerce/blob/master/README.md#catal%C3%A0">
+<a href="https://github.com/Casassarnau/confinappComerce/blob/master/README.md#catal%C3%A0">
     <img scr="https://cdn1.iconfinder.com/data/icons/famfamfam_flag_icons/catalonia.png"/>
   </a>
   <a href="https://github.com/Casassarnau/confinappComerce/blob/master/README.md#english">
     <img scr="https://cdn1.iconfinder.com/data/icons/famfamfam_flag_icons/um.png"/>
   </a>
-</p>
-<br>
-<br>
 <p align="center">
   <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/static/favicon.png" width="200"/>
 </p>
