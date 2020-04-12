@@ -69,7 +69,7 @@ Si necesites nous camps per els teus models
 ## UML
 <br>
 <p align="center">
-  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML.png" width="100%"/>
+  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML-ca.png" width="100%"/>
 </p>
 <br>
 
@@ -141,6 +141,13 @@ If you need extra labels for the app, you can change it and add your own fields.
    - `python manage.py makemigrations`
    - Test & modify the migrations in order to don't delete any existent field from the data base.
    - `python manage.py migrate`
+   
+## UML
+<br>
+<p align="center">
+  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/UML-en.png" width="100%"/>
+</p>
+<br>
 
 ## Created by
 
