@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
+from django.utils import timezone
 
 from hackovid.utils import reverse
 from shop import forms
-from shop.models import Shop, Schedule
+from shop.models import Shop, Schedule, SCH_DAYS
 from user.models import User
 
 
@@ -68,6 +69,21 @@ def add(request):
             shop.save()
             shop.secondaryCategories.set(secondaryCategories)
             shop.services.set(services)
+
+            for day in SCH_DAYS:
+                if day[0] < 5:
+                    startHour = timezone.now().replace(hour=9, minute=00).time()
+                    endHour = timezone.now().replace(hour=14, minute=00).time()
+
+                    sch = Schedule(shop=shop, day=day[0], startHour=startHour, endHour=endHour)
+                    sch.save()
+
+                    startHour = timezone.now().replace(hour=15, minute=00).time()
+                    endHour = timezone.now().replace(hour=18, minute=00).time()
+
+                    sch2 = Schedule(shop=shop, day=day[0], startHour=startHour, endHour=endHour)
+                    sch2.save()
+
             return HttpResponseRedirect(reverse('root'))
 
     # if a GET (or any other method) we'll create a blank form
