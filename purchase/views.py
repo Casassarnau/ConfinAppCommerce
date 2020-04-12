@@ -93,10 +93,13 @@ def info(request, id, time_str):
         dateTime = dateTime.strptime(dateTime_str + time_str, '%d-%m-%Y-%H:%M')
         dateTimeFuture = dateTime + timezone.timedelta(minutes=shop.meanTime)
 
-        # save the purchase
-        purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture,
-                                   status=models.PCH_PENDING)
-        purchase.save()
+        # tries to save the purchase, in case of unique violation redirect to user_list
+        try:
+            purchase = models.Purchase(shop=shop, user=request.user, dateTime=dateTime, endTime=dateTimeFuture,
+                                       status=models.PCH_PENDING)
+            purchase.save()
+        except:
+            return render(reverse('user_list'))
         return HttpResponseRedirect(reverse('purchase', kwargs={'id': purchase.id}))
 
     # order schedules of the shop by day and startHour

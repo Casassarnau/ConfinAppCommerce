@@ -43,3 +43,7 @@ class Purchase(models.Model):
     # expire the purchase
     def expire(self):
         self.status = PCH_EXPIRED
+
+    # "Primary key" of Purchase
+    class Meta:
+        unique_together = (('user', 'dateTime'),)
