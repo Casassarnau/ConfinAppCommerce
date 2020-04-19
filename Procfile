@@ -1,1 +1,1 @@
-web: gunicorn hackovid.heroku_wsgi
+web: gunicorn hackovid.wsgi
