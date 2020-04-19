@@ -1,1 +1,1 @@
-web: python3 manage.py migrate && python3 manage.py runserver https://confinappcommerce.herokuapp.com:8000/
+web: python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
