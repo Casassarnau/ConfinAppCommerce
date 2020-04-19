@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-APP_DOMAIN = 'https://home.nuroxator.com'
+APP_DOMAIN = 'https://confinappcommerce.herokuapp.com/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -138,7 +138,6 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
@@ -154,10 +153,3 @@ REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
 
 
 MAPBOX_KEY = "pk.eyJ1IjoiY2FzYXNzYXJuYXUiLCJhIjoiY2s4cnBxbmtyMDFkaTNvcXdvZW1wYXQxZSJ9.HLjdZAhoplLRKOyW-QacQw"
-
-if not DEBUG:
-    # Heroku: Update database configuration from $DATABASE_URL.
-    import dj_database_url
-
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
