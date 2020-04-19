@@ -26,7 +26,7 @@ APP_DOMAIN = 'https://confinappcommerce.herokuapp.com/'
 SECRET_KEY = '1b)^txygf)tyc*93oiyok$xj*2k^)fin8!b5^4(k6w3ftyib!4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
