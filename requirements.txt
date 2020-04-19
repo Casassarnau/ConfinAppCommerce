@@ -24,5 +24,6 @@ qrcode==6.1
 six==1.14.0
 sqlparse==0.3.0
 typed-ast==1.4.1
+whitenoise==5.0.1
 wincertstore==0.2
 wrapt==1.11.2
