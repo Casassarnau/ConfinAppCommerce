@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_DOMAIN = 'https://confinappcommerce.herokuapp.com/'
 
@@ -93,14 +95,32 @@ WSGI_APPLICATION = 'hackovid.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+if os.environ.get('DATABASE_URL', None):
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600,
+        ssl_require=os.environ.get('DATABASE_SECURE', 'true').lower() != 'false',
+    )
+
+if os.environ.get('PG_PWD', None):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('PG_NAME', 'backend'),
+            'USER': os.environ.get('PG_USER', 'backenduser'),
+            'PASSWORD': os.environ.get('PG_PWD'),
+            'HOST': os.environ.get('PG_HOST', 'localhost'),
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
