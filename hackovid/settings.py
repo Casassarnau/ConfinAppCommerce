@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,10 +145,19 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 REGISTRATION_CODE = os.environ.get('REGISTRATION_TOKEN', '')
 
 
 MAPBOX_KEY = "pk.eyJ1IjoiY2FzYXNzYXJuYXUiLCJhIjoiY2s4cnBxbmtyMDFkaTNvcXdvZW1wYXQxZSJ9.HLjdZAhoplLRKOyW-QacQw"
+
+if not DEBUG:
+    # Heroku: Update database configuration from $DATABASE_URL.
+    import dj_database_url
+
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
