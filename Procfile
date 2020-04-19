@@ -1,1 +1,1 @@
-web: gunicorn ConfinAppCommerce.wsgi
+web: gunicorn hackovid.wsgi
