@@ -26,7 +26,7 @@ APP_DOMAIN = 'https://confinappcommerce.herokuapp.com/'
 SECRET_KEY = '1b)^txygf)tyc*93oiyok$xj*2k^)fin8!b5^4(k6w3ftyib!4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -160,11 +160,15 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
-    "static",
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+if DEBUG:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+else:
+    pass
+    # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
