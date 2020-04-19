@@ -6,7 +6,7 @@
 
 # Català
 
-📝 App dissenyada per promocionar el comerç de proximitat
+📝 App dissenyada per promocionar el comerç de proximitat - [Video demo](https://www.youtube.com/watch?v=9T0vEAJG4lQ&feature=youtu.be)
 
 ## Característiques
 
@@ -30,8 +30,7 @@ Necessita: Python 3.X, virtualenv
 
 ## Variables requerides de l'entorn (enviroment)
 
-- **REGISTRATION_TOKEN**: Token that gives acces to shop owners or workers to register in the app
-
+- **REGISTRATION_TOKEN**: Token que dona accès al comprador per poder-se registrar a la app
 
 ## Servidor
 
@@ -84,7 +83,7 @@ MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
 # English
 
-📝 App designed to promote local commerce
+📝 App designed to promote local commerce - [Video demo](https://www.youtube.com/watch?v=9T0vEAJG4lQ&feature=youtu.be)
 
 ## Features
 
