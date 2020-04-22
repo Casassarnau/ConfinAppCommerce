@@ -74,7 +74,7 @@ Si necesites nous camps per els teus models
 
 ## Llicència
 
-MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
+GPL-2.0 © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
 - <a href="https://github.com/margaritageleta">@margaritageleta</a>
 - <a href="https://github.com/catunlock">@catunlock</a>
@@ -152,7 +152,7 @@ If you need extra labels for the app, you can change it and add your own fields.
 
 ## License
 
-MIT © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
+GPL-2.0 © Rita Geleta, Albeto López Sánchez, Arnau Cinca Roca i Arnau Casas Saez
 
 - <a href="https://github.com/margaritageleta">@margaritageleta</a>
 - <a href="https://github.com/catunlock">@catunlock</a>
