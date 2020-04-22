@@ -1,6 +1,6 @@
 <br>
 <p align="center">
-  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/static/favicon.png" width="200"/>
+  <img alt="ConfinApp" src="https://github.com/Casassarnau/confinappComerce/blob/master/hackovid/static/favicon.png" width="200"/>
 </p>
 <br>
 
