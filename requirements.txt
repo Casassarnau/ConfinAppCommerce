@@ -4,7 +4,7 @@ astroid==2.3.3
 certifi==2019.11.28
 colorama==0.4.3
 dj-database-url==0.5.0
-Django==3.0.7
+Django==3.0.12
 django-betterforms==1.2
 django-form-utils==1.0.3
 django-localflavor==3.0.1
